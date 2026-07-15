@@ -36,9 +36,13 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 
 ## Épico 1 — Fundação
 
-- [ ] `FND-001` Inicializar Astro/TypeScript/Tailwind e lockfile.
+- [x] `FND-001` Inicializar Astro/TypeScript/Tailwind e lockfile.
   - Aceite: scripts `dev`, `build`, `lint`, `typecheck`, `test` operam.
   - Cobertura: `OPS-003..004`.
+  - Evidência (2026-07-15): Astro 7.0.9, TypeScript 6.0.3, Tailwind CSS
+    4.3.2, `package-lock.json`; `npm run lint`, `npm run typecheck`, `npm test` e
+    `npm run build` aprovados; servidor `npm run dev -- --background` respondeu
+    HTTP 200 e foi encerrado após o smoke test.
 - [ ] `FND-002` Configurar lint, formatação, testes e aliases.
 - [ ] `FND-003` Criar validação tipada das variáveis de ambiente.
   - Cobertura: `FR-CTA-009`, `SEC-001..003`, `OPS-001..002`.

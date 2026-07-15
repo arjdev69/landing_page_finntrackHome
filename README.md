@@ -7,10 +7,28 @@ de o requisito correspondente estar aprovado e rastreado.
 
 ## Estado atual
 
-- Fase: fundação pronta para implementação.
+- Fase: fundação técnica concluída (`FND-001`).
 - Baseline documental: `0.1.1-approved`, 2026-07-15.
-- Implementação: ainda não iniciada.
+- Implementação: Astro + TypeScript estrito + Tailwind CSS.
 - Idioma inicial: português do Brasil (`pt-BR`).
+
+## Desenvolvimento local
+
+Pré-requisito: Node.js 22.12.0 ou superior.
+
+```bash
+npm install
+npm run dev
+```
+
+Validação da fundação:
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
 
 ## Fonte de verdade
 

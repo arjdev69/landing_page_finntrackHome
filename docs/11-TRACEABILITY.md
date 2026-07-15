@@ -1,7 +1,7 @@
 # Matriz de rastreabilidade
 
 Versão: 0.1.1  
-Status: approved — cobertura planejada; implementação ainda inexistente  
+Status: approved — cobertura planejada; implementação iniciada
 Data: 2026-07-15
 
 ## Como ler
@@ -48,14 +48,21 @@ está especificada, não que o teste já passou.
 | `SEC-005..006` | SDD §§12–13; Segurança §§3–4 | `T-SEC-002` | `FND-001`, `FND-006`, `QA-005` | planejada |
 | `PRIV-001..004` | Analytics §5; Segurança §§1,5–6 | `T-PRIV-001` | `ANA-003..004`, `LEG-001`, `AST-001` | decisões pendentes |
 | `OPS-001..002` | SDD §5 | `T-OPS-001` | `FND-003` | planejada |
-| `OPS-003..004` | SDD §13 | `T-OPS-001` | `FND-001..002`, `FND-006` | planejada |
+| `OPS-003..004` | SDD §13 | `T-OPS-001` | `FND-001..002`, `FND-006` | `FND-001` concluída e validada; configuração avançada/pipeline pendentes |
 | `OPS-005..007` | SDD §§13–14 | `T-OPS-002` | `FND-006`, `REL-002..003` | depende de `DEC-010` |
 
 ## Cobertura documental
 
 - Todos os grupos de requisitos do SRS possuem desenho, teste e tarefa.
 - Requisitos bloqueados não foram removidos nem reinterpretados.
-- Nenhum requisito possui evidência de implementação nesta baseline.
+- `FND-001` possui evidência de fundação local; requisitos que dependem de
+  `FND-002` ou `FND-006` permanecem parciais.
+
+## Evidência de implementação
+
+| Tarefa | Data | Artefatos | Validação | Estado |
+|---|---|---|---|---|
+| `FND-001` | 2026-07-15 | `package.json`, `package-lock.json`, `astro.config.mjs`, `tsconfig.json`, `src/pages/index.astro`, `src/styles/global.css`, `test/foundation.test.mjs` | `npm run lint`; `npm run typecheck`; `npm test`; `npm run build`; smoke HTTP 200 com servidor Astro | concluída |
 
 ## Atualização obrigatória
 
