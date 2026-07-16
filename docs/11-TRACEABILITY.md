@@ -48,21 +48,22 @@ está especificada, não que o teste já passou.
 | `SEC-005..006` | SDD §§12–13; Segurança §§3–4 | `T-SEC-002` | `FND-001`, `FND-006`, `QA-005` | planejada |
 | `PRIV-001..004` | Analytics §5; Segurança §§1,5–6 | `T-PRIV-001` | `ANA-003..004`, `LEG-001`, `AST-001` | decisões pendentes |
 | `OPS-001..002` | SDD §5 | `T-OPS-001` | `FND-003` | planejada |
-| `OPS-003..004` | SDD §13 | `T-OPS-001` | `FND-001..002`, `FND-006` | `FND-001` concluída e validada; configuração avançada/pipeline pendentes |
+| `OPS-003..004` | SDD §13 | `T-OPS-001` | `FND-001..002`, `FND-006` | `FND-001..002` concluídas e validadas; pipeline remoto pendente |
 | `OPS-005..007` | SDD §§13–14 | `T-OPS-002` | `FND-006`, `REL-002..003` | depende de `DEC-010` |
 
 ## Cobertura documental
 
 - Todos os grupos de requisitos do SRS possuem desenho, teste e tarefa.
 - Requisitos bloqueados não foram removidos nem reinterpretados.
-- `FND-001` possui evidência de fundação local; requisitos que dependem de
-  `FND-002` ou `FND-006` permanecem parciais.
+- `FND-001..002` possuem evidência de fundação e qualidade local; requisitos que
+  dependem de `FND-006` permanecem parciais até a configuração do pipeline.
 
 ## Evidência de implementação
 
 | Tarefa | Data | Artefatos | Validação | Estado |
 |---|---|---|---|---|
 | `FND-001` | 2026-07-15 | `package.json`, `package-lock.json`, `astro.config.mjs`, `tsconfig.json`, `src/pages/index.astro`, `src/styles/global.css`, `test/foundation.test.mjs` | `npm run lint`; `npm run typecheck`; `npm test`; `npm run build`; smoke HTTP 200 com servidor Astro | concluída |
+| `FND-002` | 2026-07-15 | `eslint.config.js`, `prettier.config.mjs`, `.prettierignore`, `package.json`, `package-lock.json`, `tsconfig.json`, `src/pages/index.astro`, `test/foundation.test.mjs` | `npm run format:check`; `npm run lint`; `npm run typecheck`; `npm test`; `npm run build` | concluída |
 
 ## Atualização obrigatória
 

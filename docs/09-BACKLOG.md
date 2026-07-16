@@ -43,7 +43,12 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     4.3.2, `package-lock.json`; `npm run lint`, `npm run typecheck`, `npm test` e
     `npm run build` aprovados; servidor `npm run dev -- --background` respondeu
     HTTP 200 e foi encerrado após o smoke test.
-- [ ] `FND-002` Configurar lint, formatação, testes e aliases.
+- [x] `FND-002` Configurar lint, formatação, testes e aliases.
+  - Evidência (2026-07-15): ESLint 9 com regras recomendadas para Astro,
+    TypeScript e acessibilidade; Prettier com suporte a `.astro`; aliases
+    tipados para a estrutura do SDD; teste automatizado do contrato de tooling;
+    `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm test` e
+    `npm run build` aprovados sem avisos.
 - [ ] `FND-003` Criar validação tipada das variáveis de ambiente.
   - Cobertura: `FR-CTA-009`, `SEC-001..003`, `OPS-001..002`.
 - [ ] `FND-004` Implementar tokens, estilos globais, fonte e primitives.

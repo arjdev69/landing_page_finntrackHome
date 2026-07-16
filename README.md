@@ -7,7 +7,7 @@ de o requisito correspondente estar aprovado e rastreado.
 
 ## Estado atual
 
-- Fase: fundação técnica concluída (`FND-001`).
+- Fase: fundação técnica e qualidade local concluídas (`FND-001..002`).
 - Baseline documental: `0.1.1-approved`, 2026-07-15.
 - Implementação: Astro + TypeScript estrito + Tailwind CSS.
 - Idioma inicial: português do Brasil (`pt-BR`).
@@ -25,6 +25,7 @@ Validação da fundação:
 
 ```bash
 npm run lint
+npm run format:check
 npm run typecheck
 npm test
 npm run build
@@ -59,7 +60,7 @@ e calculadora de rentabilidade não fazem parte do MVP.
 
 ## Próximo passo
 
-Executar somente a primeira tarefa elegível do backlog. Decisões que bloqueiam
+Executar `FND-003`, a primeira tarefa elegível do backlog. Decisões que bloqueiam
 uma tarefa específica devem ser resolvidas antes dela; decisões classificadas
 apenas como bloqueadoras de lançamento não impedem trabalho preparatório ou de
 fundação configurável. Nenhum deploy de produção pode ocorrer enquanto houver
