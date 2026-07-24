@@ -99,6 +99,19 @@ As allowlists de redes sociais e mecanismos de busca ficam em módulo tipado,
 possuem testes unitários e só mudam junto com este contrato ou decisão
 registrada. A classificação não pode enviar a URL completa do referrer.
 
+Allowlist `2026-07-15.v1`:
+
+- mídias pagas: `cpc`, `ppc`, `paid`, `paid_social`, `display`;
+- origens sociais: `facebook`, `instagram`, `linkedin`, `tiktok`, `twitter`,
+  `x`, `youtube`;
+- hosts sociais: `facebook.com`, `instagram.com`, `linkedin.com`, `tiktok.com`,
+  `t.co`, `twitter.com`, `x.com`, `youtube.com`;
+- hosts de busca: `bing.com`, `duckduckgo.com`, `google.com`,
+  `search.brave.com`, `yahoo.com`.
+
+Origens e mídias são comparadas após trim e normalização para minúsculas. Hosts
+aceitam o domínio exato ou subdomínios e nunca são incluídos no payload.
+
 ## 4. Regras de disparo
 
 - `landing_view` não dispara em `/entrar`, páginas legais ou 404.

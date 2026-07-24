@@ -27,6 +27,11 @@ podem ser substituídas de forma confiável por automação.
 - Produção: smoke test sem criar tráfego ou contas indevidas; Search Console e
   headers reais.
 
+`npm run test:e2e` usa Playwright/Chromium contra o preview do artefato em
+1440×900 e 360×800. Enquanto rotas ou integrações P0 estiverem bloqueadas, a
+suíte cobre somente comportamentos já implementados e a lacuna permanece aberta
+no backlog; testes ausentes não podem ser substituídos por `skip`.
+
 Testes não devem depender do provedor real de analytics. Use adaptador/fake e
 valide o provedor separadamente em modo de debug.
 
@@ -79,6 +84,12 @@ Checklist manual por rota:
 - alt text contextual;
 - leitura coerente sem CSS/imagens.
 
+Automação de `QA-002`: `npm run test:a11y` executa Axe e as verificações de
+teclado, foco, landmarks, texto a 200%, reflow em 320 CSS px, movimento reduzido
+e alvos isolados em desktop/mobile. A árvore acessível automatizada não substitui
+o smoke com leitor de tela real exigido por `T-A11Y-006`; a evidência e as
+pendências ficam em `docs/audits/QA-002-ACCESSIBILITY.md`.
+
 ## 7. Responsividade e compatibilidade
 
 | Caso | Cobertura principal | Método |
@@ -90,6 +101,13 @@ Checklist manual por rota:
 Os snapshots auxiliam, mas não substituem inspeção de legibilidade e prioridade
 visual.
 
+Automação de `QA-003`: `npm run test:compat` executa a home nos seis viewports
+normativos em Chromium, Edge estável, Firefox e WebKit disponíveis. O teste exige
+imagem eager e lazy realmente carregadas, comportamento responsivo, FAQ, CTA,
+ausência de overflow e ausência de erros. Versões anteriores e Safari real devem
+ser cobertos pelo smoke manual descrito em
+`docs/audits/QA-003-COMPATIBILITY.md`.
+
 ## 8. Performance
 
 | Caso | Cobertura principal | Método |
@@ -100,6 +118,13 @@ visual.
 
 O gate pré-lançamento usa auditoria sintética repetível; Core Web Vitals de campo
 são monitorados após volume suficiente e continuam sendo a meta normativa.
+
+Orçamento aprovado em `QA-004`, aplicado por `npm run test:perf` sobre a mediana
+de três rodadas mobile e três desktop: performance ≥95; LCP ≤2,5 s; CLS ≤0,1;
+TBT ≤200 ms; transferência inicial ≤200 KB; JavaScript ≤10 KB; CSS ≤40 KB;
+imagens iniciais ≤50 KB; até 25 requests. Limites executáveis em
+`scripts/performance-budget.mjs` e evidência em
+`docs/audits/QA-004-PERFORMANCE.md`.
 
 ## 9. Segurança, privacidade e operação
 

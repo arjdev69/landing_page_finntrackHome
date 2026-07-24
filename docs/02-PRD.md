@@ -93,8 +93,8 @@ Não publicar métricas de uso, depoimentos, avaliações, preço, economia méd
 resultados sem evidência e autorização. Não afirmar que o produto garante
 rentabilidade, evita inadimplência, processa pagamentos ou executa cobranças.
 
-O rótulo “Beta gratuito” depende de decisão comercial. “Grátis para sempre” é
-proibido sem decisão explícita.
+O CTA aprovado é “Criar conta”. Conforme `DEC-005`, alegações de gratuidade,
+preço ou beta são proibidas até nova decisão comercial explícita e rastreável.
 
 ## 8. Dependências externas
 

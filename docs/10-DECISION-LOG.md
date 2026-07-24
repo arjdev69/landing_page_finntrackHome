@@ -61,14 +61,19 @@ datas de calendário aprovado.
 
 ### DEC-005 — Beta e gratuidade
 
-- Status: **Pendente — bloqueador de copy/lançamento**.
-- Decidir se “Começar gratuitamente” e “Beta gratuito” são afirmações corretas.
-- Restrição: “grátis para sempre” permanece proibido sem decisão comercial.
+- Status: **Aceita**.
+- Decisão: usar o CTA neutro “Criar conta” em toda a landing. Não publicar
+  “Começar gratuitamente”, “Beta gratuito”, “grátis” ou alegação equivalente.
+- FAQ: não incluir pergunta ou resposta sobre gratuidade/beta enquanto não
+  existir nova decisão comercial com evidência.
+- Restrição: qualquer alegação futura de preço, gratuidade ou beta exige nova
+  decisão e atualização coordenada de PRD, SRS, UX e componentes.
 - Responsável: Produto/Comercial.
 - Data de registro: 2026-07-15.
-- Data limite: antes de aprovar a copy de `WEB-002` e `WEB-005`.
-- Evidência para encerrar: decisão comercial registrada e copy única atualizada
-  em UX, SRS e componentes.
+- Data de aceitação: 2026-07-21.
+- Evidência: aprovação explícita do responsável solicitante nesta tarefa; copy
+  normativa atualizada em PRD e UX. Componentes passam a usar a fonte única
+  durante `WEB-002` e `WEB-005`.
 
 ### DEC-006 — Provedor de analytics
 
@@ -95,25 +100,60 @@ datas de calendário aprovado.
 
 ### DEC-008 — Conteúdo jurídico
 
-- Status: **Pendente — bloqueador de lançamento**.
-- Definir responsável por fornecer e aprovar privacidade e termos.
-- Conteúdo placeholder não é aceitável.
-- Responsável: Jurídico, com aceite final de Produto.
+- Status: **Aceita quanto à governança — conteúdo e publicação permanecem
+  bloqueados até a aprovação final**.
+- Decisão: um agente de IA pode apoiar a pesquisa em fontes oficiais, a
+  organização e a redação inicial, desde que cada documento seja identificado
+  como “RASCUNHO — NÃO APROVADO PARA PUBLICAÇÃO”. Conteúdo placeholder, fatos
+  presumidos e garantias absolutas não são aceitáveis.
+- Responsáveis:
+  - redação inicial: responsável técnico da landing, com apoio de agente;
+  - validação factual: responsável pelo Produto/controlador, que deve confirmar
+    identidade empresarial, tratamentos de dados, fornecedores, retenção,
+    cookies, segurança e canal de direitos;
+  - revisão e aprovação jurídica: advogado brasileiro ou assessoria jurídica
+    formalmente indicada;
+  - aceite final para publicação: representante legal do controlador.
+- Controle: `LEG-001` deve registrar versão, vigência e aprovadores. A revisão
+  deve ser refeita quando mudarem coleta, finalidade, fornecedor, retenção,
+  transferência, cookies ou condições comerciais.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `LEG-001` ser concluída.
-- Evidência para encerrar: versões datadas de privacidade e termos com aprovação
-  registrada.
+- Data de aceitação da governança: 2026-07-21.
+- Evidência: autorização do responsável solicitante para elaboração assistida e
+  fluxo conservador baseado na LGPD, nas orientações da ANPD e no CDC. A
+  governança está definida por `D0-006`; as versões datadas e a aprovação humana
+  identificada continuam sendo critérios obrigatórios de `LEG-001` e do
+  lançamento.
+- Referências oficiais consultadas: [LGPD compilada][lgpd],
+  [direitos dos titulares — ANPD][anpd-direitos],
+  [atuação do encarregado — ANPD][anpd-encarregado] e [CDC compilado][cdc].
 
 ### DEC-009 — Marca e screenshots
 
-- Status: **Pendente — bloqueador de lançamento visual**.
-- Confirmar logotipo SVG/horizontal, favicon, social card e screenshots finais.
-- Ativos devem usar dados sintéticos e corresponder ao produto atual.
-- Responsável: Marca/Design, com aceite de Produto e revisão de Privacidade.
+- Status: **Aceita quanto à governança — ativos finais permanecem bloqueadores
+  visuais**.
+- Decisão: criação e exportação ficam a cargo do agente de Design/Marca;
+  integração e revisão técnica, do responsável técnico da landing; revisão
+  independente de PII/metadados, de Privacidade; fidelidade ao produto e aceite
+  visual final, de Produto.
+- Inventário mínimo: logo horizontal SVG, variante compacta, favicon, ícone
+  Apple, social card 1200×630 e captura final do dashboard. Cada ativo deve
+  registrar caminho, finalidade, origem, versão/tela, data, dimensões, hash,
+  classificação dos dados e aprovações.
+- Regra: screenshots usam somente dados sintéticos, sem nomes, e-mails,
+  endereços, avatares, IDs ou metadados, e devem corresponder ao produto e à
+  tradução `pt-BR` atuais. Produto deve visualizar os arquivos antes do aceite.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `AST-001` e `SEO-002` serem concluídas.
-- Evidência para encerrar: inventário de ativos, origem, data de captura e
-  aprovações registradas.
+- Data de aceitação da governança: 2026-07-21.
+- Data de aceite visual final de Produto: 2026-07-21.
+- Resultado final: logo horizontal, marca compacta, favicon, ícone Apple, social
+  card e captura higienizada do dashboard foram visualizados e aprovados por
+  Produto; revisão técnica e revisão independente de Privacidade também
+  aprovadas. `AST-001` concluída e ativos liberados para `SEO-002`.
+- Evidência: auditoria de `D0-006` encontrou apenas a captura provisória
+  `dashboard-demo-jun-2026.jpg`; ela contém nome, e-mail, avatar e trechos em
+  inglês e, portanto, não pode ser aprovada como final. `AST-001` deve recapturar
+  a tela limpa; `SEO-002` deve integrar somente os ativos aprovados.
 
 ### DEC-010 — Domínio e hospedagem
 
@@ -128,13 +168,26 @@ datas de calendário aprovado.
 
 ### DEC-011 — Canal público de suporte e dados
 
-- Status: **Pendente — bloqueador de rodapé/política**.
-- Definir canal real e responsável operacional.
-- Responsável: Produto/Operações.
+- Status: **Aceita**.
+- Canal: `jobslens.ia@gmail.com`, a ser exposto como link `mailto:` no rodapé e
+  nas páginas legais.
+- Responsável operacional: Jobslens IA, no papel de Produto/Operações.
+- Processo: mensagens de suporte são triadas por Produto/Operações; solicitações
+  relacionadas a dados pessoais são identificadas pelo assunto “FinnTrack Home
+  — Dados pessoais”, registradas e encaminhadas ao responsável formal de
+  Privacidade/Jurídico para análise e resposta. Nenhum prazo de atendimento é
+  prometido até existir SLA aprovado.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `WEB-005` e `LEG-001` serem concluídas.
-- Evidência para encerrar: canal publicado, pessoa/equipe atendente e processo de
-  encaminhamento de solicitações de dados.
+- Data de aceitação: 2026-07-21.
+- Evidência: canal confirmado pelo responsável solicitante e já usado pelo app
+  no repositório local `FinntrackHome`, em
+  `src/features/settings/SettingsScreen.tsx`, com teste correspondente. A
+  publicação do canal na landing permanece em `WEB-005` e `LEG-001`.
+
+[lgpd]: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm
+[anpd-direitos]: https://www.gov.br/anpd/pt-br/assuntos/titular-de-dados-1/direito-dos-titulares
+[anpd-encarregado]: https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-sobre-atuacao-do-encarregado
+[cdc]: https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm
 
 ### DEC-012 — Dados estruturados
 
@@ -185,6 +238,47 @@ datas de calendário aprovado.
 - Responsável: Produto e responsável técnico de SEO.
 - Data de aceitação: 2026-07-15.
 - Evidência: `SEO-013`, SEO/Analytics §2 e `T-SEO-002`.
+
+### DEC-016 — Orçamento sintético de performance
+
+- Status: **Aceita**.
+- Escopo: build estático do MVP, perfis mobile e desktop.
+- Decisão: usar a mediana de três rodadas Lighthouse por perfil e exigir score
+  de performance ≥95, LCP ≤2,5 s, CLS ≤0,1, TBT ≤200 ms, transferência inicial
+  ≤200 KB, JavaScript ≤10 KB, CSS ≤40 KB, imagens iniciais ≤50 KB e no máximo 25
+  requests.
+- Contexto: a linha de base mediu performance 99, LCP entre 1,87 e 1,93 s, CLS
+  0,021, TBT 0 ms, 125 KB transferidos e 4,1 KB de JavaScript. Os limites mantêm
+  folga para variação local sem permitir regressão estrutural do MVP.
+- Consequência: `npm run test:perf` é gate técnico repetível; métricas de campo
+  continuam em `REL-004` e não são inferidas da auditoria sintética.
+- Responsável: responsável técnico da landing.
+- Data de aceitação: 2026-07-22.
+- Evidência: `scripts/performance-budget.mjs`,
+  `artifacts/lighthouse/baseline-summary.json`,
+  `artifacts/lighthouse/summary.json` e
+  `docs/audits/QA-004-PERFORMANCE.md`.
+
+### DEC-017 — Contrato portátil de headers de segurança
+
+- Status: **Aceita**.
+- Escopo: build estático do MVP em preview e produção.
+- Decisão: manter a política em código independente do provedor, gerar hashes
+  SHA-256 para scripts inline e validar o build em navegador com os headers
+  aplicados. Produção usa HSTS por um ano, sem `includeSubDomains` e `preload`;
+  preview não usa HSTS e recebe `X-Robots-Tag: noindex, nofollow`.
+- Contexto: a hospedagem segue pendente em `DEC-010`, mas o comportamento de
+  segurança pode ser especificado e testado sem escolher prematuramente um
+  formato proprietário de configuração.
+- Consequência: `QA-005` fica parcialmente atendida; só pode ser encerrada após
+  mapear o contrato para o provedor e verificar o endpoint HTTPS real. Analytics
+  ou outra origem externa exige revisão explícita da CSP.
+- Responsável: responsável técnico da landing.
+- Data de aceitação: 2026-07-22.
+- Evidência: `scripts/security-headers.mjs`,
+  `scripts/validate-security-headers.mjs`,
+  `artifacts/security/security-headers.json` e
+  `docs/audits/QA-005-SECURITY.md`.
 
 ## Template para novas decisões
 

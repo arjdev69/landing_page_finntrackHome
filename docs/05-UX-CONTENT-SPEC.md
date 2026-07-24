@@ -25,7 +25,7 @@ Data: 2026-07-15
 - Marca: `FinnTrack Home` e logotipo aprovado.
 - Âncoras: `Recursos`, `Como funciona`, `Para quem`.
 - Link secundário: `Entrar`.
-- CTA principal: `Começar gratuitamente`.
+- CTA principal: `Criar conta`.
 - Em mobile, o CTA principal continua visível ou permanece acessível no primeiro
   nível do menu.
 
@@ -46,7 +46,7 @@ Descrição:
 
 Ações:
 
-- `Começar gratuitamente` → cadastro no app.
+- `Criar conta` → cadastro no app.
 - `Ver como funciona` → seção de demonstração.
 
 Evidência visual: screenshot real do dashboard, legível, com dados demonstrativos
@@ -124,27 +124,30 @@ Limite explícito:
 
 ## 10. FAQ inicial
 
-As respostas abaixo são rascunhos verificáveis, não aprovação jurídica/comercial.
+As respostas abaixo foram verificadas contra o repositório local do app em
+2026-07-21. Devem ser verificadas novamente contra a versão efetivamente
+publicada antes do lançamento.
 
 ### Preciso instalar alguma coisa?
 
-Não. O FinnTrack Home funciona pela web. A possibilidade de instalação como PWA
-pertence ao app e só deve ser mencionada se estiver validada em produção.
+Não. O FinnTrack Home funciona pela web e pode ser acessado diretamente pelo
+navegador.
 
 ### Posso acompanhar vários imóveis?
 
-Sim. O app permite cadastrar imóveis e acompanhar receitas, despesas e resultado
-por imóvel e período.
+Sim. Atualmente, uma conta pode cadastrar até três imóveis e acompanhar
+receitas, despesas e resultado por imóvel e período.
 
 ### Quais informações consigo controlar?
 
 Imóveis, receitas, despesas, contas pagas, pendentes e vencidas, resultados
-mensais e comparações da carteira, conforme as funções disponíveis no app.
+mensais e comparações da carteira.
 
 ### Meus dados ficam protegidos?
 
-O app usa autenticação e regras de acesso por usuário. A resposta final deve
-referenciar a política publicada e evitar garantia absoluta de segurança.
+O app usa autenticação e regras de acesso por usuário. Nenhum sistema elimina
+todos os riscos; consulte a Política de Privacidade para entender como os dados
+são tratados.
 
 ### O FinnTrack substitui uma imobiliária ou um contador?
 
@@ -153,12 +156,12 @@ serviços contábeis, jurídicos ou operacionais.
 
 ### Posso usar no celular?
 
-Sim. O app e a landing são responsivos. A afirmação deve ser confirmada pelos
-testes de produção antes da publicação.
+Sim. O app funciona pelo navegador e sua interface se adapta a telas menores.
 
-### O acesso é gratuito durante a fase beta?
-
-**PENDENTE (`DEC-005`)**. Não publicar resposta até a decisão comercial.
+Evidência da validação: `README.md`, `src/App.tsx`,
+`src/application/entitlements.ts`, `src/app/i18n/translations.ts`,
+`src/infrastructure/*` e testes do repositório local `FinntrackHome`. A landing
+foi validada em 360×800 e 1440×900 durante `WEB-005`.
 
 ## 11. CTA final
 
@@ -166,10 +169,10 @@ Título:
 
 > Descubra quais imóveis realmente dão resultado.
 
-Ação: `Começar gratuitamente`.
+Ação: `Criar conta`.
 
-O adjetivo “gratuitamente” depende da decisão comercial sobre o beta; se essa
-decisão mudar, todos os CTAs devem ser alterados por fonte de conteúdo única.
+Conforme `DEC-005`, não publicar alegação de gratuidade, preço ou beta. Todos os
+CTAs usam esta copy por fonte de conteúdo única.
 
 ## 12. Rodapé
 

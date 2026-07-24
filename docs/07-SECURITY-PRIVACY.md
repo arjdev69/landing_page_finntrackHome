@@ -48,6 +48,21 @@ Configurar e testar na plataforma escolhida:
 
 Não copiar uma CSP genérica sem ajustar fontes de analytics, imagens e fontes.
 
+### Contrato implementado para o MVP
+
+`scripts/security-headers.mjs` gera as políticas de preview e produção a partir
+do HTML compilado. Scripts inline recebem hash SHA-256; `unsafe-inline`,
+`unsafe-eval`, objetos, frames e atributos de script permanecem bloqueados. O
+preview recebe `X-Robots-Tag: noindex, nofollow`. A produção recebe
+`upgrade-insecure-requests` e `Strict-Transport-Security: max-age=31536000`, sem
+`includeSubDomains` ou `preload` enquanto a topologia de domínio da `DEC-010` não
+for aprovada.
+
+O gate `npm run test:security` aplica os headers a um servidor local, executa o
+build em Chromium e audita dependências. O contrato deve ser mapeado para a
+plataforma escolhida e testado novamente no endpoint HTTPS real. A introdução de
+analytics, fontes ou assets externos exige revisar explicitamente as diretivas.
+
 ## 5. Privacidade e consentimento
 
 Antes da produção devem existir:
