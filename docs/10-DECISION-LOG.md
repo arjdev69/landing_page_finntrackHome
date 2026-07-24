@@ -49,9 +49,20 @@ datas de calendário aprovado.
 - Status: **Pendente — bloqueador de lançamento**.
 - Confirmar: domínio do site, domínio do app, login, URL que abre cadastro,
   comportamento pós-auth, allowlist/atribuição de UTMs e OAuth origins.
-- Evidência atual: o app usa `/` para login; `LoginScreen` inicia em `signin` e
-  não lê `?mode=signup`; não foi encontrada captura de UTMs.
-- Ação externa: atualizar/confirmar contrato no repositório do app.
+- Confirmado em 2026-07-24: o app de produção usa
+  `https://finntrackhome.app`, servido pela Vercel; cadastro abre diretamente
+  em `/cadastro`, login em `/entrar` e `/dashboard` permanece protegido. O app
+  aceita somente `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e
+  `utm_term`, mantendo o primeiro valor não vazio e descartando internamente
+  parâmetros desconhecidos, sensíveis, fragmentos e controle de redirect.
+- Privacidade: a captura entregue é somente em memória, sem cookie, Web Storage,
+  escrita no Supabase, analytics, terceiro ou atribuição durável. Persistência,
+  first/last-touch, consentimento e exclusão continuam em `DEC-007`.
+- Evidência: `D0-003`, `14-APP-INTEGRATION-HANDOVER.md` e commits do app
+  `f1a7919`, `4e104a3`, `ee88d6c`, `f2c18fd`.
+- Pendente para encerrar a decisão: domínio oficial da landing, origins/callbacks
+  OAuth aprovados, atribuição consent-aware e E2E real landing → app cobrindo
+  submissão de cadastro/login.
 - Responsável: responsável técnico do app, com validação do responsável técnico
   da landing.
 - Data de registro: 2026-07-15.

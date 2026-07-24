@@ -31,6 +31,11 @@ do FinnTrack Home e define autoridade, leitura e controle de mudanças.
   em duas passagens e lacunas encontradas.
 - [13-SOURCE-HANDOVER.md](13-SOURCE-HANDOVER.md): cópia preservada do handover
   recebido, versão 1.0 de 2026-07-10.
+- [14-APP-INTEGRATION-HANDOVER.md](14-APP-INTEGRATION-HANDOVER.md): instrução
+  executável para o agente do app concluir URLs diretas, UTMs e evidências de
+  `D0-003`.
+- [STATE.md](STATE.md): perfil, decisões de execução e snapshot para retomada do
+  backlog.
 
 ## Regra de conflito
 

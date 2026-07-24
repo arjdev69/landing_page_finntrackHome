@@ -25,8 +25,19 @@ Data: 2026-07-15
 
 - [x] `D0-001` Aprovar `DEC-002` (Astro + TypeScript + Tailwind).
 - [ ] `D0-002` Confirmar domínio do site, app e hospedagem (`DEC-004`, `DEC-010`).
-- [ ] `D0-003` Implementar/confirmar no app a URL que abre cadastro diretamente e
+- [x] `D0-003` Implementar/confirmar no app a URL que abre cadastro diretamente e
   o contrato de UTMs (`DEC-004`).
+  - Evidência (2026-07-24): o app publicou
+    `https://finntrackhome.app/cadastro` e
+    `https://finntrackhome.app/entrar`; `/dashboard` permanece protegido e
+    encaminha visitante sem sessão para `/entrar`. O repositório
+    `arjdev69/finntrackhome` implementou rotas diretas (`f1a7919`), parser das
+    cinco UTMs (`4e104a3`), adaptador seguro somente em memória (`ee88d6c`) e E2E
+    desktop/mobile (`f2c18fd`). Testes focados passaram 7/7, E2E 4/4 e o smoke
+    publicado confirmou cadastro/login em 360×800 e 1440×900. Retenção,
+    atribuição durável, OAuth real e submissão de autenticação permanecem
+    corretamente em `DEC-007`/`INT-004`; ver
+    `docs/14-APP-INTEGRATION-HANDOVER.md`.
 - [x] `D0-004` Definir beta/gratuidade e aprovar CTA/FAQ (`DEC-005`).
   - Evidência (2026-07-21): `DEC-005` aceita o CTA único “Criar conta” e proíbe
     alegações de gratuidade/beta sem nova decisão; pergunta sobre gratuidade foi
