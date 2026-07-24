@@ -54,9 +54,10 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   concluído)
 - **Tasks concluídas neste bloco**: `D0-003`
 - **Em andamento (arquivo:linha)**: nenhum
-- **Próximo passo**: após o reset de orçamento, retomar `D0-002` registrando
-  Vercel e o domínio gerado no primeiro preview; depois configurar CI/preview
-  em `FND-006`, sem ativar analytics.
+- **Próximo passo**: após o reset de orçamento, retomar `D0-002` criando a
+  configuração de produção para `https://finntrack-home-landing.vercel.app`,
+  com os destinos do app em `/cadastro` e `/entrar`; validar o build antes de
+  configurar CI/preview em `FND-006`, sem ativar analytics.
 - **Validação**: app 7/7 testes focados e 4/4 E2E; smoke publicado mobile/desktop;
   landing `npm run format:check`, `npm run lint`, `npm run typecheck`,
   `npm test` 55/55 e `npm run build` aprovados.
@@ -66,6 +67,6 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   sem as aprovações humanas de `DEC-008`.
 - **Arquivos não commitados**: nenhum
 - **Branch**: `main`
-- **Orçamento na parada**: contexto 23,4% · quota semanal 19,0% (medido;
+- **Orçamento na parada**: contexto 18,1% · quota semanal 16,0% (medido;
   `AMBIGUOUS=0`)
 - **Motivo da parada**: quota semanal ≤30% no pré-voo de retomada
