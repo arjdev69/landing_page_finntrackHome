@@ -41,5 +41,6 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   (`INT-004`).
 - **Arquivos não commitados**: nenhum
 - **Branch**: `main`
-- **Orçamento na parada**: contexto 40,2% · quota semanal 27,0% (medido)
-- **Motivo da parada**: quota semanal ≤30%
+- **Orçamento na parada**: contexto 36,3% · quota semanal 25,0% (medido;
+  `AMBIGUOUS=1`, possível outra sessão ativa)
+- **Motivo da parada**: quota semanal ≤30% no pré-voo de retomada
