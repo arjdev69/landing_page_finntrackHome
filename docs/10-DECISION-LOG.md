@@ -55,14 +55,19 @@ datas de calendário aprovado.
   aceita somente `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e
   `utm_term`, mantendo o primeiro valor não vazio e descartando internamente
   parâmetros desconhecidos, sensíveis, fragmentos e controle de redirect.
+- Confirmado em 2026-07-24 por `D0-002`: a landing usa inicialmente
+  `https://finntrack-home-landing.vercel.app` como origem canônica de produção,
+  também servida pela Vercel. O domínio customizado fica adiado sem alterar os
+  destinos do app; qualquer migração futura exige atualizar configuração,
+  canonical, sitemap, Search Console e redirect permanente do host anterior.
 - Privacidade: a captura entregue é somente em memória, sem cookie, Web Storage,
   escrita no Supabase, analytics, terceiro ou atribuição durável. Persistência,
   first/last-touch, consentimento e exclusão continuam em `DEC-007`.
 - Evidência: `D0-003`, `14-APP-INTEGRATION-HANDOVER.md` e commits do app
   `f1a7919`, `4e104a3`, `ee88d6c`, `f2c18fd`.
-- Pendente para encerrar a decisão: domínio oficial da landing, origins/callbacks
-  OAuth aprovados, atribuição consent-aware e E2E real landing → app cobrindo
-  submissão de cadastro/login.
+- Pendente para encerrar a decisão: origins/callbacks OAuth aprovados,
+  atribuição consent-aware e E2E real landing → app cobrindo submissão de
+  cadastro/login.
 - Responsável: responsável técnico do app, com validação do responsável técnico
   da landing.
 - Data de registro: 2026-07-15.
@@ -168,14 +173,27 @@ datas de calendário aprovado.
 
 ### DEC-010 — Domínio e hospedagem
 
-- Status: **Pendente — bloqueador de deploy**.
+- Status: **Aceita**.
+- Decisão: publicar a landing estática na Vercel. A origem canônica inicial é
+  `https://finntrack-home-landing.vercel.app`; o app permanece em
+  `https://finntrackhome.app`. Um domínio customizado pode ser adotado depois,
+  mediante migração canônica e redirects verificados.
 - Critérios: deploy estático, preview, redirects/status 404, headers, rollback,
   domínio/HTTPS e proteção contra indexação.
+- Resultado da decisão: o provedor e as origens estão definidos e o build de
+  produção foi publicado com HTTPS, home 200, canonical, robots, sitemap e CTAs
+  apontando para cadastro/login reais. A escolha do provedor desbloqueia
+  `FND-006`, `INT-001`, `ERR-001`, `QA-005` e `REL-002`, mas não conclui esses
+  trabalhos operacionais.
+- Pendências de implementação: pipeline/preview remoto em `FND-006`; `/entrar`
+  em `INT-001`; página 404 em `ERR-001`; headers reais em `QA-005`; smoke de
+  rollback e redirects finais em `REL-002`.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `FND-006` e do teste final de `INT-001`.
-- Evidência para encerrar: provedor e domínios aprovados, preview operacional,
-  configuração de redirects/headers e procedimento de rollback.
+- Data de aceitação: 2026-07-24.
+- Evidência: `D0-002`, configuração de produção validada, deploy público na
+  Vercel e smoke HTTP de `https://finntrack-home-landing.vercel.app`,
+  `https://finntrackhome.app/cadastro` e `https://finntrackhome.app/entrar`.
 
 ### DEC-011 — Canal público de suporte e dados
 

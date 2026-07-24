@@ -12,6 +12,10 @@ de o requisito correspondente estar aprovado e rastreado.
 - Baseline documental: `0.1.1-approved`, 2026-07-15.
 - Implementação: Astro + TypeScript estrito + Tailwind CSS.
 - Idioma inicial: português do Brasil (`pt-BR`).
+- Hospedagem: Vercel, com produção inicial em
+  `https://finntrack-home-landing.vercel.app`.
+- Aplicativo: `https://finntrackhome.app`, com cadastro em `/cadastro` e login
+  em `/entrar`.
 
 ## Desenvolvimento local
 
@@ -44,6 +48,20 @@ Variáveis `PUBLIC_*` são publicáveis no artefato estático e nunca podem cont
 segredos. Analytics e verificação do Search Console permanecem opcionais até as
 decisões correspondentes serem aprovadas.
 
+Na produção inicial da Vercel, a configuração aprovada é:
+
+```dotenv
+PUBLIC_ENVIRONMENT=production
+PUBLIC_SITE_URL=https://finntrack-home-landing.vercel.app
+PUBLIC_APP_URL=https://finntrackhome.app
+PUBLIC_APP_SIGNUP_URL=https://finntrackhome.app/cadastro
+PUBLIC_APP_LOGIN_URL=https://finntrackhome.app/entrar
+```
+
+Esses valores devem ser configurados no ambiente `Production` da Vercel. Uma
+futura troca de domínio exige atualizar `PUBLIC_SITE_URL`, canonical,
+`robots.txt`, sitemap, Search Console e o redirect permanente do host anterior.
+
 ## Fonte de verdade
 
 Comece por [docs/00-SPEC-INDEX.md](docs/00-SPEC-INDEX.md). Em caso de conflito:
@@ -73,9 +91,8 @@ e calculadora de rentabilidade não fazem parte do MVP.
 
 ## Próximo passo
 
-Executar o trabalho preparatório de `LEG-001` para publicar privacidade e termos;
-a conclusão continua condicionada à validação factual, revisão jurídica humana e
-aceite final definidos em `DEC-008`. Hospedagem (`D0-002/003`), analytics
-(`D0-005`) e dados estruturados (`SEO-003`) permanecem bloqueados por decisões
-próprias. Nenhum deploy de produção pode ocorrer enquanto houver bloqueador de
-lançamento aberto.
+Configurar CI e previews em `FND-006`, agora desbloqueada pela aceitação da
+Vercel em `D0-002`. Depois, concluir `/entrar`, a experiência 404 e os headers
+reais nas tarefas `INT-001`, `ERR-001` e `QA-005`. `LEG-001`, `D0-005` e
+`SEO-003` continuam condicionadas às aprovações registradas nas respectivas
+decisões.

@@ -50,23 +50,22 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 0 — Decisões e contratos (parcial; ciclo de `D0-003`
+- **Bloco atual**: Épico 0 — Decisões e contratos (parcial; ciclo de `D0-002`
   concluído)
-- **Tasks concluídas neste bloco**: `D0-003`
+- **Tasks concluídas neste bloco**: `D0-002`, `D0-003`
 - **Em andamento (arquivo:linha)**: nenhum
-- **Próximo passo**: após o reset de orçamento, retomar `D0-002` criando a
-  configuração de produção para `https://finntrack-home-landing.vercel.app`,
-  com os destinos do app em `/cadastro` e `/entrar`; validar o build antes de
-  configurar CI/preview em `FND-006`, sem ativar analytics.
-- **Validação**: app 7/7 testes focados e 4/4 E2E; smoke publicado mobile/desktop;
-  landing `npm run format:check`, `npm run lint`, `npm run typecheck`,
-  `npm test` 55/55 e `npm run build` aprovados.
-- **Bloqueios**: domínio gerado ainda inexistente (`D0-002`/`DEC-010`);
-  retenção/base legal e aprovação jurídica para analytics Supabase
+- **Próximo passo**: após o reset de orçamento, executar `FND-006` para
+  configurar e comprovar os gates de CI e preview na Vercel; não iniciar
+  `LEG-001`, `D0-005` ou `SEO-003` enquanto suas aprovações permanecerem abertas.
+- **Validação**: `npm test` 55/55, `npm run build`, `git diff --check` e smoke
+  HTTP aprovados; landing, cadastro e login responderam 200, e HTTP da landing
+  redirecionou para HTTPS com 308.
+- **Bloqueios**: retenção/base legal e aprovação jurídica para analytics Supabase
   (`D0-005`/`DEC-007`); autenticação/OAuth real (`INT-004`); documentos legais
-  sem as aprovações humanas de `DEC-008`.
+  sem as aprovações humanas de `DEC-008`; dados estruturados sem `DEC-012`.
 - **Arquivos não commitados**: nenhum
 - **Branch**: `main`
-- **Orçamento na parada**: contexto 18,1% · quota semanal 16,0% (medido;
+- **Orçamento na parada**: contexto 50,9% · quota semanal 5,0% (medido;
   `AMBIGUOUS=0`)
-- **Motivo da parada**: quota semanal ≤30% no pré-voo de retomada
+- **Motivo da parada**: tarefa concluída; limite obrigatório de orçamento do SDD
+  atingido no checkpoint pós-bloco

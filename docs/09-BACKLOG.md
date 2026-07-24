@@ -24,7 +24,14 @@ Data: 2026-07-15
 ## Épico 0 — Decisões e contratos
 
 - [x] `D0-001` Aprovar `DEC-002` (Astro + TypeScript + Tailwind).
-- [ ] `D0-002` Confirmar domínio do site, app e hospedagem (`DEC-004`, `DEC-010`).
+- [x] `D0-002` Confirmar domínio do site, app e hospedagem (`DEC-004`, `DEC-010`).
+  - Evidência (2026-07-24): Vercel aceita como hospedagem da landing estática,
+    inicialmente em `https://finntrack-home-landing.vercel.app`; o app permanece
+    em `https://finntrackhome.app`, com cadastro/login diretos. Configuração de
+    produção validada, build aprovado, landing e destinos do app responderam 200,
+    e HTTP redirecionou para HTTPS com 308. `DEC-010` aceita a plataforma e
+    separa pipeline/preview, `/entrar`, 404, headers e rollback nas tarefas
+    executáveis correspondentes; domínio customizado fica adiado.
 - [x] `D0-003` Implementar/confirmar no app a URL que abre cadastro diretamente e
   o contrato de UTMs (`DEC-004`).
   - Evidência (2026-07-24): o app publicou
