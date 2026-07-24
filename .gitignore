@@ -12,3 +12,4 @@ artifacts/lighthouse/raw/
 
 *.log
 .DS_Store
+artifacts/*
