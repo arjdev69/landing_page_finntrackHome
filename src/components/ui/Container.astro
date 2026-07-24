@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type ContainerSize = 'reading' | 'content' | 'page';
+
+interface Props extends HTMLAttributes<'div'> {
+  size?: ContainerSize;
+}
+
+const sizeClasses: Record<ContainerSize, string> = {
+  reading: 'max-w-reading',
+  content: 'max-w-content',
+  page: 'max-w-page',
+};
+
+const { size = 'page', class: className, ...attributes } = Astro.props;
+---
+
+<div
+  class:list={['mx-auto w-full px-4 sm:px-6 lg:px-8', sizeClasses[size], className]}
+  {...attributes}
+>
+  <slot />
+</div>

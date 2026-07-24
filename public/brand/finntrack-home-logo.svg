@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 128" role="img" aria-labelledby="title desc">
+  <title id="title">FinnTrack Home</title>
+  <desc id="desc">Símbolo de casa com gráfico e nome FinnTrack Home.</desc>
+  <rect width="128" height="128" rx="28" fill="#15803d"/>
+  <path d="M27 59 64 29l37 30v39a8 8 0 0 1-8 8H35a8 8 0 0 1-8-8V59Z" fill="none" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M45 91V73m19 18V61m19 30V49" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+  <text x="158" y="80" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-1.5">FinnTrack Home</text>
+</svg>

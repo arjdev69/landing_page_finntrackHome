@@ -4,10 +4,11 @@ import test from 'node:test';
 import { URL } from 'node:url';
 
 test('foundation uses static Astro output, Tailwind and configured aliases', async () => {
-  const [config, stylesheet, page, tsconfig, packageJson] = await Promise.all([
+  const [config, stylesheet, page, layout, tsconfig, packageJson] = await Promise.all([
     readFile(new URL('../astro.config.mjs', import.meta.url), 'utf8'),
     readFile(new URL('../src/styles/global.css', import.meta.url), 'utf8'),
     readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/layouts/MarketingLayout.astro', import.meta.url), 'utf8'),
     readFile(new URL('../tsconfig.json', import.meta.url), 'utf8'),
     readFile(new URL('../package.json', import.meta.url), 'utf8'),
   ]);
@@ -15,8 +16,9 @@ test('foundation uses static Astro output, Tailwind and configured aliases', asy
   assert.match(config, /output:\s*['"]static['"]/);
   assert.match(config, /tailwindcss\(\)/);
   assert.match(stylesheet, /@import\s+["']tailwindcss["']/);
-  assert.match(page, /<html lang="pt-BR">/);
-  assert.match(page, /import\s+["']@styles\/global\.css["']/);
+  assert.match(layout, /<html lang={siteConfig\.language}>/);
+  assert.match(layout, /import\s+["']@styles\/global\.css["']/);
+  assert.match(page, /MarketingLayout/);
 
   const parsedTsconfig = JSON.parse(tsconfig);
   assert.equal(parsedTsconfig.compilerOptions.baseUrl, '.');
@@ -27,6 +29,6 @@ test('foundation uses static Astro output, Tailwind and configured aliases', asy
   assert.equal(parsedPackage.scripts.lint, 'eslint . --max-warnings=0');
   assert.equal(
     parsedPackage.scripts['format:check'],
-    'prettier --check "src/**/*.{astro,ts,css}" "test/**/*.mjs" "*.{js,mjs,json}"',
+    'prettier --check "src/**/*.{astro,ts,css}" "scripts/**/*.mjs" "test/**/*.mjs" "*.{js,mjs,json}"',
   );
 });

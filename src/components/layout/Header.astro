@@ -1,0 +1,73 @@
+---
+import MobileNavigation from '@components/layout/MobileNavigation.astro';
+import ButtonLink from '@components/ui/ButtonLink.astro';
+import Container from '@components/ui/Container.astro';
+import { headerContent, primaryNavigation } from '@config/navigation';
+
+interface Props {
+  loginUrl: string;
+  signupUrl: string;
+}
+
+const { loginUrl, signupUrl } = Astro.props;
+---
+
+<header class="border-b border-border bg-surface" data-site-header>
+  <Container>
+    <div class="flex min-h-16 items-center justify-between gap-4 py-2">
+      <a
+        class="inline-flex min-h-11 items-center rounded-control"
+        href="/"
+        aria-label="FinnTrack Home — página inicial"
+      >
+        <img src="/brand/finntrack-home-logo.svg" alt="" width="160" height="32" decoding="async" />
+      </a>
+
+      <nav class="hidden lg:block" aria-label="Navegação principal">
+        <ul class="flex items-center gap-1">
+          {
+            primaryNavigation.map((item) => (
+              <li>
+                <a
+                  class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-medium text-foreground hover:bg-background"
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="hidden items-center gap-2 lg:flex">
+        <a
+          class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-semibold text-foreground hover:bg-background"
+          href={loginUrl}
+          data-app-link
+          data-destination-type="login"
+          data-cta-location="header"
+        >
+          {headerContent.loginLabel}
+        </a>
+        <ButtonLink
+          href={signupUrl}
+          size="compact"
+          data-app-link
+          data-destination-type="signup"
+          data-cta-location="header"
+        >
+          {headerContent.signupLabel}
+        </ButtonLink>
+      </div>
+
+      <MobileNavigation
+        items={primaryNavigation}
+        loginLabel={headerContent.loginLabel}
+        loginUrl={loginUrl}
+        signupLabel={headerContent.signupLabel}
+        signupUrl={signupUrl}
+      />
+    </div>
+  </Container>
+</header>

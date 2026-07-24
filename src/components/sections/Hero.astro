@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+
+import dashboardImage from '@/assets/product/dashboard-final-pt-br.png';
+import ButtonLink from '@components/ui/ButtonLink.astro';
+import Container from '@components/ui/Container.astro';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import { heroContent } from '@config/home-content';
+import { headerContent } from '@config/navigation';
+import { dashboardPreview } from '@config/product-assets';
+import { publicConfig } from '@config/public';
+---
+
+<section
+  class="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden py-10 sm:py-14 lg:py-16"
+  aria-labelledby="hero-heading"
+  data-hero
+>
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80 bg-linear-to-b from-success/10 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+
+  <Container>
+    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+      <div>
+        <SectionHeading
+          headingId="hero-heading"
+          eyebrow={heroContent.eyebrow}
+          title={heroContent.title}
+          description={heroContent.description}
+          level={1}
+          class="[&_h1]:text-4xl [&_h1]:leading-tight sm:[&_h1]:text-5xl lg:[&_h1]:text-6xl"
+        />
+
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <ButtonLink
+            href={publicConfig.appSignupUrl}
+            class="w-full sm:w-auto"
+            data-app-link
+            data-destination-type="signup"
+            data-cta-location="hero"
+          >
+            {headerContent.signupLabel}
+          </ButtonLink>
+          <ButtonLink
+            href="#demonstracao"
+            variant="secondary"
+            class="w-full sm:w-auto"
+            data-secondary-cta
+            data-cta-location="hero"
+          >
+            {heroContent.secondaryCtaLabel}
+          </ButtonLink>
+        </div>
+      </div>
+
+      <figure
+        class="min-w-0"
+        data-asset-status={dashboardPreview.approvalStatus}
+        data-asset-role="final-dashboard-preview"
+      >
+        <div class="overflow-hidden rounded-card border border-border bg-surface shadow-card">
+          <div class="flex items-center gap-2 border-b border-border px-4 py-3" aria-hidden="true">
+            <span class="size-2.5 rounded-full bg-danger/70"></span>
+            <span class="size-2.5 rounded-full bg-warning/80"></span>
+            <span class="size-2.5 rounded-full bg-success/80"></span>
+            <span class="ml-3 h-2.5 w-28 rounded-full bg-border sm:w-40"></span>
+          </div>
+          <Image
+            src={dashboardImage}
+            alt={dashboardPreview.altText}
+            widths={[480, 720, 960]}
+            sizes="(max-width: 1023px) calc(100vw - 2rem), 55vw"
+            format="webp"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="block h-auto w-full"
+          />
+        </div>
+        <figcaption class="mt-3 text-sm leading-6 text-muted">
+          Visão real do produto com dados demonstrativos de {dashboardPreview.capturedPeriod}.
+        </figcaption>
+      </figure>
+    </div>
+  </Container>
+</section>

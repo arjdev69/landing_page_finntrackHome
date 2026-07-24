@@ -1,0 +1,90 @@
+---
+import ButtonLink from '@components/ui/ButtonLink.astro';
+import type { NavigationItem } from '@config/navigation';
+
+interface Props {
+  items: readonly NavigationItem[];
+  loginLabel: string;
+  loginUrl: string;
+  signupLabel: string;
+  signupUrl: string;
+}
+
+const { items, loginLabel, loginUrl, signupLabel, signupUrl } = Astro.props;
+---
+
+<details class="group relative lg:hidden" data-mobile-navigation>
+  <summary
+    class="flex min-h-11 cursor-pointer list-none items-center justify-center rounded-control border border-border-strong bg-surface px-4 py-2 text-sm font-semibold text-foreground marker:content-none"
+  >
+    <span>Menu</span>
+    <span class="sr-only">de navegação</span>
+  </summary>
+
+  <nav
+    aria-label="Navegação móvel"
+    class="absolute right-0 z-20 mt-3 w-[min(22rem,calc(100vw-2rem))] rounded-card border border-border bg-surface p-3 shadow-card"
+  >
+    <ul class="flex flex-col gap-1">
+      {
+        items.map((item) => (
+          <li>
+            <a
+              class="flex min-h-11 items-center rounded-control px-3 py-2 text-base font-medium text-foreground hover:bg-background"
+              href={item.href}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="mt-2 border-t border-border pt-2">
+        <a
+          class="flex min-h-11 items-center rounded-control px-3 py-2 text-base font-medium text-foreground hover:bg-background"
+          href={loginUrl}
+          data-app-link
+          data-destination-type="login"
+          data-cta-location="header"
+        >
+          {loginLabel}
+        </a>
+      </li>
+      <li class="pt-1">
+        <ButtonLink
+          class="w-full"
+          href={signupUrl}
+          size="compact"
+          data-app-link
+          data-destination-type="signup"
+          data-cta-location="header"
+        >
+          {signupLabel}
+        </ButtonLink>
+      </li>
+    </ul>
+  </nav>
+</details>
+
+<script>
+  const mobileNavigations = document.querySelectorAll<HTMLDetailsElement>(
+    '[data-mobile-navigation]',
+  );
+
+  for (const navigation of mobileNavigations) {
+    const summary = navigation.querySelector<HTMLElement>('summary');
+
+    navigation.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !navigation.open) return;
+
+      event.preventDefault();
+      navigation.open = false;
+      summary?.focus();
+    });
+
+    navigation.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navigation.open = false;
+      });
+    });
+  }
+</script>

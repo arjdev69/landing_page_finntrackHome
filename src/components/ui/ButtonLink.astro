@@ -1,0 +1,43 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type ButtonLinkVariant = 'primary' | 'secondary';
+type ButtonLinkSize = 'default' | 'compact';
+
+interface Props extends HTMLAttributes<'a'> {
+  href: string;
+  variant?: ButtonLinkVariant;
+  size?: ButtonLinkSize;
+}
+
+const variantClasses: Record<ButtonLinkVariant, string> = {
+  primary: 'bg-action text-white hover:bg-action-hover',
+  secondary: 'border border-border-strong bg-surface text-foreground hover:bg-background',
+};
+
+const sizeClasses: Record<ButtonLinkSize, string> = {
+  default: 'min-h-12 px-5 py-3 text-base',
+  compact: 'min-h-11 px-4 py-2.5 text-sm',
+};
+
+const {
+  href,
+  variant = 'primary',
+  size = 'default',
+  class: className,
+  ...attributes
+} = Astro.props;
+---
+
+<a
+  class:list={[
+    'inline-flex touch-manipulation items-center justify-center gap-2 rounded-control font-semibold transition-colors duration-200 motion-reduce:transition-none',
+    variantClasses[variant],
+    sizeClasses[size],
+    className,
+  ]}
+  href={href}
+  {...attributes}
+>
+  <slot />
+</a>

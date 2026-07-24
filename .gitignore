@@ -2,6 +2,9 @@ node_modules/
 dist/
 .astro/
 coverage/
+artifacts/playwright/test-results/
+artifacts/playwright/compatibility-results/
+artifacts/lighthouse/raw/
 
 .env
 .env.*
@@ -9,4 +12,3 @@ coverage/
 
 *.log
 .DS_Store
-

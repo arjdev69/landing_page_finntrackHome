@@ -1,0 +1,50 @@
+---
+type HeadingLevel = 1 | 2 | 3;
+type TextAlign = 'left' | 'center';
+
+interface Props {
+  title: string;
+  headingId?: string;
+  description?: string;
+  eyebrow?: string;
+  level?: HeadingLevel;
+  align?: TextAlign;
+  class?: string;
+}
+
+const {
+  title,
+  headingId,
+  description,
+  eyebrow,
+  level = 2,
+  align = 'left',
+  class: className,
+} = Astro.props;
+const HeadingTag = `h${level}` as const;
+const alignmentClasses: Record<TextAlign, string> = {
+  left: 'items-start text-left',
+  center: 'items-center text-center',
+};
+---
+
+<div class:list={['flex max-w-reading flex-col', alignmentClasses[align], className]}>
+  {
+    eyebrow && (
+      <p class="mb-3 text-sm font-semibold tracking-wide text-action uppercase">{eyebrow}</p>
+    )
+  }
+  <HeadingTag
+    id={headingId}
+    class="text-3xl font-semibold tracking-tight text-balance text-foreground sm:text-4xl"
+  >
+    {title}
+  </HeadingTag>
+  {
+    description && (
+      <p class="mt-4 max-w-reading text-base leading-7 text-pretty text-muted sm:text-lg">
+        {description}
+      </p>
+    )
+  }
+</div>

@@ -7,7 +7,8 @@ de o requisito correspondente estar aprovado e rastreado.
 
 ## Estado atual
 
-- Fase: fundação técnica e qualidade local concluídas (`FND-001..002`).
+- Fase: fundação técnica, qualidade local, configuração tipada, design system e
+  shell SEO concluídos (`FND-001..005`).
 - Baseline documental: `0.1.1-approved`, 2026-07-15.
 - Implementação: Astro + TypeScript estrito + Tailwind CSS.
 - Idioma inicial: português do Brasil (`pt-BR`).
@@ -30,6 +31,18 @@ npm run typecheck
 npm test
 npm run build
 ```
+
+## Configuração pública
+
+Copie `.env.example` para `.env` no desenvolvimento local. Builds de `preview` e
+`production` exigem `PUBLIC_SITE_URL`, `PUBLIC_APP_URL`,
+`PUBLIC_APP_SIGNUP_URL`, `PUBLIC_APP_LOGIN_URL` e `PUBLIC_ENVIRONMENT`. Em
+produção, todas as URLs devem usar HTTPS, origens não podem conter path/query e
+valores locais, reservados ou placeholder são rejeitados.
+
+Variáveis `PUBLIC_*` são publicáveis no artefato estático e nunca podem conter
+segredos. Analytics e verificação do Search Console permanecem opcionais até as
+decisões correspondentes serem aprovadas.
 
 ## Fonte de verdade
 
@@ -60,8 +73,9 @@ e calculadora de rentabilidade não fazem parte do MVP.
 
 ## Próximo passo
 
-Executar `FND-003`, a primeira tarefa elegível do backlog. Decisões que bloqueiam
-uma tarefa específica devem ser resolvidas antes dela; decisões classificadas
-apenas como bloqueadoras de lançamento não impedem trabalho preparatório ou de
-fundação configurável. Nenhum deploy de produção pode ocorrer enquanto houver
-bloqueador de lançamento aberto.
+Executar o trabalho preparatório de `LEG-001` para publicar privacidade e termos;
+a conclusão continua condicionada à validação factual, revisão jurídica humana e
+aceite final definidos em `DEC-008`. Hospedagem (`D0-002/003`), analytics
+(`D0-005`) e dados estruturados (`SEO-003`) permanecem bloqueados por decisões
+próprias. Nenhum deploy de produção pode ocorrer enquanto houver bloqueador de
+lançamento aberto.

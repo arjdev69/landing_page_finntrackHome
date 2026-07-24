@@ -1,0 +1,10 @@
+<script>
+  import { enrichAppLinks } from '@lib/navigation/enrich-app-links';
+
+  try {
+    const appLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-app-link]');
+    enrichAppLinks(new URL(window.location.href), appLinks);
+  } catch {
+    // Os hrefs configurados no HTML continuam funcionais quando o aprimoramento falha.
+  }
+</script>
