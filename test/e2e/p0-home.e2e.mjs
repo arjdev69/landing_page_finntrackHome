@@ -102,7 +102,25 @@ test('T-UTM-001 enriches app links with the allowlist and discards sensitive que
   expect(errors).toEqual([]);
 });
 
-test('T-ROUTE-001 returns a real 404 status for an unknown URL', async ({ request }) => {
-  const response = await request.get('/rota-inexistente-e2e');
-  expect(response.status()).toBe(404);
+test('T-ROUTE-001/T-404-001 serves the recovery page with a real 404 status', async ({ page }) => {
+  const errors = collectRuntimeErrors(page);
+  const response = await page.goto('/rota-inexistente-e2e');
+
+  expect(response?.status()).toBe(404);
+  await expect(page).toHaveTitle('Página não encontrada | FinnTrack Home');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Página não encontrada');
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(page.getByRole('link', { name: 'Voltar à página inicial' })).toHaveAttribute(
+    'href',
+    '/',
+  );
+  await expect(page.locator('[data-analytics-page], [data-analytics-event]')).toHaveCount(0);
+  expect(await page.locator('body').textContent()).not.toContain('landing_view');
+  expect(
+    errors.filter(
+      (error) =>
+        error !== 'Failed to load resource: the server responded with a status of 404 (Not Found)',
+    ),
+  ).toEqual([]);
 });

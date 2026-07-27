@@ -1,0 +1,24 @@
+---
+import ButtonLink from '@components/ui/ButtonLink.astro';
+import Container from '@components/ui/Container.astro';
+import { notFoundSeo } from '@config/site';
+import LegalLayout from '@layouts/LegalLayout.astro';
+---
+
+<LegalLayout {...notFoundSeo}>
+  <main id="main-content" tabindex="-1">
+    <Container size="reading" class="py-16 sm:py-24">
+      <div class="rounded-card border border-border bg-surface p-6 shadow-card sm:p-10">
+        <p class="text-sm font-semibold tracking-wide text-action uppercase">Erro 404</p>
+        <h1 class="mt-3 text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
+          {notFoundSeo.heading}
+        </h1>
+        <p class="mt-5 max-w-prose text-base leading-7 text-muted">
+          O endereço pode estar incorreto ou a página pode ter sido removida. Você pode voltar à
+          página inicial para continuar.
+        </p>
+        <ButtonLink href="/" class="mt-8">Voltar à página inicial</ButtonLink>
+      </div>
+    </Container>
+  </main>
+</LegalLayout>

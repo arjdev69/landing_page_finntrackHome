@@ -41,6 +41,15 @@ export const termsSeo = Object.freeze({
   type: 'article',
 }) satisfies PageSeoDefinition;
 
+export const notFoundSeo = Object.freeze({
+  title: 'Página não encontrada | FinnTrack Home',
+  description: 'A página solicitada não foi encontrada. Volte à página inicial do FinnTrack Home.',
+  canonicalPath: '/404',
+  heading: 'Página não encontrada',
+  robots: 'noindex,nofollow',
+  type: 'website',
+}) satisfies PageSeoDefinition;
+
 export function getRuntimeSiteConfig(fallbackUrl: URL): Readonly<{
   environment: PublicEnvironment;
   origin: string;
