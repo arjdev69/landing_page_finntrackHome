@@ -191,10 +191,11 @@ datas de calendário aprovado.
   apontando para cadastro/login reais. A escolha do provedor desbloqueia
   `FND-006`, `INT-001`, `ERR-001`, `QA-005` e `REL-002`, mas não conclui esses
   trabalhos operacionais.
-- Implementação concluída: pipeline e preview remoto em `FND-006`, validados no
-  PR #1 com GitHub Actions e Preview Deployment protegido da Vercel.
-- Pendências de implementação: `/entrar` em `INT-001`; página 404 em `ERR-001`;
-  headers reais em `QA-005`; smoke de rollback e redirects finais em `REL-002`.
+- Implementação concluída: pipeline e preview remoto em `FND-006`, página 404
+  em `ERR-001` e headers reais em `QA-005`, validados pelos PRs #1, #3 e #4,
+  GitHub Actions, Preview Deployment protegido e smokes de produção.
+- Pendências de implementação: `/entrar` em `INT-001`; smoke de rollback e
+  redirects finais em `REL-002`.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
 - Data de aceitação: 2026-07-24.
@@ -303,16 +304,16 @@ datas de calendário aprovado.
   SHA-256 para scripts inline e validar o build em navegador com os headers
   aplicados. Produção usa HSTS por um ano, sem `includeSubDomains` e `preload`;
   preview não usa HSTS e recebe `X-Robots-Tag: noindex, nofollow`.
-- Contexto: a hospedagem segue pendente em `DEC-010`, mas o comportamento de
-  segurança pode ser especificado e testado sem escolher prematuramente um
-  formato proprietário de configuração.
-- Consequência: `QA-005` fica parcialmente atendida; só pode ser encerrada após
-  mapear o contrato para o provedor e verificar o endpoint HTTPS real. Analytics
-  ou outra origem externa exige revisão explícita da CSP.
+- Contexto: o contrato foi definido antes da escolha da hospedagem e depois
+  mapeado para a Vercel sem duplicar a política em componentes.
+- Consequência: `QA-005` está concluída após validação local, CI do PR #4 e
+  inspeção do endpoint HTTPS real. Analytics ou outra origem externa continua
+  exigindo revisão explícita da CSP.
 - Responsável: responsável técnico da landing.
 - Data de aceitação: 2026-07-22.
 - Evidência: `scripts/security-headers.mjs`,
   `scripts/validate-security-headers.mjs`,
+  `vercel.mjs`, PR #4, Actions `30303082672`,
   `artifacts/security/security-headers.json` e
   `docs/audits/QA-005-SECURITY.md`.
 

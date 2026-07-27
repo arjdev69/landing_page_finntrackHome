@@ -80,22 +80,22 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Tasks concluídas neste bloco**: nenhuma nesta execução
-- **Em andamento (arquivo:linha)**: `QA-005` (`vercel.mjs:1`)
-- **Próximo passo**: publicar a branch, validar o Preview Deployment protegido e
-  os checks do PR; após integrar, inspecionar os headers HTTPS reais de produção
-  antes de marcar `QA-005`.
+- **Tasks concluídas neste bloco**: `QA-005`
+- **Em andamento (arquivo:linha)**: nenhuma
+- **Próximo passo**: selecionar uma nova tarefa elegível. `D0-005` depende de
+  decisão do responsável sobre analytics/consentimento e `INT-001` não deve
+  iniciar enquanto `DEC-013` permanecer proposta.
 - **Validação**: formatação, lint e typecheck aprovados; suíte completa 62/62;
   `npm run test:security` recompilou o site, comprovou o hash CSP no Chromium e
   terminou com zero vulnerabilidades; build explícito de produção e E2E 30/30 em
   desktop/mobile aprovados.
-- **Bloqueios**: nenhum local. A conclusão depende apenas do deploy e da
-  inspeção remota de CSP, Referrer Policy, `nosniff`, Permissions Policy,
-  proteção de framing, HSTS de produção e `X-Robots-Tag` de preview.
-- **Arquivos não commitados**: nenhum após o commit de implementação; alguns
-  arquivos existentes podem aparecer modificados apenas por normalização local
-  de final de linha, sem diff de conteúdo.
-- **Branch**: `codex/qa-005-vercel-security-headers`
-- **Orçamento na parada**: contexto 23,1% · quota semanal 41,0% (medido;
-  `AMBIGUOUS=0`)
-- **Motivo da parada**: `QA-005` validada localmente; aguardando evidência remota
+- **Validação remota**: PR #4 integrado no commit `0847785`; pipeline pós-merge
+  `30303082672` aprovado em 3m14s; produção respondeu 200 com os headers
+  esperados e o smoke Playwright não encontrou violações CSP, cookies ou erros.
+- **Bloqueios**: nenhum para `QA-005`. A futura ativação de analytics exige
+  revisão explícita de privacidade e CSP.
+- **Arquivos não commitados**: nenhum após o commit de encerramento.
+- **Branch**: `codex/qa-005-rollout`
+- **Orçamento na parada anterior**: contexto 23,1% · quota semanal 41,0%
+  (`AMBIGUOUS=0`)
+- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `QA-005`

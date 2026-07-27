@@ -334,14 +334,16 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     `npm run test:perf`, relatório `docs/audits/QA-004-PERFORMANCE.md`, baseline e
     sumário JSON aprovados. Métricas de campo permanecem em `REL-004` após haver
     amostra real.
-- [ ] `QA-005` Configurar e validar headers de segurança.
-  - Evidência parcial (2026-07-22): contrato portátil gera CSP com hash SHA-256
-    do script inline, headers distintos para preview/produção e HSTS sem
-    `includeSubDomains`/`preload`; `npm run test:security` aprovou build,
-    aplicação local dos headers, menu, FAQ, UTM, zero violações CSP, zero erros
-    de runtime, ausência de cookie e auditoria com zero vulnerabilidades. A
-    tarefa permanece aberta para mapear e testar os headers no host HTTPS real,
-    bloqueado por `DEC-010`. Evidência em `docs/audits/QA-005-SECURITY.md`.
+- [x] `QA-005` Configurar e validar headers de segurança.
+  - Evidência (2026-07-27): o contrato portátil foi mapeado para a Vercel em
+    `vercel.mjs`, com seleção explícita entre preview e produção e hash SHA-256
+    exato do script inline. O PR #4, o pipeline pós-merge `30303082672`, a suíte
+    62/62, o E2E 30/30 e `npm run test:security` passaram com zero violações
+    CSP, erros de runtime, cookies ou vulnerabilidades. O smoke HTTPS em
+    produção confirmou CSP, `Referrer-Policy`, `nosniff`, `Permissions-Policy`,
+    proteção de framing e HSTS de um ano, mantendo
+    `includeSubDomains`/`preload` desativados conforme `DEC-017`. Evidência
+    detalhada em `docs/audits/QA-005-SECURITY.md`.
 - [ ] `REL-001` Fechar todas as decisões bloqueadoras e checklist de lançamento.
 - [ ] `REL-002` Publicar, executar smoke/rollback e validar host/canonical/404.
 - [ ] `REL-003` Configurar Search Console e submeter sitemap.
