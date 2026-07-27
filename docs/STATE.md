@@ -79,25 +79,33 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 5 — SEO, legal e assets
-- **Tasks concluídas neste bloco**: `ERR-001`
-- **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: em nova execução, selecionar exatamente uma tarefa pendente
-  e elegível; `QA-005` está desbloqueada pela hospedagem aceita. Não iniciar
-  `INT-001` enquanto a estratégia `DEC-013` permanecer proposta.
-- **Validação**: teste focado 2/2; formatação, lint e typecheck aprovados; suíte
-  completa 59/59; build explícito de produção; E2E 30/30 em desktop/mobile. O PR
-  #2 foi integrado por squash em `f3f71d2`; GitHub Actions da `main` passou em
-  3m06s, a Vercel concluiu o deploy e o smoke de uma URL inexistente retornou
-  HTTP 404 com a página customizada, `noindex,nofollow`, link para a home e
-  nenhuma ocorrência de `landing_view`.
-- **Bloqueios**: nenhum para `ERR-001`. O preview permanece protegido pelo SSO
-  da Vercel e respondeu 302 com `X-Robots-Tag: noindex`; o artefato foi validado
-  pelo pipeline. O Actions registrou aviso não bloqueador de runtime Node 20 nas
-  actions v4. `D0-005`, `DEC-012` e `DEC-013` continuam bloqueando seus trabalhos
-  dependentes.
-- **Arquivos não commitados**: nenhum após o commit de fechamento de `ERR-001`
-- **Branch**: `codex/err-001-rollout`
-- **Orçamento na parada**: contexto 65,4% · quota semanal 56,0% (medido;
+- **Bloco atual**: Épico 6 — Qualidade e lançamento
+- **Tasks concluídas neste bloco**: nenhuma nesta execução
+- **Em andamento (arquivo:linha)**: `QA-005`
+  (`test/foundation.test.mjs:30`)
+- **Próximo passo**: atualizar a expectativa literal do comando
+  `format:check` em `test/foundation.test.mjs` para incluir
+  `vendor/**/*.{cjs,ts,json}`; então repetir `npm test`. Se passar, executar
+  `npm run test:security`, build, E2E e validação remota da Vercel antes de
+  marcar `QA-005`.
+- **Validação**: contrato Vercel e compatibilidade passaram 7/7; lint passou;
+  typecheck passou com 0 erros, warnings ou hints; `npm run test:security`
+  recompilou o site, validou o hash CSP no Chromium e terminou com zero
+  vulnerabilidades. A suíte ampla passou 61/62: somente o teste de fundação
+  falhou porque ainda espera o comando antigo do Prettier sem a pasta `vendor`.
+- **Bloqueios**: limite de três correções da skill atingido nesta task. Falhas
+  encontradas em sequência: auditoria detectou `GHSA-mh99-v99m-4gvg`; lint
+  exigiu compatibilidade CommonJS/import explícito; suíte ampla detectou a
+  expectativa literal desatualizada em `test/foundation.test.mjs:30`.
+- **Arquivos não commitados**: `.github/workflows/ci.yml`,
+  `docs/operations/FND-006-CI-PREVIEWS.md`, `package.json`,
+  `package-lock.json`, `scripts/security-headers.mjs`,
+  `scripts/validate-security-headers.mjs`, `test/security-headers.test.mjs`,
+  `vercel.mjs`, `vendor/minimatch-compat/*` e `docs/STATE.md`. Alguns arquivos
+  existentes aparecem modificados apenas por normalização local de final de
+  linha e não possuem diff de conteúdo.
+- **Branch**: `codex/qa-005-vercel-security-headers`
+- **Orçamento na parada**: contexto 25,4% · quota semanal 43,0% (medido;
   `AMBIGUOUS=0`)
-- **Motivo da parada**: `ERR-001` concluída; limite de uma tarefa por execução
+- **Motivo da parada**: bloqueio pelo limite de três tentativas de correção;
+  `QA-005` permanece aberta e nenhum código incompleto foi commitado ou publicado
