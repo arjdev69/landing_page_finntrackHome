@@ -1,0 +1,88 @@
+name: Pull request gates
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+  PUBLIC_ENVIRONMENT: preview
+  PUBLIC_SITE_URL: https://finntrack-home-landing.vercel.app
+  PUBLIC_APP_URL: https://finntrackhome.app
+  PUBLIC_APP_SIGNUP_URL: https://finntrackhome.app/cadastro
+  PUBLIC_APP_LOGIN_URL: https://finntrackhome.app/entrar
+
+jobs:
+  verify:
+    name: Quality and preview build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Use the repository npm version
+        run: npm install --global npm@11.13.0
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Run unit and integration tests
+        run: npm test
+
+      - name: Build preview artifact
+        run: npm run build
+
+      - name: Preserve preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-static-${{ github.sha }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run end-to-end and accessibility tests
+        run: npm run test:e2e
+
+      - name: Run Lighthouse performance budget
+        run: npm run test:perf
+
+      - name: Preserve browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-diagnostics-${{ github.sha }}
+          path: |
+            artifacts/playwright/
+            artifacts/lighthouse/
+          if-no-files-found: ignore
+          retention-days: 7
