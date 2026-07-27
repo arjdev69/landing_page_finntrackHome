@@ -75,27 +75,41 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-27
 - **Status**: ativa
 
+### AD-006
+
+- **Decisão**: aprovar analytics first-party por endpoint server-side e tabela
+  dedicada no Supabase, sob legítimo interesse documentado, sem cookie,
+  storage, pixel, SDK externo ou identificador persistente.
+- **Razão**: medir aquisição e usabilidade de forma mínima durante a validação
+  do produto, sem depender de plano pago de terceiro nem rastrear pessoas entre
+  sessões ou sites.
+- **Trade-off**: eventos brutos expiram em 90 dias e não podem ser correlacionados
+  com contas; métricas de conversão/ativação e retenção do produto continuam
+  dependentes do app. A coleta permanece `noop` até `ANA-003`.
+- **Data**: 2026-07-27
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Tasks concluídas neste bloco**: `QA-005`
+- **Bloco atual**: Épico 0 — Decisões e contratos
+- **Tasks concluídas neste bloco**: `D0-005`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: selecionar uma nova tarefa elegível. `D0-005` depende de
-  decisão do responsável sobre analytics/consentimento e `INT-001` não deve
-  iniciar enquanto `DEC-013` permanecer proposta.
-- **Validação**: formatação, lint e typecheck aprovados; suíte completa 62/62;
-  `npm run test:security` recompilou o site, comprovou o hash CSP no Chromium e
-  terminou com zero vulnerabilidades; build explícito de produção e E2E 30/30 em
-  desktop/mobile aprovados.
-- **Validação remota**: PR #4 integrado no commit `0847785`; pipeline pós-merge
-  `30303082672` aprovado em 3m14s; produção respondeu 200 com os headers
-  esperados e o smoke Playwright não encontrou violações CSP, cookies ou erros.
-- **Bloqueios**: nenhum para `QA-005`. A futura ativação de analytics exige
-  revisão explícita de privacidade e CSP.
-- **Arquivos não commitados**: nenhum após o commit de encerramento.
-- **Branch**: `codex/qa-005-rollout`
-- **Orçamento na parada anterior**: contexto 23,1% · quota semanal 41,0%
-  (`AMBIGUOUS=0`)
-- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `QA-005`
+- **Próximo passo**: `ANA-003` está desbloqueada, mas não iniciada. Implementar
+  endpoint/tabela e todos os gates de
+  `docs/privacy/D0-005-ANALYTICS-POLICY.md`, mantendo `noop` até a validação.
+- **Validação**: teste focado 4/4; formatação, lint e typecheck aprovados; suíte
+  completa passou de 62 para 64 testes; build estático aprovado; E2E 30/30 em
+  desktop/mobile.
+- **Passada de negação**: endpoint, tabela, credenciais, expiração, rate limit,
+  descarte real de IP, CSP e debug de produção não foram implementados; todos
+  permanecem explicitamente em `ANA-003/004`. O cliente ativo continua
+  `NoopAnalytics`.
+- **Bloqueios**: nenhum para `D0-005`. `INT-001`, `INT-004` e `SEO-003`
+  continuam dependentes de suas decisões/contratos próprios.
+- **Arquivos não commitados**: nenhum após o commit atômico.
+- **Branch**: `codex/d0-005-decision-handoff`
+- **Orçamento na parada**: contexto 28,0% · quota semanal 22,0%, com reset em
+  2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
+- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `D0-005`

@@ -1,6 +1,6 @@
 # Controle de validação e aprovação — LEG-001
 
-Versão do controle: 1.0
+Versão do controle: 1.1
 Data de liberação: 2026-07-27
 Status: aprovado para publicação
 
@@ -8,7 +8,7 @@ Status: aprovado para publicação
 
 | Documento | Versão | Estado | Rota pública |
 |---|---:|---|---|
-| `PRIVACIDADE.md` | 1.0 | aprovado | `/privacidade` |
+| `PRIVACIDADE.md` | 1.1 | aprovado | `/privacidade` |
 | `TERMOS.md` | 1.0 | aprovado | `/termos` |
 | `PRIVACIDADE-RASCUNHO.md` | 0.1 | histórico, não publicável | — |
 | `TERMOS-RASCUNHO.md` | 0.1 | histórico, não publicável | — |
@@ -24,8 +24,8 @@ Status: aprovado para publicação
 | categorias e finalidades | Produto/Técnica | conta, carteira financeira, suporte e segurança |
 | fornecedores | Produto/Técnica | Vercel, Supabase e Google/Gmail |
 | transferência internacional | Produto/Privacidade | possível conforme infraestrutura dos fornecedores |
-| retenção e exclusão | Produto/Privacidade | necessidade operacional/legal; app ou suporte; sem promessa imediata |
-| cookies e analytics | Técnica/Privacidade | landing sem marketing, cookie ou analytics ativo |
+| retenção e exclusão | Produto/Privacidade | app/suporte conforme necessidade; eventos brutos de analytics por até 90 dias |
+| cookies e analytics | Técnica/Privacidade | first-party aprovado, ainda `noop`; sem cookie, storage, pixel, SDK externo ou identificador persistente |
 | crianças e adolescentes | Produto | serviço não direcionado especificamente a crianças; canal para responsáveis |
 | preço | Produto | gratuito na validação, sem cobrança automática |
 | propriedade e licenças | Produto | uso não transfere direitos; terceiros preservam licenças |
@@ -40,14 +40,16 @@ Status: aprovado para publicação
 | validação factual do MVP simplificado | Bruno Araujo, responsável pelo projeto | 2026-07-27 | concluída |
 | aprovação jurídica comunicada pelo projeto | Bruno Araujo, responsável pelo projeto | 2026-07-24 | confirmada em `AD-004` |
 | aceite final para publicação | Bruno Araujo, operador e responsável pelo projeto | 2026-07-27 | concluído |
+| aprovação da Política 1.1 e da regra de analytics | Bruno Araujo, operador e responsável pelo projeto | 2026-07-27 | confirmada em `D0-005` |
 
 ## Regra de liberação
 
-As versões 1.0 foram limitadas aos fatos confirmados do MVP gratuito operado por
-pessoa física. Ativar cobrança, analytics, publicidade, novos fornecedores ou
-novas categorias de dados exige revisão antes do deploy correspondente. As
-minutas 0.1 permanecem somente como histórico e não são fonte do conteúdo
-público.
+Os Termos 1.0 e a Política 1.1 foram limitados aos fatos confirmados do MVP
+gratuito operado por pessoa física. A Política 1.1 autoriza somente o analytics
+first-party delimitado em `D0-005`; a coleta continua desativada até os gates de
+`ANA-003`. Cobrança, publicidade, novos fornecedores, identificadores ou novas
+categorias de dados exigem revisão antes do deploy correspondente. As minutas
+0.1 permanecem somente como histórico e não são fonte do conteúdo público.
 
 ## Verificações obrigatórias antes da liberação
 
@@ -63,7 +65,8 @@ público.
 
 ## Resultado da liberação
 
-Em 2026-07-27, todas as verificações acima foram aprovadas. O build estático
-gerou `/privacidade` e `/termos`; os testes automatizados confirmaram conteúdo,
-SEO, exclusão do sitemap e ausência de analytics. A publicação remota ocorrerá
-no próximo deploy da branch integrada na Vercel.
+Em 2026-07-27, as verificações das versões publicáveis foram aprovadas. O build
+estático gera `/privacidade` e `/termos`; os testes automatizados confirmam
+conteúdo, SEO, exclusão do sitemap e cliente analytics ainda `noop`. A política
+1.1 antecipa com transparência a coleta first-party aprovada, que só poderá ser
+ativada após `ANA-003`.

@@ -101,7 +101,8 @@ preço ou beta são proibidas até nova decisão comercial explícita e rastreá
 - URL e domínio de produção do app.
 - Contrato de abertura direta do cadastro.
 - Tratamento de UTMs e atribuição no app.
-- Provedor de analytics e regra de consentimento.
+- Implementação do analytics first-party aprovado em `DEC-006/007`, ainda
+  condicionada aos gates de `ANA-003/004`.
 - logotipo e screenshots finais aprovados.
 - conteúdo jurídico aprovado e canal público de suporte.
 - domínio, hospedagem, Search Console e política de previews.

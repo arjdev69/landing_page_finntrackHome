@@ -16,7 +16,7 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
           {privacySeo.heading}
         </h1>
         <p class="mt-4 text-sm leading-6 text-muted">
-          Versão 1.0 · Vigente desde 27 de julho de 2026
+          Versão 1.1 · Vigente desde 27 de julho de 2026
         </p>
         <p class="mt-5 text-base leading-7 text-muted">
           Esta política explica de forma prática como o FinnTrack Home utiliza dados pessoais
@@ -60,8 +60,14 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
             </li>
           </ul>
           <p>
-            A landing pública não possui formulário, não cria conta e, nesta versão, não utiliza
-            pixel publicitário, cookie de marketing ou provedor de analytics.
+            A landing pública não possui formulário nem cria conta. O analytics first-party aprovado
+            permanece desativado até concluir os gates técnicos. Quando ativado, poderá registrar
+            eventos de interação, o caminho fixo da página, grupos amplos de dispositivo e origem e
+            somente as UTMs autorizadas.
+          </p>
+          <p>
+            A aplicação não persistirá IP, URL ou referrer completos, cookie, Web Storage, pixel,
+            fingerprint, identificador de conta, sessão ou dispositivo.
           </p>
         </section>
 
@@ -71,13 +77,18 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
           <ul>
             <li>criar e proteger a conta, autenticar o acesso e recuperar credenciais;</li>
             <li>oferecer as funções solicitadas de organização financeira de imóveis;</li>
+            <li>
+              quando o analytics first-party for ativado, entender aquisição e usabilidade durante a
+              validação do produto;
+            </li>
             <li>prestar suporte, responder solicitações e corrigir problemas;</li>
             <li>prevenir fraude, abuso e incidentes de segurança;</li>
             <li>cumprir obrigações legais ou atender autoridades quando exigido por lei.</li>
           </ul>
           <p>
-            O tratamento ocorre para executar o serviço solicitado pelo usuário, adotar medidas
-            necessárias antes da contratação, atender obrigações legais e proteger o serviço e seus
+            A medição first-party terá como base o legítimo interesse documentado, com minimização e
+            salvaguardas. Os demais tratamentos ocorrem para executar o serviço solicitado, adotar
+            medidas anteriores à contratação, atender obrigações legais e proteger o serviço e seus
             usuários. Quando a lei exigir consentimento específico, ele será solicitado
             separadamente.
           </p>
@@ -86,10 +97,11 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
         <section aria-labelledby="privacidade-fornecedores">
           <h2 id="privacidade-fornecedores">4. Fornecedores e compartilhamento</h2>
           <p>
-            Utilizamos a Vercel para hospedagem, o Supabase para autenticação e armazenamento do
-            aplicativo e o Google/Gmail para o canal de suporte. Esses fornecedores tratam dados
-            somente na medida necessária para prestar seus serviços e aplicam seus próprios termos e
-            controles de segurança.
+            Utilizamos a Vercel para hospedagem e futuro endpoint first-party, o Supabase para
+            autenticação, armazenamento do aplicativo e futura tabela dedicada de eventos, e o
+            Google/Gmail para o canal de suporte. Esses fornecedores tratam dados somente na medida
+            necessária para prestar seus serviços e aplicam seus próprios termos e controles de
+            segurança.
           </p>
           <p>
             A infraestrutura desses fornecedores pode envolver processamento fora do Brasil. Não
@@ -110,6 +122,11 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
             contato. Antes de atender pedidos que envolvam uma conta, poderemos solicitar
             informações suficientes para confirmar a identidade do solicitante.
           </p>
+          <p>
+            Quando ativados, eventos brutos de analytics serão excluídos automaticamente em até 90
+            dias. Como não possuem identificador persistente ou vínculo com conta, eles não serão
+            usados para criar perfil individual.
+          </p>
         </section>
 
         <section aria-labelledby="privacidade-direitos">
@@ -117,7 +134,8 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
           <p>
             Nos termos da legislação aplicável, o titular pode solicitar confirmação e acesso,
             correção, informações sobre compartilhamento, portabilidade quando regulamentada,
-            eliminação ou bloqueio quando cabíveis, oposição e revogação do consentimento.
+            eliminação ou bloqueio quando cabíveis, oposição ao analytics first-party e revogação do
+            consentimento quando ele for a base aplicável.
           </p>
           <p>
             As solicitações serão avaliadas considerando a identidade do solicitante, a viabilidade

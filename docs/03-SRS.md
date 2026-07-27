@@ -121,6 +121,7 @@ Prioridades:
 | ANA-005 | MUST | Falha ou bloqueio do provedor NÃO DEVE quebrar a página nem os CTAs. |
 | ANA-006 | MUST | Coleta condicionada a consentimento DEVE permanecer desativada até consentimento válido. |
 | ANA-007 | MUST | Produção DEVE permitir verificar cada evento mínimo em modo de debug ou ferramenta equivalente. |
+| ANA-008 | MUST | O analytics first-party aprovado em `DEC-006/007` NÃO DEVE usar cookie, storage, pixel, SDK externo ou identificador persistente; DEVE descartar IP antes da persistência e excluir eventos brutos em até 90 dias. |
 
 ## 6. Acessibilidade
 

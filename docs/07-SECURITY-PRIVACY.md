@@ -1,15 +1,16 @@
 # Segurança e privacidade
 
-Versão: 0.1.1  
-Status: approved — baseline técnica; conteúdo jurídico permanece pendente  
-Data: 2026-07-15
+Versão: 0.1.2
+Status: approved — baseline, jurídico e política de analytics definidos
+Data: 2026-07-27
 
 ## 1. Escopo de dados
 
-A landing não possui conta, banco de dados, formulário financeiro ou API própria.
-Ela processa localmente URL/referrer, informações técnicas mínimas para analytics
-e interação com conteúdo. O provedor de analytics pode ampliar esse escopo e,
-portanto, não pode ser ativado antes de inventário e decisão de consentimento.
+A landing não possui conta ou formulário financeiro. Ela processa localmente
+URL/referrer allowlisted, informações técnicas mínimas e interação com
+conteúdo. `DEC-006/007` autoriza um endpoint first-party mínimo e uma tabela
+dedicada no Supabase, ainda não implementados; até os gates de `ANA-003`, a
+coleta permanece `noop`.
 
 ## 2. Modelo de ameaças resumido
 
@@ -19,7 +20,7 @@ portanto, não pode ser ativado antes de inventário e decisão de consentimento
 | open redirect | destinos somente por configuração de build validada |
 | XSS em conteúdo/terceiros | conteúdo confiável, sanitização e CSP |
 | supply chain | lockfile, atualização controlada e auditoria |
-| exfiltração por analytics | adaptador, allowlist de propriedades e consentimento |
+| exfiltração por analytics | endpoint first-party, allowlist, descarte de IP, segredo server-side e retenção de 90 dias |
 | indexação de preview | robots + `X-Robots-Tag` + gate automatizado |
 | vazamento por screenshot | dados fictícios e revisão de ativos |
 | falsa alegação de segurança | copy limitada ao comportamento verificável |
@@ -65,7 +66,7 @@ analytics, fontes ou assets externos exige revisar explicitamente as diretivas.
 
 ## 5. Privacidade e consentimento
 
-Antes da produção devem existir:
+Antes de ativar analytics em produção devem existir:
 
 - política de privacidade real, datada e aprovada;
 - termos de uso reais, datados e aprovados;
@@ -74,9 +75,16 @@ Antes da produção devem existir:
 - canal público de solicitações relacionadas a dados;
 - processo para atualização da política quando a instrumentação mudar.
 
-Se a decisão exigir consentimento prévio, analytics/pixels permanecem em noop até
-uma escolha afirmativa válida. Rejeitar deve ser tão simples quanto aceitar, e a
-landing/CTAs continuam funcionais sem consentimento.
+`DEC-006/007` adota legítimo interesse para a medição first-party mínima, sem
+consentimento prévio porque não há cookie, storage, pixel, SDK externo,
+identificador persistente ou correlação com conta. O teste de balanceamento,
+inventário e salvaguardas estão em
+`docs/privacy/D0-005-ANALYTICS-POLICY.md`.
+
+Qualquer mudança que introduza persistência no navegador, identificador, terceiro
+ou nova finalidade exige nova decisão. A landing e os CTAs continuam funcionais
+com `NoopAnalytics`, e solicitações de informação ou oposição usam o canal
+`jobslens.ia@gmail.com`.
 
 ## 6. Screenshots e conteúdo
 
@@ -89,7 +97,9 @@ landing/CTAs continuam funcionais sem consentimento.
 
 ## 7. Resposta e manutenção
 
-Como não há backend, rollback do site é o principal mecanismo de contenção.
+Enquanto `ANA-003` não existe, rollback do site é o principal mecanismo de
+contenção. O futuro endpoint first-party deve possuir kill switch para retornar
+imediatamente ao cliente `noop`.
 Incidente de script/asset de terceiro deve permitir desativação por configuração
 e novo deploy. Dependências e headers devem ser revistos periodicamente e sempre
 que analytics, hospedagem ou fontes externas mudarem.

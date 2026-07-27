@@ -93,26 +93,44 @@ datas de calendário aprovado.
 
 ### DEC-006 — Provedor de analytics
 
-- Status: **Pendente — não bloqueia adaptador, bloqueia produção instrumentada**.
-- Critérios: privacidade, cookies, custo, integração com eventos do app, debug,
-  retenção e exportação.
-- Responsável: Growth/Dados, com validação de Privacidade e responsável técnico.
+- Status: **Aceita; implementação permanece bloqueada até `ANA-003`**.
+- Decisão: usar endpoint first-party de mesma origem com persistência em tabela
+  dedicada no Supabase. O navegador não acessa o banco nem recebe segredo ou SDK
+  de analytics de terceiro.
+- Escopo: somente eventos e propriedades allowlisted em
+  `06-SEO-ANALYTICS-SPEC.md`; debug por consultas/relatório restrito. Métricas de
+  ativação e retenção do produto continuam fora da landing.
+- Operação: eventos brutos expiram em até 90 dias; preview/local usam
+  `NoopAnalytics`; falha, configuração ausente ou kill switch degradam para
+  `noop`.
+- Responsável: Bruno Araujo, com implementação do responsável técnico.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `ANA-003`.
-- Evidência para encerrar: provedor escolhido, inventário técnico, configuração
-  de debug e contrato de eventos aprovados.
+- Data de aceitação: 2026-07-27.
+- Evidência: aprovação explícita do responsável; contrato de eventos e
+  `docs/privacy/D0-005-ANALYTICS-POLICY.md`.
 
 ### DEC-007 — Consentimento, cookies e pixels
 
-- Status: **Pendente — bloqueador de lançamento com terceiros**.
-- Decidir ferramentas autorizadas, base/regra de consentimento, persistência de
-  UTMs e comportamento de rejeição.
-- Default seguro: nenhum pixel publicitário e analytics noop.
-- Responsável: Privacidade/Jurídico, com implementação do responsável técnico.
+- Status: **Aceita para o analytics first-party mínimo**.
+- Base e regra: legítimo interesse documentado por teste de balanceamento para
+  medição de aquisição/usabilidade. Não há banner de consentimento porque a
+  coleta aprovada não usa cookie, Web Storage, pixel, SDK externo, fingerprint,
+  identificador persistente ou correlação com conta.
+- Minimização: o endpoint deve descartar IP e cabeçalhos desnecessários antes da
+  persistência. Nome, e-mail, texto livre, URL/referrer completos e demais dados
+  proibidos continuam rejeitados.
+- Direitos: transparência na política pública e canal
+  `jobslens.ia@gmail.com` para informação e oposição. A landing e os CTAs
+  funcionam integralmente com analytics `noop`.
+- Mudança de escopo: qualquer persistência no navegador, terceiro, identificador
+  ou nova finalidade exige nova decisão, revisão jurídica, atualização da CSP e
+  consentimento quando aplicável.
+- Responsável: Bruno Araujo, com implementação do responsável técnico.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `ANA-003` e de qualquer terceiro em produção.
-- Evidência para encerrar: matriz ferramenta × dados × storage × consentimento,
-  política atualizada e testes de aceitar/rejeitar.
+- Data de aceitação: 2026-07-27.
+- Evidência: aprovação explícita do responsável,
+  `docs/privacy/D0-005-ANALYTICS-POLICY.md`, Política de Privacidade 1.1 e
+  `T-ANA-003`.
 
 ### DEC-008 — Conteúdo jurídico
 

@@ -26,19 +26,21 @@ entre conteúdo, apresentação, analytics e navegação externa.
   controladas; copy da home pode permanecer em módulos tipados.
 
 Astro + TypeScript estrito + Tailwind é a decisão aprovada em `DEC-002`.
-Hospedagem, analytics e gerenciador de consentimento permanecem abertos.
+Hospedagem e analytics first-party estão definidos em `DEC-010` e
+`DEC-006/007`; a implementação do endpoint permanece em `ANA-003`.
 
 ## 3. Contexto e fronteiras
 
 ```text
 Navegador
   ├─ HTML/CSS/assets estáticos ── Hospedagem/CDN
-  ├─ eventos consentidos ─────── Provedor de analytics (pendente)
+  ├─ eventos allowlisted ─────── Endpoint first-party (pendente em ANA-003)
   └─ login/cadastro + UTMs ───── App FinnTrack Home
 
 Landing
   não autentica
-  não acessa Supabase
+  não acessa Supabase diretamente
+  não recebe segredo do Supabase
   não recebe dados financeiros
   não decide ativação dentro do app
 ```
@@ -148,9 +150,9 @@ Comportamento:
 5. ignora chaves desconhecidas e nunca aceita destino vindo do visitante;
 6. analytics observa o clique, mas não cancela a navegação.
 
-Persistência de first-touch além da página atual só será adicionada após decisão
-de atribuição, prazo e consentimento. O MVP não deve criar cookies ou storage
-persistente por suposição.
+Persistência de first-touch além da página atual continua fora da landing. O
+MVP não cria cookies, storage ou identificador persistente; a retenção de
+eventos brutos do analytics first-party é limitada a 90 dias.
 
 ## 8. Analytics por adaptador
 
@@ -163,13 +165,20 @@ interface AnalyticsClient {
 
 Implementações:
 
-- `NoopAnalytics`: padrão seguro em desenvolvimento, preview sem consentimento e
-  falha de configuração;
-- adaptador do provedor: carregado somente conforme política de consentimento;
-- fila curta opcional: apenas se o provedor exigir, sem reter PII.
+- `NoopAnalytics`: padrão seguro em desenvolvimento, preview, configuração
+  incompleta ou falha;
+- adaptador first-party: envia somente o contrato allowlisted para endpoint de
+  mesma origem, sem SDK de terceiro, cookie, storage ou identificador;
+- endpoint server-side: valida schema, descarta IP/cabeçalhos desnecessários e
+  persiste no Supabase com segredo não público e retenção máxima de 90 dias.
 
 Componentes emitem intenção sem conhecer SDK, ID ou consent manager. O adaptador
 faz sanitização final pela allowlist do contrato.
+
+O endpoint e a tabela não fazem parte do build estático da landing e serão
+entregues por `ANA-003`. Até todos os gates de
+`docs/privacy/D0-005-ANALYTICS-POLICY.md` passarem, produção usa
+`NoopAnalytics`.
 
 `lib/analytics/classification.ts` implementa os breakpoints de `device_group`, a
 precedência de `referrer_group` e as allowlists versionadas definidas em
@@ -257,7 +266,8 @@ Pipeline mínimo:
 
 ## 14. Observabilidade e falhas
 
-Não há backend próprio. Falhas relevantes são:
+O único backend planejado é o endpoint first-party mínimo de analytics de
+`ANA-003`. Falhas relevantes são:
 
 - configuração ausente: falha de build;
 - analytics indisponível: degrada para noop;

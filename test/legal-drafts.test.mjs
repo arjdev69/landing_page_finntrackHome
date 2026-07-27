@@ -28,11 +28,13 @@ test('LEG-001 final documents are dated, approved and contain no publication mar
   }
 
   for (const document of [privacy, terms]) {
-    assert.match(document, /Versão: 1\.0/);
     assert.match(document, /Vigência: 2026-07-27/);
     assert.match(document, /Status: aprovado para publicação/);
     assert.match(document, /jobslens\.ia@gmail\.com/);
   }
+
+  assert.match(privacy, /Versão: 1\.1/);
+  assert.match(terms, /Versão: 1\.0/);
 
   for (const page of [privacyPage, termsPage]) {
     assert.match(page, /footerContent\.supportEmail/);
@@ -43,13 +45,18 @@ test('LEG-001 final documents are dated, approved and contain no publication mar
   assert.match(privacy, /Vercel/);
   assert.match(privacy, /Supabase/);
   assert.match(privacy, /Google\/Gmail/);
-  assert.match(
-    privacy,
-    /não utiliza pixel\s+publicitário, cookie de marketing ou provedor de analytics/i,
-  );
+  assert.match(privacy, /analytics first-party aprovado permanece\s+desativado/i);
+  assert.match(privacy, /não persistirá IP[\s\S]*cookie[\s\S]*Web Storage[\s\S]*pixel/i);
+  assert.match(privacy, /legítimo interesse documentado/i);
+  assert.match(privacy, /eventos brutos de analytics[\s\S]*até 90 dias/i);
+  assert.match(privacy, /oposição ao analytics first-party/i);
+  assert.match(privacyPage, /Versão 1\.1/);
+  assert.match(privacyPage, /analytics first-party aprovado/);
+  assert.match(privacyPage, /até 90\s+dias/i);
   assert.match(approval, /Status: aprovado para publicação/);
   assert.match(approval, /validação factual do MVP simplificado[\s\S]*Bruno Araujo/i);
   assert.match(approval, /aceite final para publicação[\s\S]*Bruno Araujo/i);
+  assert.match(approval, /aprovação da Política 1\.1 e da regra de analytics/i);
   assert.match(approval, /T-LEGAL-001/);
   assert.match(approval, /T-PRIV-001/);
 });
