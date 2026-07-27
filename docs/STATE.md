@@ -79,26 +79,25 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 1 — Fundação concluído
-- **Tasks concluídas neste bloco**: `FND-006`
+- **Bloco atual**: Épico 5 — SEO, legal e assets
+- **Tasks concluídas neste bloco**: `ERR-001`
 - **Em andamento (arquivo:linha)**: nenhuma
 - **Próximo passo**: em nova execução, selecionar exatamente uma tarefa pendente
-  e elegível; não iniciar `INT-001` enquanto a estratégia `DEC-013` permanecer
-  proposta.
+  e elegível; `QA-005` está desbloqueada pela hospedagem aceita. Não iniciar
+  `INT-001` enquanto a estratégia `DEC-013` permanecer proposta.
 - **Validação**: teste focado 2/2; formatação, lint e typecheck aprovados; suíte
-  completa 57/57; build explícito com `PUBLIC_ENVIRONMENT=preview`; E2E 30/30;
-  Lighthouse 99/99 e acessibilidade 100/100. O PR #1 foi integrado por squash
-  em `4215628`; GitHub Actions da `main` passou em 3m05s, a Vercel concluiu o
-  deploy de produção e o smoke retornou HTTP 200 em `/`, `/privacidade`,
-  `/termos`, `/robots.txt` e `/sitemap.xml`.
-- **Bloqueios**: nenhum para `FND-006`. O preview não permite smoke anônimo do
-  HTML porque a Vercel intercepta com `X-Matched-Path: /login`; o artefato de
-  preview é validado pelo pipeline. O Actions registrou aviso não bloqueador de
-  runtime Node 20 nas actions v4. `D0-005`, `DEC-012` e `DEC-013` continuam
-  bloqueando seus trabalhos dependentes.
-- **Arquivos não commitados**: nenhum após o commit de fechamento de `FND-006`
-- **Branch**: `main`
-- **Orçamento na parada**: contexto 23,2% · quota semanal 65,0% (medido;
+  completa 59/59; build explícito de produção; E2E 30/30 em desktop/mobile. O PR
+  #2 foi integrado por squash em `f3f71d2`; GitHub Actions da `main` passou em
+  3m06s, a Vercel concluiu o deploy e o smoke de uma URL inexistente retornou
+  HTTP 404 com a página customizada, `noindex,nofollow`, link para a home e
+  nenhuma ocorrência de `landing_view`.
+- **Bloqueios**: nenhum para `ERR-001`. O preview permanece protegido pelo SSO
+  da Vercel e respondeu 302 com `X-Robots-Tag: noindex`; o artefato foi validado
+  pelo pipeline. O Actions registrou aviso não bloqueador de runtime Node 20 nas
+  actions v4. `D0-005`, `DEC-012` e `DEC-013` continuam bloqueando seus trabalhos
+  dependentes.
+- **Arquivos não commitados**: nenhum após o commit de fechamento de `ERR-001`
+- **Branch**: `codex/err-001-rollout`
+- **Orçamento na parada**: contexto 65,4% · quota semanal 56,0% (medido;
   `AMBIGUOUS=0`)
-- **Motivo da parada**: `FND-006` concluída; orçamento em WARN, sem iniciar nova
-  tarefa
+- **Motivo da parada**: `ERR-001` concluída; limite de uma tarefa por execução
