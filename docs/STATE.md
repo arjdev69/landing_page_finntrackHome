@@ -96,20 +96,28 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Bloco atual**: Épico 0 — Decisões e contratos
 - **Tasks concluídas neste bloco**: `D0-005`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: `ANA-003` está desbloqueada, mas não iniciada. Implementar
-  endpoint/tabela e todos os gates de
-  `docs/privacy/D0-005-ANALYTICS-POLICY.md`, mantendo `noop` até a validação.
-- **Validação**: teste focado 4/4; formatação, lint e typecheck aprovados; suíte
-  completa passou de 62 para 64 testes; build estático aprovado; E2E 30/30 em
-  desktop/mobile.
+- **Próximo passo**: configurar no projeto Vercel, sem expor valores no
+  repositório, `SUPABASE_URL` e uma chave de servidor
+  (`SUPABASE_SECRET_KEY` ou equivalente `service_role`) e disponibilizar
+  autorização para aplicar/verificar a migração no projeto Supabase. Depois,
+  executar `ANA-003` inteira: endpoint/tabela, gates da política, testes e
+  ativação do cliente somente após validação.
+- **Validação**: inspeção local confirmou que `.env`, `.env.production` e
+  `.env.example` não declaram configuração Supabase; não existem diretórios
+  `api/` ou `supabase/`; `src/lib/analytics/client.ts` continua instanciando
+  `NoopAnalytics`. O teste focado da política permanece aprovado (2/2).
 - **Passada de negação**: endpoint, tabela, credenciais, expiração, rate limit,
   descarte real de IP, CSP e debug de produção não foram implementados; todos
   permanecem explicitamente em `ANA-003/004`. O cliente ativo continua
   `NoopAnalytics`.
-- **Bloqueios**: nenhum para `D0-005`. `INT-001`, `INT-004` e `SEO-003`
-  continuam dependentes de suas decisões/contratos próprios.
-- **Arquivos não commitados**: nenhum após o commit atômico.
-- **Branch**: `codex/d0-005-decision-handoff`
-- **Orçamento na parada**: contexto 28,0% · quota semanal 22,0%, com reset em
+- **Bloqueios**: `ANA-003` não pode ser concluída nem validada contra o
+  Supabase/Vercel sem a configuração de servidor e autorização externas
+  descritas acima. `INT-001`, `INT-004` e `SEO-003` continuam dependentes de
+  suas decisões/contratos próprios.
+- **Arquivos não commitados**: nenhum após o checkpoint.
+- **Branch**: `codex/ana-003-preflight`
+- **Orçamento na parada**: contexto 86,8% · quota semanal 12,0%, com reset em
   2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `D0-005`
+- **Motivo da parada**: preflight da `ANA-003` encontrou dependência externa
+  ausente antes do início da implementação; nenhuma tarefa foi marcada ou
+  implementada parcialmente neste ciclo.
