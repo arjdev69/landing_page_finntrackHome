@@ -269,8 +269,16 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     Formatação, lint, tipagem, build, 55/55 testes nativos e 30/30 E2E em
     desktop/mobile aprovados.
   - Cobertura: `FR-LEG-001..003`, `PRIV-001..004`.
-- [ ] `ERR-001` Implementar 404 e confirmar status real na hospedagem.
+- [x] `ERR-001` Implementar 404 e confirmar status real na hospedagem.
   - Bloqueado por: `DEC-010` para confirmação do status na hospedagem.
+  - Evidência (2026-07-27): `src/pages/404.astro` gera `404.html` com recuperação
+    acessível para a home, metadados `noindex,nofollow` e layout isolado sem
+    analytics. `test/not-found.test.mjs`, `test/seo.test.mjs` e
+    `test/e2e/p0-home.e2e.mjs` cobrem conteúdo, sitemap, ausência de
+    `landing_view` e status HTTP em desktop/mobile. O PR
+    [#2](https://github.com/arjdev69/landing_page_finntrackHome/pull/2) passou
+    GitGuardian, Vercel e o pipeline completo; após o deploy, uma URL inexistente
+    em produção respondeu HTTP 404 com a página customizada.
   - Cobertura: `FR-ERR-001..002`.
 - [x] `AST-001` Substituir assets provisórios por logo/screenshots finais sem PII.
   - Liberada por `D0-006`; deve recapturar o dashboard sem identidade visível e
@@ -296,9 +304,9 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     redirect arbitrário, ausência de erros no navegador e status 404 HTTP real.
     `npm run test:e2e` passou 10/10; a suíte nativa permaneceu separada e passou
     51/51, além de formatação, lint, tipagem e build. A tarefa permanece aberta
-    para cadastro/login reais (`INT-004`), `/entrar` (`INT-001`), experiência
-    404 (`ERR-001`) e consentimento (`ANA-003`); páginas legais foram concluídas
-    em `LEG-001`.
+    para cadastro/login reais (`INT-004`), `/entrar` (`INT-001`) e consentimento
+    (`ANA-003`); páginas legais foram concluídas em `LEG-001` e a experiência 404
+    em `ERR-001`.
 - [ ] `QA-002` Executar auditoria manual/automática WCAG 2.2 AA.
   - Evidência parcial (2026-07-22): `@axe-core/playwright` e a suíte
     `test/e2e/accessibility.e2e.mjs` cobrem Axe WCAG A/AA, teclado, foco,
