@@ -39,16 +39,16 @@ export function buildContentSecurityPolicy({ environment, inlineScriptHashes = [
   return directives.join('; ');
 }
 
-export function buildSecurityHeaders({ environment, html }) {
+export function buildSecurityHeaders({ environment, html = '', inlineScriptHashes }) {
   if (!new Set(['preview', 'production']).has(environment)) {
     throw new Error(`Ambiente de headers inválido: ${environment}`);
   }
 
-  const inlineScriptHashes = extractInlineScriptHashes(html);
+  const resolvedInlineScriptHashes = inlineScriptHashes ?? extractInlineScriptHashes(html);
   const headers = {
     'Content-Security-Policy': buildContentSecurityPolicy({
       environment,
-      inlineScriptHashes,
+      inlineScriptHashes: resolvedInlineScriptHashes,
     }),
     'Permissions-Policy': 'camera=(), geolocation=(), microphone=(), payment=(), usb=()',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
@@ -63,5 +63,5 @@ export function buildSecurityHeaders({ environment, html }) {
     headers['X-Robots-Tag'] = 'noindex, nofollow';
   }
 
-  return { headers, inlineScriptHashes };
+  return { headers, inlineScriptHashes: resolvedInlineScriptHashes };
 }

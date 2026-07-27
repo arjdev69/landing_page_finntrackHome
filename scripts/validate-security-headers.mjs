@@ -7,7 +7,8 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath, URL } from 'node:url';
 import { chromium } from '@playwright/test';
-import { buildSecurityHeaders } from './security-headers.mjs';
+import { createVercelConfig, deployedInlineScriptHashes } from '../vercel.mjs';
+import { buildSecurityHeaders, extractInlineScriptHashes } from './security-headers.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -85,11 +86,36 @@ async function startServer(headers) {
   return { server, url: `http://127.0.0.1:${address.port}` };
 }
 
+function readConfiguredHeaders(environment) {
+  const config = createVercelConfig(environment);
+  assert.equal(config.headers.length, 1);
+  assert.equal(config.headers[0].source, '/(.*)');
+  return Object.fromEntries(config.headers[0].headers.map(({ key, value }) => [key, value]));
+}
+
 await runBuild();
 
 const html = await readFile(path.join(dist, 'index.html'), 'utf8');
-const preview = buildSecurityHeaders({ environment: 'preview', html });
-const production = buildSecurityHeaders({ environment: 'production', html });
+const generatedInlineScriptHashes = extractInlineScriptHashes(html);
+assert.deepEqual(
+  generatedInlineScriptHashes,
+  deployedInlineScriptHashes,
+  'O hash CSP publicado diverge dos scripts inline do build',
+);
+
+const previewHeaders = readConfiguredHeaders('preview');
+const productionHeaders = readConfiguredHeaders('production');
+const preview = buildSecurityHeaders({
+  environment: 'preview',
+  inlineScriptHashes: generatedInlineScriptHashes,
+});
+const production = buildSecurityHeaders({
+  environment: 'production',
+  inlineScriptHashes: generatedInlineScriptHashes,
+});
+
+assert.deepEqual(previewHeaders, preview.headers, 'Mapeamento Vercel de preview divergente');
+assert.deepEqual(productionHeaders, production.headers, 'Mapeamento Vercel de produção divergente');
 
 assert(preview.inlineScriptHashes.length > 0, 'O script inline do build precisa de hash CSP');
 assert(!production.headers['Content-Security-Policy'].includes("'unsafe-inline'"));
@@ -116,7 +142,7 @@ await writeFile(
   )}\n`,
 );
 
-const { server, url } = await startServer(preview.headers);
+const { server, url } = await startServer(previewHeaders);
 let browser;
 
 try {

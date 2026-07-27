@@ -1,10 +1,23 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import minimatch from 'minimatch';
 import {
   buildContentSecurityPolicy,
   buildSecurityHeaders,
   extractInlineScriptHashes,
 } from '../scripts/security-headers.mjs';
+import {
+  createVercelConfig,
+  deployedInlineScriptHashes,
+  resolveVercelEnvironment,
+} from '../vercel.mjs';
+
+function readConfiguredHeaders(environment) {
+  const config = createVercelConfig(environment);
+  assert.equal(config.headers.length, 1);
+  assert.equal(config.headers[0].source, '/(.*)');
+  return Object.fromEntries(config.headers[0].headers.map(({ key, value }) => [key, value]));
+}
 
 test('gera hashes CSP determinísticos apenas para scripts inline', () => {
   const html = '<script type="module">console.log("ok")</script><script src="/app.js"></script>';
@@ -50,4 +63,28 @@ test('rejeita ambiente não documentado', () => {
     () => buildSecurityHeaders({ environment: 'staging', html: '' }),
     /Ambiente de headers inválido/,
   );
+});
+
+test('mapeia o contrato portátil para todos os caminhos da Vercel', () => {
+  for (const environment of ['preview', 'production']) {
+    const expected = buildSecurityHeaders({
+      environment,
+      inlineScriptHashes: deployedInlineScriptHashes,
+    }).headers;
+
+    assert.deepEqual(readConfiguredHeaders(environment), expected);
+  }
+});
+
+test('trata somente o ambiente production da Vercel como produção', () => {
+  assert.equal(resolveVercelEnvironment('production'), 'production');
+  assert.equal(resolveVercelEnvironment('preview'), 'preview');
+  assert.equal(resolveVercelEnvironment('development'), 'preview');
+  assert.equal(resolveVercelEnvironment(undefined), 'preview');
+});
+
+test('mantém a API legada sobre o minimatch corrigido para os gates de lint', () => {
+  assert.equal(minimatch('src/pages/index.astro', '**/*.astro'), true);
+  assert.equal(typeof minimatch.Minimatch, 'function');
+  assert.equal(new minimatch.Minimatch('**/*.astro').match('src/pages/index.astro'), true);
 });

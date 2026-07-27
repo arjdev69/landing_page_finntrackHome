@@ -70,6 +70,9 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Validate security headers and dependencies
+        run: npm run test:security
+
       - name: Run end-to-end and accessibility tests
         run: npm run test:e2e
 
