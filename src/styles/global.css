@@ -75,6 +75,51 @@
   }
 }
 
+@layer components {
+  .legal-content {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+  }
+
+  .legal-content section {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .legal-content h2 {
+    font-size: 1.375rem;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .legal-content p,
+  .legal-content li {
+    color: var(--color-muted);
+    line-height: 1.75;
+  }
+
+  .legal-content ul {
+    display: grid;
+    gap: 0.625rem;
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+
+  .legal-content strong {
+    color: var(--color-foreground);
+  }
+
+  .legal-content a {
+    color: var(--color-action);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -1,37 +1,73 @@
 import assert from 'node:assert/strict';
-import { access, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { URL } from 'node:url';
 
-const privacyUrl = new URL('../docs/legal/PRIVACIDADE-RASCUNHO.md', import.meta.url);
-const termsUrl = new URL('../docs/legal/TERMOS-RASCUNHO.md', import.meta.url);
+const privacyUrl = new URL('../docs/legal/PRIVACIDADE.md', import.meta.url);
+const termsUrl = new URL('../docs/legal/TERMOS.md', import.meta.url);
 const approvalUrl = new URL('../docs/legal/APROVACAO-LEGAL.md', import.meta.url);
+const privacyPageUrl = new URL('../src/pages/privacidade.astro', import.meta.url);
+const termsPageUrl = new URL('../src/pages/termos.astro', import.meta.url);
+const legalLayoutUrl = new URL('../src/layouts/LegalLayout.astro', import.meta.url);
 
-test('LEG-001 drafts are dated, traceable and explicitly blocked from publication', async () => {
-  const [privacy, terms, approval] = await Promise.all([
+const forbiddenPublicationMarkers =
+  /RASCUNHO|NÃO APROVADO|placeholder|lorem ipsum|TODO|TBD|\[preencher\]|não identificado|vigência: não definida/i;
+
+test('LEG-001 final documents are dated, approved and contain no publication markers', async () => {
+  const [privacy, terms, approval, privacyPage, termsPage] = await Promise.all([
     readFile(privacyUrl, 'utf8'),
     readFile(termsUrl, 'utf8'),
     readFile(approvalUrl, 'utf8'),
+    readFile(privacyPageUrl, 'utf8'),
+    readFile(termsPageUrl, 'utf8'),
   ]);
 
-  for (const document of [privacy, terms]) {
-    assert.match(document, /^# RASCUNHO — NÃO APROVADO PARA PUBLICAÇÃO/m);
-    assert.match(document, /Data da minuta: 2026-07-21/);
-    assert.match(document, /jobslens\.ia@gmail\.com/);
-    assert.doesNotMatch(document, /lorem ipsum|TODO|TBD|\[preencher\]/i);
+  for (const document of [privacy, terms, privacyPage, termsPage]) {
+    assert.doesNotMatch(document, forbiddenPublicationMarkers);
+    assert.match(document, /Bruno\s+Araujo/);
   }
 
-  assert.match(approval, /Status: bloqueado para publicação/);
-  assert.match(approval, /validação factual[\s\S]*pendente/i);
-  assert.match(approval, /revisão jurídica brasileira[\s\S]*pendente/i);
-  assert.match(approval, /aceite final para publicação[\s\S]*pendente/i);
-  assert.doesNotMatch(approval, /agente jurídico/i);
-  assert.match(approval, /agente de IA não aprovador/);
+  for (const document of [privacy, terms]) {
+    assert.match(document, /Versão: 1\.0/);
+    assert.match(document, /Vigência: 2026-07-27/);
+    assert.match(document, /Status: aprovado para publicação/);
+    assert.match(document, /jobslens\.ia@gmail\.com/);
+  }
+
+  for (const page of [privacyPage, termsPage]) {
+    assert.match(page, /footerContent\.supportEmail/);
+  }
+
+  assert.match(terms, /gratuito durante a fase atual de validação/i);
+  assert.match(terms, /não gera assinatura ou\s+cobrança automática/i);
+  assert.match(privacy, /Vercel/);
+  assert.match(privacy, /Supabase/);
+  assert.match(privacy, /Google\/Gmail/);
+  assert.match(
+    privacy,
+    /não utiliza pixel\s+publicitário, cookie de marketing ou provedor de analytics/i,
+  );
+  assert.match(approval, /Status: aprovado para publicação/);
+  assert.match(approval, /validação factual do MVP simplificado[\s\S]*Bruno Araujo/i);
+  assert.match(approval, /aceite final para publicação[\s\S]*Bruno Araujo/i);
   assert.match(approval, /T-LEGAL-001/);
   assert.match(approval, /T-PRIV-001/);
 });
 
-test('LEG-001 does not leak unapproved drafts into public routes', async () => {
-  await assert.rejects(access(new URL('../src/pages/privacidade.astro', import.meta.url)));
-  await assert.rejects(access(new URL('../src/pages/termos.astro', import.meta.url)));
+test('LEG-001 public routes use the isolated legal layout and approved SEO definitions', async () => {
+  const [privacyPage, termsPage, legalLayout] = await Promise.all([
+    readFile(privacyPageUrl, 'utf8'),
+    readFile(termsPageUrl, 'utf8'),
+    readFile(legalLayoutUrl, 'utf8'),
+  ]);
+
+  assert.match(privacyPage, /LegalLayout \{\.\.\.privacySeo\}/);
+  assert.match(termsPage, /LegalLayout \{\.\.\.termsSeo\}/);
+  assert.match(privacyPage, /id="main-content"/);
+  assert.match(termsPage, /id="main-content"/);
+  assert.match(legalLayout, /Pular para o conteúdo/);
+  assert.match(legalLayout, /Voltar ao início/);
+  assert.match(legalLayout, /href="\/privacidade"/);
+  assert.match(legalLayout, /href="\/termos"/);
+  assert.doesNotMatch(legalLayout, /AnalyticsInstrumentation|AppLinkEnhancer/);
 });

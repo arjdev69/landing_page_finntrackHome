@@ -251,20 +251,16 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 - [ ] `SEO-003` Adicionar apenas dados estruturados aprovados e testar.
   - Bloqueado por: `DEC-012`.
   - Cobertura: `SEO-010..011`.
-- [ ] `LEG-001` Publicar privacidade e termos aprovados.
-  - A elaboração foi liberada por `D0-006`; conclusão e publicação exigem
-    validação factual, revisão jurídica humana e aceite final registrados,
-    conforme `DEC-008`.
-  - Evidência parcial (2026-07-21): minutas 0.1 de Política de Privacidade e
-    Termos, mais matriz factual e controle de aprovações, criados em `docs/legal/`
-    com aviso explícito de não publicação. Revisão consultiva do agente de IA
-    confirmou fatos da landing, separou o app não validado e enumerou lacunas de
-    controlador, tratamentos, fornecedores, bases legais, retenção e condições
-    comerciais. `test/legal-drafts.test.mjs` garante data/status, ausência de
-    placeholders e inexistência das rotas públicas. A tarefa permanece aberta
-    até validação factual, advogado/assessoria identificada e aceite do
-    representante legal; nenhum rascunho entrou no build. Formatação, lint,
-    tipagem, build e 51/51 testes aprovados.
+- [x] `LEG-001` Publicar privacidade e termos aprovados.
+  - Evidência (2026-07-27): versões 1.0 aprovadas em
+    `docs/legal/PRIVACIDADE.md` e `docs/legal/TERMOS.md`, com matriz factual e
+    aceites registrados em `docs/legal/APROVACAO-LEGAL.md`. As rotas estáticas
+    `/privacidade` e `/termos` usam layout isolado, contato centralizado,
+    canonical próprio e `noindex,follow`; permanecem fora do sitemap e não
+    carregam analytics. `test/legal-drafts.test.mjs` e `test/seo.test.mjs`
+    verificam conteúdo, aprovação, ausência de placeholders e o HTML gerado.
+    Formatação, lint, tipagem, build, 55/55 testes nativos e 30/30 E2E em
+    desktop/mobile aprovados.
   - Cobertura: `FR-LEG-001..003`, `PRIV-001..004`.
 - [ ] `ERR-001` Implementar 404 e confirmar status real na hospedagem.
   - Bloqueado por: `DEC-010` para confirmação do status na hospedagem.
@@ -293,8 +289,9 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     redirect arbitrário, ausência de erros no navegador e status 404 HTTP real.
     `npm run test:e2e` passou 10/10; a suíte nativa permaneceu separada e passou
     51/51, além de formatação, lint, tipagem e build. A tarefa permanece aberta
-    para cadastro/login reais (`INT-004`), `/entrar` (`INT-001`), páginas legais
-    (`LEG-001`), experiência 404 (`ERR-001`) e consentimento (`ANA-003`).
+    para cadastro/login reais (`INT-004`), `/entrar` (`INT-001`), experiência
+    404 (`ERR-001`) e consentimento (`ANA-003`); páginas legais foram concluídas
+    em `LEG-001`.
 - [ ] `QA-002` Executar auditoria manual/automática WCAG 2.2 AA.
   - Evidência parcial (2026-07-22): `@axe-core/playwright` e a suíte
     `test/e2e/accessibility.e2e.mjs` cobrem Axe WCAG A/AA, teclado, foco,

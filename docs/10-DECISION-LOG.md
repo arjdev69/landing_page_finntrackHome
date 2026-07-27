@@ -116,8 +116,7 @@ datas de calendário aprovado.
 
 ### DEC-008 — Conteúdo jurídico
 
-- Status: **Aceita quanto à governança — conteúdo e publicação permanecem
-  bloqueados até a aprovação final**.
+- Status: **Aceita; versão simplificada 1.0 liberada para publicação**.
 - Decisão: um agente de IA pode apoiar a pesquisa em fontes oficiais, a
   organização e a redação inicial, desde que cada documento seja identificado
   como “RASCUNHO — NÃO APROVADO PARA PUBLICAÇÃO”. Conteúdo placeholder, fatos
@@ -135,6 +134,13 @@ datas de calendário aprovado.
   transferência, cookies ou condições comerciais.
 - Data de registro: 2026-07-15.
 - Data de aceitação da governança: 2026-07-21.
+- Data de liberação do conteúdo 1.0: 2026-07-27.
+- Escopo liberado: MVP gratuito operado por Bruno Araujo como pessoa física,
+  sem cobrança automática, analytics, publicidade ou restrição rígida de idade.
+  O serviço não é direcionado especificamente a crianças.
+- Aceite: aprovação jurídica comunicada pelo responsável do projeto em
+  `AD-004`; validação factual e aceite final registrados por Bruno Araujo em
+  `docs/legal/APROVACAO-LEGAL.md`.
 - Evidência: autorização do responsável solicitante para elaboração assistida e
   fluxo conservador baseado na LGPD, nas orientações da ANPD e no CDC. A
   governança está definida por `D0-006`; as versões datadas e a aprovação humana

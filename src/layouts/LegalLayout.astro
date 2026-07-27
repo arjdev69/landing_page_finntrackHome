@@ -1,0 +1,73 @@
+---
+import Container from '@components/ui/Container.astro';
+import SeoHead from '@components/seo/SeoHead.astro';
+import { footerContent } from '@config/home-content';
+import { getRuntimeSiteConfig, siteConfig } from '@config/site';
+import { resolveSeoMetadata, type PageSeoDefinition } from '@lib/seo/metadata';
+import '@styles/global.css';
+
+type Props = PageSeoDefinition;
+
+const runtimeConfig = getRuntimeSiteConfig(Astro.url);
+const metadata = resolveSeoMetadata(runtimeConfig.origin, Astro.props, runtimeConfig.environment);
+const supportHref = `mailto:${footerContent.supportEmail}`;
+const currentYear = new Date().getUTCFullYear();
+---
+
+<!doctype html>
+<html lang={siteConfig.language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SeoHead {...metadata} />
+  </head>
+  <body class="bg-background text-foreground">
+    <a
+      class="absolute top-3 left-3 z-50 -translate-y-24 rounded-control bg-foreground px-4 py-3 font-semibold text-white transition-transform focus:translate-y-0 motion-reduce:transition-none"
+      href="#main-content"
+    >
+      Pular para o conteúdo
+    </a>
+
+    <header class="border-b border-border bg-surface py-3">
+      <Container>
+        <div class="flex min-h-12 items-center justify-between gap-4">
+          <a
+            class="inline-flex min-h-11 items-center rounded-control font-semibold text-foreground"
+            href="/"
+            aria-label="FinnTrack Home — página inicial"
+          >
+            <span class="text-action">FinnTrack</span>&nbsp;Home
+          </a>
+          <a
+            class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-semibold text-foreground underline decoration-border-strong underline-offset-4 hover:bg-background"
+            href="/"
+          >
+            Voltar ao início
+          </a>
+        </div>
+      </Container>
+    </header>
+
+    <slot />
+
+    <footer class="border-t border-border bg-surface py-8" aria-label="Rodapé">
+      <Container size="reading">
+        <nav aria-label="Navegação legal">
+          <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+            <li><a class="underline underline-offset-4" href="/">Início</a></li>
+            <li>
+              <a class="underline underline-offset-4" href="/privacidade">Privacidade</a>
+            </li>
+            <li><a class="underline underline-offset-4" href="/termos">Termos</a></li>
+            <li><a class="underline underline-offset-4" href={supportHref}>Suporte</a></li>
+          </ul>
+        </nav>
+        <p class="mt-5 text-sm leading-6 text-muted">
+          © {currentYear}
+          {siteConfig.name}. Projeto independente operado por Bruno Araujo.
+        </p>
+      </Container>
+    </footer>
+  </body>
+</html>

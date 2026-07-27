@@ -1,0 +1,155 @@
+---
+import Container from '@components/ui/Container.astro';
+import { footerContent } from '@config/home-content';
+import { termsSeo } from '@config/site';
+import LegalLayout from '@layouts/LegalLayout.astro';
+
+const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Home%20%E2%80%94%20Suporte`;
+---
+
+<LegalLayout {...termsSeo}>
+  <main id="main-content" tabindex="-1">
+    <Container size="reading" class="py-12 sm:py-16">
+      <header class="border-b border-border pb-8">
+        <p class="text-sm font-semibold tracking-wide text-action uppercase">Documento legal</p>
+        <h1 class="mt-3 text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
+          {termsSeo.heading}
+        </h1>
+        <p class="mt-4 text-sm leading-6 text-muted">
+          Versão 1.0 · Vigente desde 27 de julho de 2026
+        </p>
+        <p class="mt-5 text-base leading-7 text-muted">
+          Estes termos apresentam as condições práticas de uso do FinnTrack Home durante a fase
+          gratuita de validação do produto.
+        </p>
+      </header>
+
+      <div class="legal-content">
+        <section aria-labelledby="termos-responsavel">
+          <h2 id="termos-responsavel">1. Responsável e aceite</h2>
+          <p>
+            O FinnTrack Home é um projeto independente operado no Brasil por
+            <strong>Bruno Araujo</strong>. Ao criar uma conta ou utilizar o aplicativo, o usuário
+            declara que leu e concorda com estes Termos e com a
+            <a href="/privacidade">Política de Privacidade</a>.
+          </p>
+          <p>
+            Dúvidas podem ser enviadas para
+            <a href={supportHref}>{footerContent.supportEmail}</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-servico">
+          <h2 id="termos-servico">2. O serviço</h2>
+          <p>
+            O FinnTrack Home ajuda o usuário a cadastrar imóveis, registrar receitas e despesas,
+            acompanhar contas e visualizar resultados financeiros por período.
+          </p>
+          <p>
+            O serviço é uma ferramenta de organização. Ele não substitui imobiliária, contador,
+            advogado ou consultoria tributária, financeira ou de investimentos e não garante lucro
+            ou rentabilidade.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-gratuidade">
+          <h2 id="termos-gratuidade">3. Fase gratuita de validação</h2>
+          <p>
+            O uso é gratuito durante a fase atual de validação e não gera assinatura ou cobrança
+            automática. Se forem criados planos pagos no futuro, preços e condições serão
+            apresentados previamente, e nenhuma cobrança será iniciada sem ação e aceite do usuário.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-conta">
+          <h2 id="termos-conta">4. Conta e responsabilidades do usuário</h2>
+          <p>
+            O usuário deve fornecer informações legítimas, manter suas credenciais protegidas e
+            comunicar suspeitas de acesso não autorizado. Também é responsável pela exatidão dos
+            registros inseridos e pelas decisões tomadas com base neles.
+          </p>
+          <p>
+            Se uma pessoa que ainda dependa de representação ou assistência legal utilizar o
+            serviço, seu responsável deverá acompanhar o uso e as informações fornecidas.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-uso">
+          <h2 id="termos-uso">5. Uso permitido</h2>
+          <p>Não é permitido utilizar o serviço para:</p>
+          <ul>
+            <li>praticar fraude, violar a lei ou direitos de terceiros;</li>
+            <li>tentar acessar contas, dados ou áreas sem autorização;</li>
+            <li>interferir na segurança, disponibilidade ou funcionamento do produto;</li>
+            <li>inserir conteúdo malicioso ou dados pessoais de terceiros sem legitimidade.</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="termos-disponibilidade">
+          <h2 id="termos-disponibilidade">6. Disponibilidade e mudanças</h2>
+          <p>
+            O produto está em validação e pode receber correções, alterações ou interrupções. Não há
+            SLA de disponibilidade ou suporte. Buscaremos comunicar mudanças materiais e evitar
+            perda indevida de dados, sem prometer funcionamento contínuo ou livre de falhas.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-privacidade">
+          <h2 id="termos-privacidade">7. Dados e privacidade</h2>
+          <p>
+            O tratamento de dados pessoais segue a
+            <a href="/privacidade">Política de Privacidade</a>. O usuário deve evitar inserir
+            informações pessoais de terceiros quando isso não for necessário ou autorizado.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-propriedade">
+          <h2 id="termos-propriedade">8. Software e conteúdo</h2>
+          <p>
+            O uso do serviço não transfere ao usuário direitos sobre o software, a identidade visual
+            ou os materiais do FinnTrack Home. Componentes de terceiros continuam sujeitos às
+            respectivas licenças. O usuário mantém os direitos que possuir sobre os dados que insere
+            e concede somente as permissões necessárias para operar o serviço.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-encerramento">
+          <h2 id="termos-encerramento">9. Suspensão e encerramento</h2>
+          <p>
+            O acesso pode ser restringido em caso de risco de segurança, uso abusivo ou violação
+            destes Termos. Sempre que razoável, o usuário será informado e poderá solicitar
+            esclarecimentos.
+          </p>
+          <p>
+            O usuário pode deixar de utilizar o serviço e solicitar a exclusão da conta pelas opções
+            do aplicativo ou pelo canal de suporte. A conservação de dados seguirá a Política de
+            Privacidade e as obrigações legais aplicáveis.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-responsabilidade">
+          <h2 id="termos-responsabilidade">10. Responsabilidade</h2>
+          <p>
+            Cada parte responde por seus próprios atos nos limites da legislação aplicável. Nenhuma
+            disposição destes Termos exclui direitos obrigatórios do usuário. O FinnTrack Home não
+            se responsabiliza por decisões financeiras tomadas exclusivamente com base em registros
+            incorretos, incompletos ou desatualizados inseridos pelo usuário.
+          </p>
+        </section>
+
+        <section aria-labelledby="termos-atualizacoes">
+          <h2 id="termos-atualizacoes">11. Atualizações, legislação e contato</h2>
+          <p>
+            Estes Termos podem ser atualizados para refletir mudanças no produto ou na legislação.
+            Alterações materiais serão comunicadas de forma adequada. Aplica-se a legislação
+            brasileira, sem afastar direitos obrigatórios do consumidor quando cabíveis.
+          </p>
+          <p>
+            Contato:
+            <a href={supportHref}>{footerContent.supportEmail}</a>.
+          </p>
+        </section>
+      </div>
+    </Container>
+  </main>
+</LegalLayout>

@@ -21,6 +21,26 @@ export const homeSeo = Object.freeze({
   type: 'website',
 }) satisfies PageSeoDefinition;
 
+export const privacySeo = Object.freeze({
+  title: 'Política de Privacidade | FinnTrack Home',
+  description:
+    'Entenda quais dados o FinnTrack Home utiliza, para quais finalidades e como solicitar acesso, correção ou exclusão.',
+  canonicalPath: '/privacidade',
+  heading: 'Política de Privacidade',
+  robots: 'noindex,follow',
+  type: 'article',
+}) satisfies PageSeoDefinition;
+
+export const termsSeo = Object.freeze({
+  title: 'Termos de Uso | FinnTrack Home',
+  description:
+    'Conheça as condições de uso do FinnTrack Home durante a fase gratuita de validação do produto.',
+  canonicalPath: '/termos',
+  heading: 'Termos de Uso',
+  robots: 'noindex,follow',
+  type: 'article',
+}) satisfies PageSeoDefinition;
+
 export function getRuntimeSiteConfig(fallbackUrl: URL): Readonly<{
   environment: PublicEnvironment;
   origin: string;

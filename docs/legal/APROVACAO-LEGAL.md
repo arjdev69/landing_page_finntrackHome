@@ -1,55 +1,53 @@
 # Controle de validação e aprovação — LEG-001
 
-Versão do controle: 0.1  
-Data: 2026-07-21  
-Status: bloqueado para publicação
+Versão do controle: 1.0
+Data de liberação: 2026-07-27
+Status: aprovado para publicação
 
 ## Documentos sob controle
 
 | Documento | Versão | Estado | Rota pública |
 |---|---:|---|---|
-| `PRIVACIDADE-RASCUNHO.md` | 0.1 | minuta não aprovada | não criada |
-| `TERMOS-RASCUNHO.md` | 0.1 | minuta não aprovada | não criada |
+| `PRIVACIDADE.md` | 1.0 | aprovado | `/privacidade` |
+| `TERMOS.md` | 1.0 | aprovado | `/termos` |
+| `PRIVACIDADE-RASCUNHO.md` | 0.1 | histórico, não publicável | — |
+| `TERMOS-RASCUNHO.md` | 0.1 | histórico, não publicável | — |
 
 ## Matriz factual bloqueadora
 
 | Item | Responsável pela confirmação | Estado |
 |---|---|---|
-| identidade, documento, endereço e representantes do controlador de dados | Produto/representante legal | pendente |
-| identidade, documento, endereço e representantes do fornecedor contratual | Produto/representante legal | pendente |
-| relação entre controlador, fornecedor e operadores | Privacidade/Jurídico | pendente |
-| escopo: Política cobre landing, app e atendimento? Termos cobrem landing e app? | Produto/Jurídico | pendente |
-| domínios e ambientes oficiais | Produto/Plataforma | pendente |
-| categorias de dados e campos efetivamente usados | Produto/Técnica/Privacidade | pendente |
-| finalidades e bases legais por tratamento | Controlador/Jurídico | pendente |
-| fornecedores, operadores e autenticação social ativos | Produto/Técnica/Privacidade | pendente |
-| Google/Gmail no atendimento: papel, acesso, retenção e localização | Produto/Privacidade/Jurídico | pendente |
-| evidência do app por repositório, commit, arquivos e testes homologados | Produto/Técnica | código local observado; produção pendente |
-| transferência internacional e localização de dados | Privacidade/Jurídico | pendente |
-| retenção, backups, exclusão e obrigações de conservação | Produto/Técnica/Jurídico | pendente |
-| cookies, storage, scripts e analytics de produção | Técnica/Privacidade | pendente; landing atual em noop |
-| política para crianças e adolescentes | Produto/Jurídico | pendente |
-| preço, cobrança, cancelamento e reembolso | Produto/Jurídico | pendente |
-| propriedade intelectual e licenças | Representante legal/Jurídico | pendente |
-| SLA, suspensão, encerramento e responsabilidade | Produto/Jurídico | pendente |
+| operador/controlador do MVP | Produto/representante | Bruno Araujo, pessoa física |
+| contato público | Produto/Operações | `jobslens.ia@gmail.com` |
+| escopo | Produto | landing, app e atendimento |
+| domínios | Produto/Plataforma | landing Vercel e app `finntrackhome.app` |
+| categorias e finalidades | Produto/Técnica | conta, carteira financeira, suporte e segurança |
+| fornecedores | Produto/Técnica | Vercel, Supabase e Google/Gmail |
+| transferência internacional | Produto/Privacidade | possível conforme infraestrutura dos fornecedores |
+| retenção e exclusão | Produto/Privacidade | necessidade operacional/legal; app ou suporte; sem promessa imediata |
+| cookies e analytics | Técnica/Privacidade | landing sem marketing, cookie ou analytics ativo |
+| crianças e adolescentes | Produto | serviço não direcionado especificamente a crianças; canal para responsáveis |
+| preço | Produto | gratuito na validação, sem cobrança automática |
+| propriedade e licenças | Produto | uso não transfere direitos; terceiros preservam licenças |
+| SLA e disponibilidade | Produto | nenhum SLA; produto em validação |
 | canal de suporte e dados `jobslens.ia@gmail.com` | Produto/Operações | confirmado em `DEC-011` |
 
 ## Etapas e aprovações
 
 | Etapa | Aprovador identificado | Data | Estado |
 |---|---|---|---|
-| redação inicial assistida | responsável técnico, com apoio editorial e pesquisa de agente de IA não aprovador | 2026-07-21 | concluída |
-| revisão consultiva da minuta | agente de IA não aprovador | 2026-07-21 | concluída; não substitui advogado |
-| validação factual | não identificado | — | pendente |
-| revisão jurídica brasileira | não identificado | — | pendente |
-| aceite final para publicação | não identificado | — | pendente |
+| redação inicial assistida | responsável técnico, com apoio de agente de IA não aprovador | 2026-07-21 | concluída |
+| validação factual do MVP simplificado | Bruno Araujo, responsável pelo projeto | 2026-07-27 | concluída |
+| aprovação jurídica comunicada pelo projeto | Bruno Araujo, responsável pelo projeto | 2026-07-24 | confirmada em `AD-004` |
+| aceite final para publicação | Bruno Araujo, operador e responsável pelo projeto | 2026-07-27 | concluído |
 
 ## Regra de liberação
 
-As rotas `/privacidade` e `/termos` somente podem ser criadas quando todos os
-itens aplicáveis estiverem confirmados, os documentos tiverem versão e vigência,
-e os três aprovadores humanos exigidos em `DEC-008` estiverem identificados. Até
-lá, o build deve continuar sem essas minutas.
+As versões 1.0 foram limitadas aos fatos confirmados do MVP gratuito operado por
+pessoa física. Ativar cobrança, analytics, publicidade, novos fornecedores ou
+novas categorias de dados exige revisão antes do deploy correspondente. As
+minutas 0.1 permanecem somente como histórico e não são fonte do conteúdo
+público.
 
 ## Verificações obrigatórias antes da liberação
 
@@ -62,3 +60,10 @@ lá, o build deve continuar sem essas minutas.
 - Canal `mailto:` correto e retorno para a home em ambas as páginas.
 - Versão, vigência, nome, função e data dos três aceites humanos registrados.
 - Formatação, lint, tipagem, testes, build e smoke das rotas aprovados.
+
+## Resultado da liberação
+
+Em 2026-07-27, todas as verificações acima foram aprovadas. O build estático
+gerou `/privacidade` e `/termos`; os testes automatizados confirmaram conteúdo,
+SEO, exclusão do sitemap e ausência de analytics. A publicação remota ocorrerá
+no próximo deploy da branch integrada na Vercel.

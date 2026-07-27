@@ -62,6 +62,11 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 
   const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+  const privacyHtml = await readFile(
+    new URL('../dist/privacidade/index.html', import.meta.url),
+    'utf8',
+  );
+  const termsHtml = await readFile(new URL('../dist/termos/index.html', import.meta.url), 'utf8');
   const robots = await readFile(new URL('../dist/robots.txt', import.meta.url), 'utf8');
   const sitemap = await readFile(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
   const [favicon, appleTouchIcon, socialCard] = await Promise.all([
@@ -137,4 +142,31 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   );
   assert.match(sitemap, /<loc>https:\/\/www\.finntrack-home\.com\.br\/<\/loc>/);
   assert.equal((sitemap.match(/<url>/g) ?? []).length, 1);
+
+  assert.match(privacyHtml, /<title>Política de Privacidade \| FinnTrack Home<\/title>/);
+  assert.match(
+    privacyHtml,
+    /<link rel="canonical" href="https:\/\/www\.finntrack-home\.com\.br\/privacidade">/,
+  );
+  assert.match(privacyHtml, /<meta name="robots" content="noindex,follow">/);
+  assert.equal((privacyHtml.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(privacyHtml, /Bruno Araujo/);
+  assert.match(privacyHtml, /jobslens\.ia@gmail\.com/);
+
+  assert.match(termsHtml, /<title>Termos de Uso \| FinnTrack Home<\/title>/);
+  assert.match(
+    termsHtml,
+    /<link rel="canonical" href="https:\/\/www\.finntrack-home\.com\.br\/termos">/,
+  );
+  assert.match(termsHtml, /<meta name="robots" content="noindex,follow">/);
+  assert.equal((termsHtml.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(termsHtml, /gratuito durante a fase atual de validação/i);
+  assert.match(termsHtml, /não gera assinatura ou cobrança automática/i);
+
+  for (const legalHtml of [privacyHtml, termsHtml]) {
+    assert.match(legalHtml, /href="\/">Voltar ao início<\/a>/);
+    assert.doesNotMatch(legalHtml, /data-analytics-event|landing_view|astro-island/);
+    assert.doesNotMatch(legalHtml, /RASCUNHO|NÃO APROVADO|lorem ipsum|TODO|TBD|\[preencher\]/i);
+  }
+  assert.doesNotMatch(sitemap, /privacidade|termos/);
 });

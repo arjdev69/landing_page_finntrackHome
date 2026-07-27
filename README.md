@@ -93,6 +93,6 @@ e calculadora de rentabilidade não fazem parte do MVP.
 
 Configurar CI e previews em `FND-006`, agora desbloqueada pela aceitação da
 Vercel em `D0-002`. Depois, concluir `/entrar`, a experiência 404 e os headers
-reais nas tarefas `INT-001`, `ERR-001` e `QA-005`. `LEG-001`, `D0-005` e
-`SEO-003` continuam condicionadas às aprovações registradas nas respectivas
-decisões.
+reais nas tarefas `INT-001`, `ERR-001` e `QA-005`. As páginas legais foram
+concluídas em `LEG-001`; `D0-005` e `SEO-003` continuam condicionadas às
+aprovações registradas nas respectivas decisões.
