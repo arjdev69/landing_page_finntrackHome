@@ -60,25 +60,43 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-24
 - **Status**: ativa
 
+### AD-005
+
+- **Decisão**: aceitar a autenticação da Vercel como proteção remota do Preview
+  Deployment; builds de preview continuam obrigados a gerar robots/noindex, e
+  qualquer preview público deve expor essas proteções.
+- **Razão**: o preview do PR #1 foi criado antes de produção, mas requisições sem
+  sessão são interceptadas pela Vercel com `X-Matched-Path: /login`, impedindo
+  crawlers de acessar o artefato. O mesmo commit passou pelo build de preview no
+  GitHub Actions.
+- **Trade-off**: o smoke anônimo não consegue inspecionar o HTML implantado
+  enquanto a autenticação estiver ativa; a integridade do artefato é comprovada
+  no pipeline e o controle de acesso é verificado no endpoint.
+- **Data**: 2026-07-27
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 5 — SEO, legal e ativos
-- **Tasks concluídas neste bloco**: `LEG-001`
+- **Bloco atual**: Épico 1 — Fundação concluído
+- **Tasks concluídas neste bloco**: `FND-006`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: selecionar a próxima tarefa pendente e elegível conforme
-  `docs/09-BACKLOG.md`; `FND-006` continua sendo a recomendação operacional para
-  automatizar CI e previews na Vercel.
-- **Validação**: `npm test` 55/55; `npm run format:check`; `npm run lint`;
-  `npm run typecheck`; `npm run build`; `npm run test:e2e` 30/30 em Chromium
-  desktop/mobile. O build gerou `/privacidade` e `/termos` com canonical
-  próprio, `noindex,follow`, exclusão do sitemap e ausência de analytics.
-- **Bloqueios**: nenhum para `LEG-001`. Analytics (`D0-005`/`DEC-007`), OAuth
-  (`INT-004`) e dados estruturados (`DEC-012`) continuam bloqueados
-  separadamente.
-- **Arquivos não commitados**: nenhum após o commit de `LEG-001`
-- **Branch**: `main`
-- **Orçamento na parada**: contexto 77,2% · quota semanal 87,0% (medido;
-  `AMBIGUOUS=0`)
-- **Motivo da parada**: bloco `LEG-001` concluído e validado
+- **Próximo passo**: revisar e integrar o PR draft #1. Em nova execução, selecionar
+  exatamente uma tarefa pendente e elegível; não iniciar `INT-001` enquanto a
+  estratégia `DEC-013` permanecer proposta.
+- **Validação**: teste focado 2/2; formatação, lint e typecheck aprovados; suíte
+  completa 57/57; build explícito com `PUBLIC_ENVIRONMENT=preview`; E2E 30/30;
+  Lighthouse 99/99 e acessibilidade 100/100. No PR #1, GitHub Actions
+  `Quality and preview build` passou em 2m53s, GitGuardian passou e a Vercel
+  gerou Preview Deployment protegido por autenticação antes de produção.
+- **Bloqueios**: nenhum para `FND-006`. O preview não permite smoke anônimo do
+  HTML porque a Vercel intercepta com `X-Matched-Path: /login`; o artefato de
+  preview é validado pelo pipeline. `D0-005`, `DEC-012` e `DEC-013` continuam
+  bloqueando seus trabalhos dependentes.
+- **Arquivos não commitados**: nenhum após o commit de fechamento de `FND-006`
+- **Branch**: `codex/fnd-006-ci-preview`
+- **Orçamento na parada**: contexto 33,4% · quota semanal 71,0% (medido;
+  `AMBIGUOUS=1`)
+- **Motivo da parada**: `FND-006` concluída; orçamento em WARN, sem iniciar nova
+  tarefa
