@@ -1,8 +1,8 @@
 # Especificação de SEO, analytics e aquisição
 
-Versão: 0.1.1  
-Status: approved — provedor e consentimento permanecem pendentes  
-Data: 2026-07-15
+Versão: 0.1.2
+Status: approved — política first-party definida; implementação permanece noop
+Data: 2026-07-27
 
 ## 1. Objetivo
 
@@ -132,8 +132,9 @@ aceitam o domínio exato ou subdomínios e nunca são incluídos no payload.
 - URL completa quando puder carregar dados além da allowlist;
 - parâmetros de campanha fora da allowlist.
 
-O comportamento próprio do provedor, inclusive IP/cookies, deve ser avaliado na
-decisão de privacidade antes da ativação.
+O endpoint first-party deve descartar IP e cabeçalhos desnecessários antes da
+persistência. Cookie, storage, pixel, SDK externo e identificador persistente
+continuam proibidos por `DEC-006/007`.
 
 ## 6. UTMs e atribuição
 
@@ -188,3 +189,14 @@ retenção em 7/30 dias pertencem ao app/produto, não à landing isolada.
 - QA verifica ausência de PII no payload;
 - dashboard/relatório do provedor só é criado depois de os eventos passarem;
 - Search Console e sitemap são verificados após produção.
+
+## 9. Política aprovada
+
+`DEC-006/007` escolhe endpoint first-party e Supabase, com legítimo interesse
+documentado, retenção bruta máxima de 90 dias e nenhuma persistência no
+navegador. O inventário, teste de balanceamento e gates de ativação estão em
+`docs/privacy/D0-005-ANALYTICS-POLICY.md`.
+
+Esta decisão não ativa coleta. `ANA-003` deve implementar o endpoint e
+permanecer `noop` até passar segurança, privacidade e debug; `ANA-004` valida o
+comportamento real em produção.

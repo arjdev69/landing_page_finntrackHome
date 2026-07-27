@@ -1,6 +1,6 @@
 # Política de Privacidade do FinnTrack Home
 
-Versão: 1.0
+Versão: 1.1
 Vigência: 2026-07-27
 Status: aprovado para publicação
 
@@ -22,24 +22,32 @@ Conforme a forma de uso, o serviço pode tratar:
 - registros técnicos essenciais de segurança, diagnóstico e funcionamento
   mantidos pelos provedores de infraestrutura.
 
-A landing não possui formulário e, nesta versão, não utiliza pixel
-publicitário, cookie de marketing ou provedor de analytics.
+A landing não possui formulário. O analytics first-party aprovado permanece
+desativado até concluir os gates técnicos. Quando ativado, poderá registrar
+eventos de interação, caminho fixo da página, grupos amplos de dispositivo e
+origem e apenas as UTMs autorizadas. A aplicação não persistirá IP, URL/referrer
+completos, cookie, Web Storage, pixel, fingerprint, identificador de conta,
+sessão ou dispositivo.
 
 ## 3. Finalidades e fundamentos
 
 Os dados são usados para criar e proteger a conta, autenticar o acesso, oferecer
 as funções solicitadas, prestar suporte, prevenir abuso e cumprir obrigações
-legais. O tratamento ocorre para executar o serviço solicitado, adotar medidas
+legais. Quando o analytics first-party for ativado, eventos mínimos serão usados
+para entender aquisição e usabilidade durante a validação do produto, com base
+em legítimo interesse documentado, minimização e salvaguardas.
+
+O tratamento também ocorre para executar o serviço solicitado, adotar medidas
 anteriores à contratação, atender obrigações legais e proteger o serviço e seus
 usuários. Consentimento específico será solicitado quando exigido por lei.
 
 ## 4. Fornecedores
 
-São utilizados Vercel para hospedagem, Supabase para autenticação e
-armazenamento do aplicativo e Google/Gmail para o canal de suporte. A
-infraestrutura desses fornecedores pode envolver processamento fora do Brasil.
-O FinnTrack Home não vende dados pessoais nem os compartilha para publicidade
-comportamental.
+São utilizados Vercel para hospedagem e futuro endpoint first-party, Supabase
+para autenticação, armazenamento do aplicativo e futura tabela dedicada de
+eventos, e Google/Gmail para o canal de suporte. A infraestrutura desses
+fornecedores pode envolver processamento fora do Brasil. O FinnTrack Home não
+vende dados pessoais nem os compartilha para publicidade comportamental.
 
 ## 5. Conservação e exclusão
 
@@ -51,11 +59,16 @@ temporariamente em backups ou ser conservados quando houver fundamento legal.
 A exclusão pode ser solicitada no aplicativo ou pelo e-mail de contato. Poderá
 ser necessária confirmação da identidade do solicitante.
 
+Quando ativados, eventos brutos de analytics serão excluídos automaticamente em
+até 90 dias. Como não possuem identificador persistente ou vínculo com conta,
+eles não serão usados para criar perfil individual.
+
 ## 6. Direitos
 
 O titular pode solicitar confirmação e acesso, correção, informações sobre
 compartilhamento, portabilidade quando regulamentada, eliminação ou bloqueio
-quando cabíveis, oposição e revogação do consentimento.
+quando cabíveis, oposição ao analytics first-party e revogação do consentimento
+quando ele for a base aplicável.
 
 ## 7. Crianças e adolescentes
 

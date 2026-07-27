@@ -49,7 +49,13 @@ Data: 2026-07-15
   - Evidência (2026-07-21): `DEC-005` aceita o CTA único “Criar conta” e proíbe
     alegações de gratuidade/beta sem nova decisão; pergunta sobre gratuidade foi
     retirada do FAQ normativo. PRD e especificação de UX atualizados.
-- [ ] `D0-005` Escolher analytics e política de consentimento (`DEC-006/007`).
+- [x] `D0-005` Escolher analytics e política de consentimento (`DEC-006/007`).
+  - Evidência (2026-07-27): aprovado analytics first-party por endpoint
+    server-side e Supabase, sem cookie, storage, pixel, SDK externo ou
+    identificador persistente. `DEC-006/007`, política pública 1.1 e
+    `docs/privacy/D0-005-ANALYTICS-POLICY.md` registram legítimo interesse,
+    descarte de IP, retenção bruta máxima de 90 dias, inventário, teste de
+    balanceamento e gates. A coleta continua `noop` até `ANA-003`.
 - [x] `D0-006` Definir responsáveis por jurídico, suporte e ativos
   (`DEC-008/009/011`).
   - Evidência (2026-07-21): governança jurídica aceita com redação assistida,
@@ -231,10 +237,11 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     noop. `test/analytics-instrumentation.test.mjs`, smoke no navegador,
     formatação, lint, tipagem, build e 36 testes aprovados.
 - [ ] `ANA-003` Integrar provedor e consentimento aprovados.
-  - Bloqueado por: `D0-005`.
-  - Cobertura: `ANA-006..007`, `PRIV-001..002`.
+  - Dependência satisfeita: `D0-005`; implementar somente conforme os gates do
+    inventário aprovado.
+  - Cobertura: `ANA-006..008`, `PRIV-001..002`.
 - [ ] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
-  - Bloqueada por: `ANA-003`/`D0-005` para validação de debug em produção.
+  - Bloqueada por: `ANA-003` para validação de debug em produção.
 
 ## Épico 5 — SEO, legal e assets
 

@@ -75,24 +75,41 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-27
 - **Status**: ativa
 
+### AD-006
+
+- **Decisão**: aprovar analytics first-party por endpoint server-side e tabela
+  dedicada no Supabase, sob legítimo interesse documentado, sem cookie,
+  storage, pixel, SDK externo ou identificador persistente.
+- **Razão**: medir aquisição e usabilidade de forma mínima durante a validação
+  do produto, sem depender de plano pago de terceiro nem rastrear pessoas entre
+  sessões ou sites.
+- **Trade-off**: eventos brutos expiram em 90 dias e não podem ser correlacionados
+  com contas; métricas de conversão/ativação e retenção do produto continuam
+  dependentes do app. A coleta permanece `noop` até `ANA-003`.
+- **Data**: 2026-07-27
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 0 — Decisões e contratos
-- **Tasks concluídas neste bloco**: nenhuma nesta execução
+- **Tasks concluídas neste bloco**: `D0-005`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: obter aprovação explícita para `D0-005`: analytics
-  first-party por endpoint server-side e Supabase, sem cookie, storage, pixel,
-  SDK de terceiro ou identificador persistente; definir base/regra de
-  consentimento e prazo de retenção antes de ativar a coleta.
-- **Última task revalidada**: `QA-005`;
-  `node --test test/security-headers.test.mjs` aprovado em 7/7.
-- **Bloqueios**: `DEC-006` e `DEC-007` continuam pendentes. A escolha técnica
-  está registrada em `AD-003`, mas a especificação proíbe presumir a base de
-  tratamento, a regra de consentimento e a retenção.
-- **Arquivos não commitados**: nenhum após o commit de checkpoint.
+- **Próximo passo**: `ANA-003` está desbloqueada, mas não iniciada. Implementar
+  endpoint/tabela e todos os gates de
+  `docs/privacy/D0-005-ANALYTICS-POLICY.md`, mantendo `noop` até a validação.
+- **Validação**: teste focado 4/4; formatação, lint e typecheck aprovados; suíte
+  completa passou de 62 para 64 testes; build estático aprovado; E2E 30/30 em
+  desktop/mobile.
+- **Passada de negação**: endpoint, tabela, credenciais, expiração, rate limit,
+  descarte real de IP, CSP e debug de produção não foram implementados; todos
+  permanecem explicitamente em `ANA-003/004`. O cliente ativo continua
+  `NoopAnalytics`.
+- **Bloqueios**: nenhum para `D0-005`. `INT-001`, `INT-004` e `SEO-003`
+  continuam dependentes de suas decisões/contratos próprios.
+- **Arquivos não commitados**: nenhum após o commit atômico.
 - **Branch**: `codex/d0-005-decision-handoff`
-- **Orçamento na parada**: contexto 69,1% · quota semanal 30,0%, com reset em
+- **Orçamento na parada**: contexto 28,0% · quota semanal 22,0%, com reset em
   2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: bloqueio de decisão humana antes de iniciar `D0-005`
+- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `D0-005`

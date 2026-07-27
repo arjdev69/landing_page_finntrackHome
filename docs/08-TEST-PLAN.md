@@ -62,6 +62,7 @@ valide o provedor separadamente em modo de debug.
 | T-SEO-004 | `SEO-012` | redirect HTTPS/host canônico sem cadeia ou loop |
 | T-ANA-001 | `ANA-001..005` | contrato, classificação determinística de device/referrer, payload permitido e falha do SDK |
 | T-ANA-002 | `ANA-006..007` | bloqueio antes de consentimento e debug em produção |
+| T-ANA-003 | `ANA-008` | inventário aprovado; ausência de cookie/storage/identificador; descarte de IP, segredo server-side e expiração de 90 dias validados antes da ativação |
 
 ## 6. Acessibilidade
 
