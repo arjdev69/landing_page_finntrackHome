@@ -64,26 +64,28 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 5 — SEO, legal e ativos (`LEG-001` bloqueado)
+- **Bloco atual**: Épico 5 — SEO, legal e ativos (`LEG-001` em andamento)
 - **Tasks concluídas neste bloco**: nenhuma nesta retomada
-- **Em andamento (arquivo:linha)**: nenhum
-- **Próximo passo**: obter e registrar o pacote factual aprovado de `LEG-001`
-  (identidades e contatos do controlador/fornecedor, tratamentos, bases legais,
-  operadores, retenção, transferências, condições operacionais e aprovadores);
-  então publicar `/privacidade` e `/termos` e validar
-  `T-LEGAL-001`/`T-SEO-002`.
-- **Validação**: artefato anterior `D0-002` revalidado em 2026-07-27; landing,
-  cadastro e login responderam HTTP 200. Nenhum arquivo de implementação de
-  `LEG-001` foi criado.
-- **Bloqueios**: embora a aprovação jurídica tenha sido confirmada em `AD-004`,
-  as minutas e `APROVACAO-LEGAL.md` ainda não contêm os fatos obrigatórios nem
-  identificam validação factual, revisor jurídico e representante legal. Publicar
-  agora exigiria presumir fatos e violaria `DEC-008`/`FR-LEG-003`. Analytics
-  (`D0-005`/`DEC-007`), OAuth (`INT-004`) e dados estruturados (`DEC-012`)
-  continuam bloqueados separadamente.
-- **Arquivos não commitados**: nenhum
+- **Em andamento (arquivo:linha)**: `test/legal-drafts.test.mjs:42`
+- **Próximo passo**: em uma nova execução, tornar a asserção de gratuidade
+  tolerante à quebra de linha Markdown (`/não gera assinatura ou\s+cobrança
+  automática/i`), rodar `npm test` e só então seguir para build, E2E, smoke,
+  documentação, checkbox e commit de `LEG-001`.
+- **Validação**: terceira tentativa de `npm test` passou 54/55. Falha restante:
+  o texto aprovado contém “não gera assinatura ou” e “cobrança automática” em
+  linhas consecutivas, enquanto o teste exige espaço literal. O build de
+  produção executado dentro de `test/seo.test.mjs` gerou as duas rotas e todas
+  as demais asserções passaram.
+- **Bloqueios**: limite de três tentativas do SDD atingido nesta execução; não há
+  falha funcional conhecida. Analytics (`D0-005`/`DEC-007`), OAuth (`INT-004`) e
+  dados estruturados (`DEC-012`) continuam bloqueados separadamente.
+- **Arquivos não commitados**: `docs/10-DECISION-LOG.md`,
+  `docs/legal/APROVACAO-LEGAL.md`, `docs/legal/PRIVACIDADE.md`,
+  `docs/legal/TERMOS.md`, `src/config/site.ts`, `src/layouts/LegalLayout.astro`,
+  `src/pages/privacidade.astro`, `src/pages/termos.astro`,
+  `src/styles/global.css`, `test/legal-drafts.test.mjs`, `test/seo.test.mjs`
 - **Branch**: `main`
-- **Orçamento na parada**: contexto 45,6% · quota semanal 100,0% (medido;
+- **Orçamento na parada**: contexto 19,9% · quota semanal 93,0% (medido;
   `AMBIGUOUS=0`)
-- **Motivo da parada**: bloqueio factual de `LEG-001`; entrada do responsável do
-  projeto é necessária antes de publicar conteúdo jurídico
+- **Motivo da parada**: bloqueio de validação após três tentativas; alterações de
+  `LEG-001` preservadas sem commit
