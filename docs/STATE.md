@@ -64,21 +64,26 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 5 — SEO, legal e ativos
-- **Tasks concluídas neste bloco**: `LEG-001`
-- **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: selecionar a próxima tarefa pendente e elegível conforme
-  `docs/09-BACKLOG.md`; `FND-006` continua sendo a recomendação operacional para
-  automatizar CI e previews na Vercel.
-- **Validação**: `npm test` 55/55; `npm run format:check`; `npm run lint`;
-  `npm run typecheck`; `npm run build`; `npm run test:e2e` 30/30 em Chromium
-  desktop/mobile. O build gerou `/privacidade` e `/termos` com canonical
-  próprio, `noindex,follow`, exclusão do sitemap e ausência de analytics.
-- **Bloqueios**: nenhum para `LEG-001`. Analytics (`D0-005`/`DEC-007`), OAuth
-  (`INT-004`) e dados estruturados (`DEC-012`) continuam bloqueados
-  separadamente.
-- **Arquivos não commitados**: nenhum após o commit de `LEG-001`
+- **Bloco atual**: Épico 1 — Fundação (`FND-006` em andamento)
+- **Tasks concluídas neste bloco**: nenhuma nesta retomada
+- **Em andamento (arquivo:linha)**: `.github/workflows/ci.yml:1`
+- **Próximo passo**: após autorização explícita do usuário, instalar/autenticar
+  GitHub CLI, publicar uma branch de validação e abrir um PR draft; aguardar o
+  check `Quality and preview build` e o Preview Deployment da Vercel. Se ambos
+  passarem, registrar a URL/evidência, marcar `FND-006`, atualizar
+  `docs/11-TRACEABILITY.md` e fazer o commit atômico final.
+- **Validação**: revalidação de `LEG-001` em `npm test` 55/55. Para `FND-006`,
+  teste focado 2/2; `npm run format:check`, lint e typecheck aprovados; suíte
+  completa 57/57; build explícito com `PUBLIC_ENVIRONMENT=preview`; E2E 30/30;
+  Lighthouse 99/99, acessibilidade 100/100 e orçamento aprovado. Workflow e
+  documentação também passaram no Prettier.
+- **Bloqueios**: execução remota do GitHub Actions e geração do preview exigem
+  publicar branch/PR, ação externa ainda não autorizada. O GitHub CLI `gh`
+  também não está instalado. O conector confirmou zero workflows no commit
+  `de67918`; não há falha funcional local conhecida.
+- **Arquivos não commitados**: `.github/workflows/ci.yml`,
+  `docs/operations/FND-006-CI-PREVIEWS.md`, `test/ci-workflow.test.mjs`
 - **Branch**: `main`
-- **Orçamento na parada**: contexto 77,2% · quota semanal 87,0% (medido;
+- **Orçamento na parada**: contexto 56,2% · quota semanal 82,0% (medido;
   `AMBIGUOUS=0`)
-- **Motivo da parada**: bloco `LEG-001` concluído e validado
+- **Motivo da parada**: bloqueio de autoridade/ferramenta para validação remota
