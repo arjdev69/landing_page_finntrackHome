@@ -67,6 +67,7 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
     'utf8',
   );
   const termsHtml = await readFile(new URL('../dist/termos/index.html', import.meta.url), 'utf8');
+  const notFoundHtml = await readFile(new URL('../dist/404.html', import.meta.url), 'utf8');
   const robots = await readFile(new URL('../dist/robots.txt', import.meta.url), 'utf8');
   const sitemap = await readFile(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
   const [favicon, appleTouchIcon, socialCard] = await Promise.all([
@@ -168,5 +169,21 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
     assert.doesNotMatch(legalHtml, /data-analytics-event|landing_view|astro-island/);
     assert.doesNotMatch(legalHtml, /RASCUNHO|NÃO APROVADO|lorem ipsum|TODO|TBD|\[preencher\]/i);
   }
+
+  assert.match(notFoundHtml, /<title>Página não encontrada \| FinnTrack Home<\/title>/);
+  assert.match(
+    notFoundHtml,
+    /<link rel="canonical" href="https:\/\/www\.finntrack-home\.com\.br\/404">/,
+  );
+  assert.match(notFoundHtml, /<meta name="robots" content="noindex,nofollow">/);
+  assert.equal((notFoundHtml.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(notFoundHtml, /Página não encontrada/);
+  assert.match(notFoundHtml, /href="\/"[^>]*>Voltar à página inicial<\/a>/);
+  assert.doesNotMatch(
+    notFoundHtml,
+    /data-analytics-event|data-analytics-page|landing_view|astro-island/,
+  );
+
   assert.doesNotMatch(sitemap, /privacidade|termos/);
+  assert.doesNotMatch(sitemap, /404/);
 });

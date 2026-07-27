@@ -82,21 +82,23 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Bloco atual**: Épico 1 — Fundação concluído
 - **Tasks concluídas neste bloco**: `FND-006`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: revisar e integrar o PR draft #1. Em nova execução, selecionar
-  exatamente uma tarefa pendente e elegível; não iniciar `INT-001` enquanto a
-  estratégia `DEC-013` permanecer proposta.
+- **Próximo passo**: em nova execução, selecionar exatamente uma tarefa pendente
+  e elegível; não iniciar `INT-001` enquanto a estratégia `DEC-013` permanecer
+  proposta.
 - **Validação**: teste focado 2/2; formatação, lint e typecheck aprovados; suíte
   completa 57/57; build explícito com `PUBLIC_ENVIRONMENT=preview`; E2E 30/30;
-  Lighthouse 99/99 e acessibilidade 100/100. No PR #1, GitHub Actions
-  `Quality and preview build` passou em 2m53s, GitGuardian passou e a Vercel
-  gerou Preview Deployment protegido por autenticação antes de produção.
+  Lighthouse 99/99 e acessibilidade 100/100. O PR #1 foi integrado por squash
+  em `4215628`; GitHub Actions da `main` passou em 3m05s, a Vercel concluiu o
+  deploy de produção e o smoke retornou HTTP 200 em `/`, `/privacidade`,
+  `/termos`, `/robots.txt` e `/sitemap.xml`.
 - **Bloqueios**: nenhum para `FND-006`. O preview não permite smoke anônimo do
   HTML porque a Vercel intercepta com `X-Matched-Path: /login`; o artefato de
-  preview é validado pelo pipeline. `D0-005`, `DEC-012` e `DEC-013` continuam
+  preview é validado pelo pipeline. O Actions registrou aviso não bloqueador de
+  runtime Node 20 nas actions v4. `D0-005`, `DEC-012` e `DEC-013` continuam
   bloqueando seus trabalhos dependentes.
 - **Arquivos não commitados**: nenhum após o commit de fechamento de `FND-006`
-- **Branch**: `codex/fnd-006-ci-preview`
-- **Orçamento na parada**: contexto 33,4% · quota semanal 71,0% (medido;
-  `AMBIGUOUS=1`)
+- **Branch**: `main`
+- **Orçamento na parada**: contexto 23,2% · quota semanal 65,0% (medido;
+  `AMBIGUOUS=0`)
 - **Motivo da parada**: `FND-006` concluída; orçamento em WARN, sem iniciar nova
   tarefa
