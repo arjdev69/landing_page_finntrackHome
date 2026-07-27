@@ -41,6 +41,15 @@ export const termsSeo = Object.freeze({
   type: 'article',
 }) satisfies PageSeoDefinition;
 
+export const loginFallbackSeo = Object.freeze({
+  title: 'Entrar | FinnTrack Home',
+  description: 'Acesse sua conta do FinnTrack Home pelo endereço oficial do aplicativo.',
+  canonicalPath: '/entrar',
+  heading: 'Entrar no FinnTrack Home',
+  robots: 'noindex,nofollow',
+  type: 'website',
+}) satisfies PageSeoDefinition;
+
 export const notFoundSeo = Object.freeze({
   title: 'Página não encontrada | FinnTrack Home',
   description: 'A página solicitada não foi encontrada. Volte à página inicial do FinnTrack Home.',

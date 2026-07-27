@@ -257,16 +257,21 @@ datas de calendário aprovado.
 
 ### DEC-013 — Estratégia de `/entrar`
 
-- Status: **Proposta**.
+- Status: **Aceita**.
 - Dependência: `DEC-010`.
-- Preferência: redirect 302/307 na hospedagem para permitir mudança de destino.
-- Regra: o redirect deve preservar somente a allowlist de UTMs. Se a hospedagem
-  não filtrar query strings, usar página estática mínima com link real e
-  enriquecimento progressivo, conforme SDD §11.
+- Decisão: usar a página estática mínima prevista no SDD §11, pois o redirect
+  genérico da hospedagem não oferece o filtro necessário para encaminhar
+  exclusivamente a allowlist de UTMs.
+- Regra: o link real usa `PUBLIC_APP_LOGIN_URL` e funciona sem JavaScript. O
+  enriquecimento progressivo reutiliza a allowlist de `INT-002`, não aceita
+  destino da query e descarta parâmetros desconhecidos, fragmentos e dados
+  sensíveis.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
+- Data de aceitação: 2026-07-27.
 - Data limite: durante `INT-001`, após `DEC-010`.
-- Evidência para encerrar: configuração escolhida e `T-UTM-003` aprovado.
+- Evidência: `src/pages/entrar.astro`, `test/login-fallback.test.mjs` e
+  `T-UTM-003`.
 
 ### DEC-014 — Framework de componentes interativos
 

@@ -191,7 +191,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 
 ## Épico 3 — Rotas e integração
 
-- [ ] `INT-001` Implementar `/entrar` e configuração de redirect na plataforma.
+- [x] `INT-001` Implementar `/entrar` e configuração de redirect na plataforma.
   - Bloqueada por: `D0-002`/`DEC-010`, que define a estratégia de hospedagem.
   - Aceite: preserva somente a allowlist de UTMs e nunca aceita destino vindo da
     query; quando o host não filtrar parâmetros, usa o fallback documentado.

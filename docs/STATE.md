@@ -89,35 +89,40 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-27
 - **Status**: ativa
 
+### AD-007
+
+- **Decisão**: implementar `/entrar` como fallback estático, em vez de redirect
+  genérico da Vercel, reutilizando o enriquecimento progressivo allowlisted.
+- **Razão**: o host não oferece filtro por chave para encaminhar somente as
+  cinco UTMs aprovadas; preservar toda a query violaria `FR-UTM-004`.
+- **Trade-off**: existe uma etapa explícita de confirmação antes de abrir o app,
+  mas o login funciona sem JavaScript, o destino não vem da query e parâmetros
+  desconhecidos ou sensíveis não são propagados.
+- **Data**: 2026-07-27
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 0 — Decisões e contratos
-- **Tasks concluídas neste bloco**: `D0-005`
+- **Bloco atual**: Épico 3 — Rotas e integração
+- **Tasks concluídas neste bloco**: `INT-001`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: configurar no projeto Vercel, sem expor valores no
-  repositório, `SUPABASE_URL` e uma chave de servidor
-  (`SUPABASE_SECRET_KEY` ou equivalente `service_role`) e disponibilizar
-  autorização para aplicar/verificar a migração no projeto Supabase. Depois,
-  executar `ANA-003` inteira: endpoint/tabela, gates da política, testes e
-  ativação do cliente somente após validação.
-- **Validação**: inspeção local confirmou que `.env`, `.env.production` e
-  `.env.example` não declaram configuração Supabase; não existem diretórios
-  `api/` ou `supabase/`; `src/lib/analytics/client.ts` continua instanciando
-  `NoopAnalytics`. O teste focado da política permanece aprovado (2/2).
-- **Passada de negação**: endpoint, tabela, credenciais, expiração, rate limit,
-  descarte real de IP, CSP e debug de produção não foram implementados; todos
-  permanecem explicitamente em `ANA-003/004`. O cliente ativo continua
-  `NoopAnalytics`.
-- **Bloqueios**: `ANA-003` não pode ser concluída nem validada contra o
-  Supabase/Vercel sem a configuração de servidor e autorização externas
-  descritas acima. `INT-001`, `INT-004` e `SEO-003` continuam dependentes de
-  suas decisões/contratos próprios.
+- **Próximo passo**: avaliar `INT-004`, primeiro checkbox pendente. A validação
+  real de cadastro/login e atribuição durável continua condicionada ao contrato
+  `DEC-004/007`; não presumir persistência apenas porque as rotas do app abrem.
+- **Validação**: teste focado 9/9; formatação, lint e tipagem aprovados; suíte
+  completa passou de 64 para 66 testes; build gerou `/entrar/index.html`; E2E
+  passou de 30 para 32 cenários em Chromium desktop/mobile.
+- **Passada de negação**: não foi feito smoke da nova rota no deploy de
+  produção; essa evidência permanece em `REL-002`. O fallback não dispara
+  analytics porque `ANA-003/004` continuam pendentes.
+- **Bloqueios**: `INT-004` depende do contrato real de atribuição
+  (`DEC-004/007`). `ANA-003` continua bloqueada pela ausência de configuração
+  server-side do Supabase/Vercel. `SEO-003` depende de `DEC-012`.
 - **Arquivos não commitados**: nenhum após o checkpoint.
 - **Branch**: `codex/ana-003-preflight`
-- **Orçamento na parada**: contexto 86,8% · quota semanal 12,0%, com reset em
+- **Orçamento na parada**: contexto 66,5% · quota semanal 8,0%, com reset em
   2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: preflight da `ANA-003` encontrou dependência externa
-  ausente antes do início da implementação; nenhuma tarefa foi marcada ou
-  implementada parcialmente neste ciclo.
+- **Motivo da parada**: ciclo SDD concluído após exatamente uma tarefa,
+  `INT-001`; quota semanal em WARN e nenhuma próxima tarefa iniciada.
