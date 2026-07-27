@@ -84,6 +84,6 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Arquivos não commitados**: `.github/workflows/ci.yml`,
   `docs/operations/FND-006-CI-PREVIEWS.md`, `test/ci-workflow.test.mjs`
 - **Branch**: `main`
-- **Orçamento na parada**: contexto 56,2% · quota semanal 82,0% (medido;
+- **Orçamento na parada**: contexto 52,9% · quota semanal 81,0% (medido;
   `AMBIGUOUS=0`)
 - **Motivo da parada**: bloqueio de autoridade/ferramenta para validação remota
