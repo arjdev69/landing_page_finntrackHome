@@ -79,23 +79,20 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Tasks concluídas neste bloco**: `QA-005`
+- **Bloco atual**: Épico 0 — Decisões e contratos
+- **Tasks concluídas neste bloco**: nenhuma nesta execução
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: selecionar uma nova tarefa elegível. `D0-005` depende de
-  decisão do responsável sobre analytics/consentimento e `INT-001` não deve
-  iniciar enquanto `DEC-013` permanecer proposta.
-- **Validação**: formatação, lint e typecheck aprovados; suíte completa 62/62;
-  `npm run test:security` recompilou o site, comprovou o hash CSP no Chromium e
-  terminou com zero vulnerabilidades; build explícito de produção e E2E 30/30 em
-  desktop/mobile aprovados.
-- **Validação remota**: PR #4 integrado no commit `0847785`; pipeline pós-merge
-  `30303082672` aprovado em 3m14s; produção respondeu 200 com os headers
-  esperados e o smoke Playwright não encontrou violações CSP, cookies ou erros.
-- **Bloqueios**: nenhum para `QA-005`. A futura ativação de analytics exige
-  revisão explícita de privacidade e CSP.
-- **Arquivos não commitados**: nenhum após o commit de encerramento.
-- **Branch**: `codex/qa-005-rollout`
-- **Orçamento na parada anterior**: contexto 23,1% · quota semanal 41,0%
-  (`AMBIGUOUS=0`)
-- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `QA-005`
+- **Próximo passo**: obter aprovação explícita para `D0-005`: analytics
+  first-party por endpoint server-side e Supabase, sem cookie, storage, pixel,
+  SDK de terceiro ou identificador persistente; definir base/regra de
+  consentimento e prazo de retenção antes de ativar a coleta.
+- **Última task revalidada**: `QA-005`;
+  `node --test test/security-headers.test.mjs` aprovado em 7/7.
+- **Bloqueios**: `DEC-006` e `DEC-007` continuam pendentes. A escolha técnica
+  está registrada em `AD-003`, mas a especificação proíbe presumir a base de
+  tratamento, a regra de consentimento e a retenção.
+- **Arquivos não commitados**: nenhum após o commit de checkpoint.
+- **Branch**: `codex/d0-005-decision-handoff`
+- **Orçamento na parada**: contexto 69,1% · quota semanal 30,0%, com reset em
+  2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
+- **Motivo da parada**: bloqueio de decisão humana antes de iniciar `D0-005`
