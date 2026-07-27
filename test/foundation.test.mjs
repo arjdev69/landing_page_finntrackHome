@@ -29,6 +29,6 @@ test('foundation uses static Astro output, Tailwind and configured aliases', asy
   assert.equal(parsedPackage.scripts.lint, 'eslint . --max-warnings=0');
   assert.equal(
     parsedPackage.scripts['format:check'],
-    'prettier --check "src/**/*.{astro,ts,css}" "scripts/**/*.mjs" "test/**/*.mjs" "*.{js,mjs,json}"',
+    'prettier --check "src/**/*.{astro,ts,css}" "scripts/**/*.mjs" "test/**/*.mjs" "vendor/**/*.{cjs,ts,json}" "*.{js,mjs,json}"',
   );
 });

@@ -79,25 +79,23 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 5 — SEO, legal e assets
-- **Tasks concluídas neste bloco**: `ERR-001`
-- **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: em nova execução, selecionar exatamente uma tarefa pendente
-  e elegível; `QA-005` está desbloqueada pela hospedagem aceita. Não iniciar
-  `INT-001` enquanto a estratégia `DEC-013` permanecer proposta.
-- **Validação**: teste focado 2/2; formatação, lint e typecheck aprovados; suíte
-  completa 59/59; build explícito de produção; E2E 30/30 em desktop/mobile. O PR
-  #2 foi integrado por squash em `f3f71d2`; GitHub Actions da `main` passou em
-  3m06s, a Vercel concluiu o deploy e o smoke de uma URL inexistente retornou
-  HTTP 404 com a página customizada, `noindex,nofollow`, link para a home e
-  nenhuma ocorrência de `landing_view`.
-- **Bloqueios**: nenhum para `ERR-001`. O preview permanece protegido pelo SSO
-  da Vercel e respondeu 302 com `X-Robots-Tag: noindex`; o artefato foi validado
-  pelo pipeline. O Actions registrou aviso não bloqueador de runtime Node 20 nas
-  actions v4. `D0-005`, `DEC-012` e `DEC-013` continuam bloqueando seus trabalhos
-  dependentes.
-- **Arquivos não commitados**: nenhum após o commit de fechamento de `ERR-001`
-- **Branch**: `codex/err-001-rollout`
-- **Orçamento na parada**: contexto 65,4% · quota semanal 56,0% (medido;
+- **Bloco atual**: Épico 6 — Qualidade e lançamento
+- **Tasks concluídas neste bloco**: nenhuma nesta execução
+- **Em andamento (arquivo:linha)**: `QA-005` (`vercel.mjs:1`)
+- **Próximo passo**: publicar a branch, validar o Preview Deployment protegido e
+  os checks do PR; após integrar, inspecionar os headers HTTPS reais de produção
+  antes de marcar `QA-005`.
+- **Validação**: formatação, lint e typecheck aprovados; suíte completa 62/62;
+  `npm run test:security` recompilou o site, comprovou o hash CSP no Chromium e
+  terminou com zero vulnerabilidades; build explícito de produção e E2E 30/30 em
+  desktop/mobile aprovados.
+- **Bloqueios**: nenhum local. A conclusão depende apenas do deploy e da
+  inspeção remota de CSP, Referrer Policy, `nosniff`, Permissions Policy,
+  proteção de framing, HSTS de produção e `X-Robots-Tag` de preview.
+- **Arquivos não commitados**: nenhum após o commit de implementação; alguns
+  arquivos existentes podem aparecer modificados apenas por normalização local
+  de final de linha, sem diff de conteúdo.
+- **Branch**: `codex/qa-005-vercel-security-headers`
+- **Orçamento na parada**: contexto 23,1% · quota semanal 41,0% (medido;
   `AMBIGUOUS=0`)
-- **Motivo da parada**: `ERR-001` concluída; limite de uma tarefa por execução
+- **Motivo da parada**: `QA-005` validada localmente; aguardando evidência remota

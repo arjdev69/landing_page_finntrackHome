@@ -10,7 +10,9 @@ da `main` e por disparo manual. A instalação usa `npm ci` e o lockfile; os gat
 são formatação, lint, typecheck, testes nativos, build em ambiente `preview`,
 E2E/acessibilidade e orçamento Lighthouse.
 
-O artefato estático do build é preservado por sete dias com o SHA do commit.
+O gate de segurança valida o mapeamento da política para a Vercel, executa a CSP
+em Chromium e audita as dependências antes dos demais E2E. O artefato estático
+do build é preservado por sete dias com o SHA do commit.
 Relatórios do Playwright e Lighthouse são preservados quando um gate de
 navegador falha. O workflow possui somente permissão de leitura do conteúdo e
 não recebe segredos de deploy.

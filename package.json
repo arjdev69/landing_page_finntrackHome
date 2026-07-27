@@ -11,8 +11,8 @@
     "dev": "astro dev",
     "build": "npm run validate:env && astro check && astro build",
     "preview": "astro preview",
-    "format": "prettier --write \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" \"test/**/*.mjs\" \"*.{js,mjs,json}\"",
-    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" \"test/**/*.mjs\" \"*.{js,mjs,json}\"",
+    "format": "prettier --write \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" \"test/**/*.mjs\" \"vendor/**/*.{cjs,ts,json}\" \"*.{js,mjs,json}\"",
+    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" \"test/**/*.mjs\" \"vendor/**/*.{cjs,ts,json}\" \"*.{js,mjs,json}\"",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
     "typecheck": "astro check",
@@ -40,12 +40,16 @@
     "eslint-plugin-astro": "~1.3.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "lighthouse": "^13.4.1",
+    "minimatch": "file:vendor/minimatch-compat",
     "prettier": "^3.9.5",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.64.0"
+  },
+  "overrides": {
+    "minimatch": "$minimatch"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8"
