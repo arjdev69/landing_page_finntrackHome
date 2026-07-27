@@ -1,25 +1,28 @@
 # QA-005 — Headers de segurança
 
-Data: 2026-07-22  
-Status: parcial — contrato e validação local aprovados; ativação e teste no host aguardam `DEC-010`
+Data: 2026-07-27
+Status: concluída — contrato, configuração Vercel, CI e endpoint HTTPS aprovados
 
 ## Resultado
 
-O projeto passou a gerar um contrato de headers a partir do artefato estático. O
-hash SHA-256 do script inline é calculado sobre o `dist/index.html`, portanto a CSP
-não depende de `unsafe-inline`. O gate serve o build localmente com os headers,
-abre a página em Chromium e valida menu, FAQ, propagação de UTM, ausência de
-violações CSP, erros de runtime e `Set-Cookie`.
+O projeto gera um contrato de headers a partir do artefato estático e o aplica
+na Vercel por `vercel.mjs`. O hash SHA-256 do script inline é verificado
+byte a byte contra o `dist/index.html`, portanto a CSP não depende de
+`unsafe-inline`. O gate serve o build localmente com os headers, abre a página
+em Chromium e valida menu, FAQ, propagação de UTM, ausência de violações CSP,
+erros de runtime e `Set-Cookie`.
 
 O contrato gerado está em `artifacts/security/security-headers.json`. A política
 de produção inclui CSP restritiva, `Referrer-Policy`, `X-Content-Type-Options`,
 `Permissions-Policy`, `X-Frame-Options` como compatibilidade e HSTS de um ano. O
-preview recebe `X-Robots-Tag: noindex, nofollow` e não recebe HSTS, pois o teste
-local é HTTP.
+preview recebe `X-Robots-Tag: noindex, nofollow` e não recebe HSTS. O Preview
+Deployment do PR #4 ficou protegido por autenticação da Vercel; a resposta
+anônima recebeu `X-Robots-Tag: noindex` e o artefato foi validado pelo mesmo
+pipeline que antecedeu o merge.
 
-`includeSubDomains` e `preload` não foram ativados: essa escolha só é segura após
-confirmar domínio, subdomínios e HTTPS na `DEC-010`. A política também precisará
-ser revista antes de liberar qualquer provedor de analytics externo.
+`includeSubDomains` e `preload` não foram ativados, conforme a decisão
+conservadora de `DEC-017`. A política precisará ser revista antes de liberar
+qualquer provedor de analytics ou outra origem externa.
 
 ## Evidência executada
 
@@ -27,15 +30,24 @@ ser revista antes de liberar qualquer provedor de analytics externo.
 - build Astro 7.1.3: aprovado, 70 arquivos sem erros, avisos ou hints;
 - Chromium: CSP aplicada sem violações e comportamento crítico funcional;
 - `npm audit --audit-level=moderate`: zero vulnerabilidades;
-- `astro@7.1.3` e `fast-uri@3.1.4` substituíram versões afetadas encontradas na
-  auditoria inicial.
+- suíte local: 62/62; E2E desktop/mobile: 30/30;
+- PR #4: checks do GitHub, Vercel e GitGuardian aprovados;
+- pipeline pós-merge `30303082672`: aprovado em 3m14s;
+- produção em `https://finntrack-home-landing.vercel.app`: HTTP 200 com CSP,
+  `Referrer-Policy: strict-origin-when-cross-origin`,
+  `X-Content-Type-Options: nosniff`, `Permissions-Policy`,
+  `X-Frame-Options: DENY` e
+  `Strict-Transport-Security: max-age=31536000`;
+- smoke Playwright de produção: menu, FAQ e UTM funcionais, sem violação CSP,
+  erro de console/página ou `Set-Cookie`.
 
-## Bloqueio restante
+## Limites mantidos
 
-Sem a plataforma e o domínio definidos em `DEC-010`, não existe configuração de
-deploy correta para editar nem endpoint HTTPS de produção para inspecionar. A
-tarefa permanece aberta até mapear este contrato para o provedor escolhido e
-validar as respostas reais do host, inclusive redirects e HSTS.
+O preview autenticado não permite inspecionar anonimamente os headers do
+artefato após a camada de SSO. Essa limitação é coberta pelo teste da seleção de
+ambiente em `vercel.mjs`, pela validação do artefato no CI e pela proteção
+`noindex` da própria resposta de autenticação. Analytics externo permanece fora
+do escopo até nova revisão explícita de privacidade e CSP.
 
 ## Referências técnicas
 
