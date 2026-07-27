@@ -43,7 +43,8 @@ test('FND-006 defines reproducible pull request gates and a preview artifact', (
 test('FND-006 documents Vercel preview validation without claiming production rollout', () => {
   assert.match(operations, /Pull requests e\s+branches diferentes da branch de produção/);
   assert.match(operations, /PUBLIC_ENVIRONMENT=preview/);
-  assert.match(operations, /Confirmar `noindex` no preview/);
+  assert.match(operations, /Se o preview estiver protegido, confirmar a exigência de autenticação/);
+  assert.match(operations, /No preview público, confirmar `noindex`/);
   assert.match(operations, /Produção não é promovida por este workflow/);
   assert.match(operations, /Rollback e smoke de produção\s+permanecem em `REL-002`/);
 });

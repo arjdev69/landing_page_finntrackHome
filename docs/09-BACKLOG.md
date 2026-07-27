@@ -107,9 +107,16 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     em 390/1440 px sem overflow ou logs, com capturas
     `artifacts/fnd-005-*.png`. Ícones e social card finais permanecem em
     `SEO-002`, sem referência antecipada a asset inexistente.
-- [ ] `FND-006` Configurar CI com gates de PR e build de preview.
+- [x] `FND-006` Configurar CI com gates de PR e build de preview.
   - Cobertura: `OPS-003..005`.
-  - Bloqueada por `DEC-010`, cuja data limite é anterior à tarefa.
+  - Evidência (2026-07-27): `.github/workflows/ci.yml` instala pelo lockfile com
+    `npm ci` e executa formatação, lint, typecheck, 57 testes nativos, build de
+    preview, 30 E2E/acessibilidade e seis medições Lighthouse. O PR draft
+    [#1](https://github.com/arjdev69/landing_page_finntrackHome/pull/1) aprovou
+    `Quality and preview build` em 2m53s, GitGuardian e Vercel. A Vercel gerou
+    um Preview Deployment antes de produção e o protegeu por autenticação
+    (`X-Matched-Path: /login`); o artefato de preview também foi validado
+    localmente com proteção contra indexação.
 
 ## Épico 2 — Estrutura e conteúdo da home
 

@@ -191,9 +191,10 @@ datas de calendário aprovado.
   apontando para cadastro/login reais. A escolha do provedor desbloqueia
   `FND-006`, `INT-001`, `ERR-001`, `QA-005` e `REL-002`, mas não conclui esses
   trabalhos operacionais.
-- Pendências de implementação: pipeline/preview remoto em `FND-006`; `/entrar`
-  em `INT-001`; página 404 em `ERR-001`; headers reais em `QA-005`; smoke de
-  rollback e redirects finais em `REL-002`.
+- Implementação concluída: pipeline e preview remoto em `FND-006`, validados no
+  PR #1 com GitHub Actions e Preview Deployment protegido da Vercel.
+- Pendências de implementação: `/entrar` em `INT-001`; página 404 em `ERR-001`;
+  headers reais em `QA-005`; smoke de rollback e redirects finais em `REL-002`.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
 - Data de aceitação: 2026-07-24.
