@@ -255,6 +255,10 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     No primeiro deploy de produção, o loader recebeu a configuração pública
     injetada pela Vercel e mudou de hash; o CSP foi atualizado para autorizar
     explicitamente também essa variante publicada, sem `unsafe-inline`.
+    PRs #15–#17 e deployment de produção
+    `2SDb6urVBFZEf6737CAwB1Rbp6DX` aprovados. Smoke final observou home 200,
+    loader same-origin 200 e um único `POST /view` 200 com `dp:"/"`, sem query,
+    hash, UTM ou e-mail sintético; `/privacidade` permaneceu sem Analytics.
   - Cobertura: `ANA-006..008`, `PRIV-001..002`.
 - [ ] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
   - Dependência satisfeita por `ANA-003`; requer deploy e inspeção de debug no

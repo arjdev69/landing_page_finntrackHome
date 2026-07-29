@@ -159,7 +159,10 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   `npm run typecheck` sem erros/avisos; `npm test` 75/75; `npm run
   test:security` com CSP sem violações e auditoria npm zerada; `npm run
   test:e2e` 32/32; `npm run test:perf` com Lighthouse 99/99, acessibilidade 100,
-  TBT 0 ms e 4.107 bytes de JavaScript.
+  TBT 0 ms e 4.107 bytes de JavaScript. PRs #15–#17 e deployment
+  `2SDb6urVBFZEf6737CAwB1Rbp6DX` aprovados; smoke final observou loader 200 e um
+  único `POST /view` 200 com caminho `/`, sem query/PII, enquanto o Preview
+  final permaneceu com zero Analytics e `noindex,nofollow`.
 - **Passada de negação**: os testes locais comprovam configuração, sanitização e
   ausência do componente nas rotas excluídas. O primeiro Preview remoto expôs
   que `PUBLIC_ENVIRONMENT=production` também estava configurado nesse ambiente;
@@ -170,12 +173,13 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   Recebimento, deduplicação e ausência de PII no payload implantado permanecem
   corretamente em `ANA-004`. O Analytics não mede cadastro, ativação ou
   retenção do app e o plano Hobby não expõe eventos customizados nem UTMs.
-- **Bloqueios**: nenhum para publicar `ANA-003`; `ANA-004` depende do deploy de
-  produção. `SEO-003` ainda depende de `DEC-012`.
+- **Bloqueios**: nenhum para `ANA-003`; `ANA-004` agora está elegível para
+  auditoria formal contínua no painel de produção. `SEO-003` ainda depende de
+  `DEC-012`.
 - **Branch**: `codex/vercel-web-analytics`
 - **Orçamento na parada**: última medição disponível antes da execução em
   `WARN`, com contexto restante 43,7%, quota semanal restante 26,0% e reset em
   2026-08-05 11:17 BRT (`AMBIGUOUS=0`). A reconsulta final não retornou goal
   ativo nem percentuais, portanto nenhum valor posterior foi inferido.
-- **Motivo da parada**: `ANA-003` concluída e validada como um bloco atômico;
-  `ANA-004` fica para o próximo ciclo após publicação.
+- **Motivo da parada**: `ANA-003` concluída, publicada e validada como um bloco
+  atômico; `ANA-004` fica para o próximo ciclo.
