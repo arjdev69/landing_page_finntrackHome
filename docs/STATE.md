@@ -146,37 +146,35 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 4 — Analytics
-- **Task concluída neste bloco**: `ANA-004`
-- **Implementação**: `scripts/validate-production-analytics.mjs` oferece
-  auditoria reproduzível do host HTTPS informado, cobrindo payload,
-  duplicidade, respostas do endpoint, rotas excluídas, cookie/storage e
-  bloqueio do loader. O relatório está em
-  `docs/audits/ANA-004-PRODUCTION-ANALYTICS.md`.
-- **Próximo passo elegível**: `QA-001` — fazer a avaliação formal da cobertura
-  E2E P0 já implementada. `SEO-003`, que aparece antes no backlog, continua
-  bloqueada por `DEC-012`. Não iniciar outra tarefa no mesmo ciclo.
-- **Validação**: painel Vercel autenticado com `Production`, página única `/`,
-  9 visitantes/10 pageviews antes do teste e nenhum custom event/UTM; runner de
-  produção aprovado com um `POST /view` 200 por carregamento, sete campos
-  permitidos, zero PII/query/hash/cookie/storage e zero coleta nas rotas
-  excluídas. Loader bloqueado manteve home 200, CTA e FAQ funcionais.
-  `npm run format:check`, `npm run lint` e `npm run typecheck` passaram; `npm
-  test` 75/75; `npm run test:security` sem violação CSP ou vulnerabilidade; `npm
-  run test:e2e` 32/32 em desktop/mobile.
-- **Passada de negação**: a primeira tentativa detectou apenas a barra final
-  legítima em `o`; a asserção foi alinhada ao payload real sem relaxar query,
-  fragmento ou origem. A auditoria real gera tráfego: este ciclo somou 5
-  pageviews sintéticos após a fotografia do painel. O comando agora exige
-  `ANALYTICS_ALLOW_SYNTHETIC_PAGEVIEWS=1`, e `REL-004` deve anotar esse QA na
-  linha de base. O plano Hobby não permite excluir esses hits
-  retroativamente.
-- **Bloqueios**: nenhum para `ANA-004`. `SEO-003` depende de `DEC-012`;
-  `QA-002` depende de smoke com leitor de tela real; `QA-003` depende de
-  navegadores/versionamentos reais não disponíveis neste ambiente.
-- **Branch**: `codex/analytics-production-audit`
-- **Orçamento na parada**: medição final `OK`, com contexto restante 56,4%,
-  quota semanal restante 95,0% e reset em 2026-08-05 17:19 BRT
-  (`AMBIGUOUS=0`).
-- **Motivo da parada**: `ANA-004` concluída como um bloco atômico; `QA-001`
-  permanece para o próximo ciclo.
+- **Bloco atual**: Épico 6 — Qualidade e lançamento
+- **Task concluída neste bloco**: `QA-001`
+- **Implementação**: `test/e2e/p0-home.e2e.mjs` agora possui dez cenários P0
+  por perfil, incluindo ativos carregados, conteúdo/FAQ/rodapé, destinos reais
+  do app e páginas legais. `playwright.config.mjs` usa
+  `https://finntrackhome.app`; `tsconfig.json` exclui artefatos gerados do
+  typecheck. Relatório em `docs/audits/QA-001-P0-E2E.md`.
+- **Próximo passo operacional**: `REL-004` poderá registrar a linha de base
+  quando houver amostra real suficiente no Analytics, anotando os 5 pageviews
+  sintéticos de `ANA-004`. Não iniciar novo bloco sem reavaliar essa
+  pré-condição.
+- **Validação**: teste focado 20/20; `npm run test:e2e` aumentou de 32 para
+  40/40, zero skips, em Chromium 1440×900 e 360×800; cadastro e login publicados
+  responderam HTTP 200 nos dois perfis. `npm run format:check`, `npm run lint`
+  e `npm run typecheck` passaram; `npm test` 75/75. O build foi aprovado mesmo
+  com relatórios Playwright presentes.
+- **Passada de negação**: a baseline paralela inicial gerou 404 transitório por
+  dois builds concorrentes e foi descartada; a repetição sequencial revelou que
+  `astro check` analisava o relatório Playwright, corrigido pela exclusão de
+  `artifacts`. Metadados/hash/PII de ativos permanecem cobertos pelo teste
+  nativo; persistência/correlação de UTM continua coberta pelo contrato e E2E do
+  app em `INT-004`; outros navegadores pertencem a `QA-003` e leitor de tela
+  real a `QA-002`.
+- **Bloqueios**: `SEO-003` depende de `DEC-012`; `QA-002` depende de leitor de
+  tela real; `QA-003` depende de versões anteriores reais e Safari em macOS;
+  `REL-001` depende do fechamento desses gates/decisões; `REL-004` aguarda
+  amostra real utilizável.
+- **Branch**: `codex/qa-001-p0-e2e`
+- **Orçamento na parada**: `WARN`, com contexto restante 13,8%, quota semanal
+  restante 86,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
+- **Motivo da parada**: `QA-001` concluída como um bloco atômico; nenhum outro
+  bloco foi iniciado neste ciclo.

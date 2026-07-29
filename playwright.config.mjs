@@ -3,9 +3,9 @@ import { defineConfig, devices } from '@playwright/test';
 const previewEnvironment = {
   PUBLIC_ENVIRONMENT: 'preview',
   PUBLIC_SITE_URL: 'http://127.0.0.1:4321',
-  PUBLIC_APP_URL: 'https://app.finntrack-home.com.br',
-  PUBLIC_APP_SIGNUP_URL: 'https://app.finntrack-home.com.br/cadastro',
-  PUBLIC_APP_LOGIN_URL: 'https://app.finntrack-home.com.br/entrar',
+  PUBLIC_APP_URL: 'https://finntrackhome.app',
+  PUBLIC_APP_SIGNUP_URL: 'https://finntrackhome.app/cadastro',
+  PUBLIC_APP_LOGIN_URL: 'https://finntrackhome.app/entrar',
 };
 
 export default defineConfig({
