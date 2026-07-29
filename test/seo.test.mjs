@@ -5,6 +5,8 @@ import test from 'node:test';
 import { URL } from 'node:url';
 
 import { resolveSeoMetadata } from '../src/lib/seo/metadata.ts';
+import { extractInlineScriptHashes } from '../scripts/security-headers.mjs';
+import { deployedInlineScriptHashesByEnvironment } from '../vercel.mjs';
 
 const homeDefinition = {
   title: 'Controle Financeiro de Imóveis e Aluguéis | FinnTrack Home',
@@ -117,6 +119,11 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.equal(h1Matches.length, 1);
   assert.match(html, /Saiba quais imóveis realmente dão lucro\./);
   assert.match(html, /<main id="main-content"/);
+  assert.match(html, /<vercel-analytics\b/);
+  assert.deepEqual(
+    extractInlineScriptHashes(html),
+    deployedInlineScriptHashesByEnvironment.production,
+  );
   assert.match(html, /Seu fechamento mensal não precisa depender de várias planilhas\./);
   assert.match(html, /Resultado mensal por imóvel/);
   assert.match(html, /Itens pagos, pendentes e vencidos ficam visíveis\./);
@@ -176,7 +183,10 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   for (const legalHtml of [privacyHtml, termsHtml]) {
     assert.match(legalHtml, /href="\/">Voltar ao início<\/a>/);
     assert.doesNotMatch(legalHtml, /google-site-verification/);
-    assert.doesNotMatch(legalHtml, /data-analytics-event|landing_view|astro-island/);
+    assert.doesNotMatch(
+      legalHtml,
+      /data-analytics-event|landing_view|vercel-analytics|astro-island/,
+    );
     assert.doesNotMatch(legalHtml, /RASCUNHO|NÃO APROVADO|lorem ipsum|TODO|TBD|\[preencher\]/i);
   }
 
@@ -192,7 +202,7 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.doesNotMatch(notFoundHtml, /google-site-verification/);
   assert.doesNotMatch(
     notFoundHtml,
-    /data-analytics-event|data-analytics-page|landing_view|astro-island/,
+    /data-analytics-event|data-analytics-page|landing_view|vercel-analytics|astro-island/,
   );
 
   assert.doesNotMatch(sitemap, /privacidade|termos/);

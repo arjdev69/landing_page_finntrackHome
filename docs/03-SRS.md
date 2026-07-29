@@ -120,8 +120,8 @@ Prioridades:
 | ANA-004 | MUST | Analytics DEVE carregar sem bloquear renderização ou interação. |
 | ANA-005 | MUST | Falha ou bloqueio do provedor NÃO DEVE quebrar a página nem os CTAs. |
 | ANA-006 | MUST | Coleta condicionada a consentimento DEVE permanecer desativada até consentimento válido. |
-| ANA-007 | MUST | Produção DEVE permitir verificar cada evento mínimo em modo de debug ou ferramenta equivalente. |
-| ANA-008 | MUST | O analytics first-party aprovado em `DEC-006/007` NÃO DEVE usar cookie, storage, pixel, SDK externo ou identificador persistente; DEVE descartar IP antes da persistência e excluir eventos brutos em até 90 dias. |
+| ANA-007 | MUST | Produção DEVE permitir verificar cada coleta habilitada em modo de debug, painel ou ferramenta equivalente; eventos não suportados pelo plano aprovado DEVEM permanecer `noop`. |
+| ANA-008 | MUST | O Vercel Web Analytics aprovado em `DEC-018` NÃO DEVE usar cookie, storage, identificador persistente ou correlação com conta; a integração DEVE limitar-se à home, remover query e fragmento antes do envio, não ativar eventos personalizados no plano Hobby e manter somente dados agregados conforme a janela do provedor. |
 
 ## 6. Acessibilidade
 

@@ -1,14 +1,14 @@
 # Controle de validação e aprovação — LEG-001
 
-Versão do controle: 1.1
-Data de liberação: 2026-07-27
+Versão do controle: 1.2
+Data de liberação: 2026-07-29
 Status: aprovado para publicação
 
 ## Documentos sob controle
 
 | Documento | Versão | Estado | Rota pública |
 |---|---:|---|---|
-| `PRIVACIDADE.md` | 1.1 | aprovado | `/privacidade` |
+| `PRIVACIDADE.md` | 1.2 | aprovado | `/privacidade` |
 | `TERMOS.md` | 1.0 | aprovado | `/termos` |
 | `PRIVACIDADE-RASCUNHO.md` | 0.1 | histórico, não publicável | — |
 | `TERMOS-RASCUNHO.md` | 0.1 | histórico, não publicável | — |
@@ -24,8 +24,8 @@ Status: aprovado para publicação
 | categorias e finalidades | Produto/Técnica | conta, carteira financeira, suporte e segurança |
 | fornecedores | Produto/Técnica | Vercel, Supabase e Google/Gmail |
 | transferência internacional | Produto/Privacidade | possível conforme infraestrutura dos fornecedores |
-| retenção e exclusão | Produto/Privacidade | app/suporte conforme necessidade; eventos brutos de analytics por até 90 dias |
-| cookies e analytics | Técnica/Privacidade | first-party aprovado, ainda `noop`; sem cookie, storage, pixel, SDK externo ou identificador persistente |
+| retenção e exclusão | Produto/Privacidade | app/suporte conforme necessidade; relatório do Web Analytics por um mês e identificação temporária descartada após 24 horas |
+| cookies e analytics | Técnica/Privacidade | Vercel Web Analytics somente na home; sem cookie, storage, custom event ou identificador persistente |
 | crianças e adolescentes | Produto | serviço não direcionado especificamente a crianças; canal para responsáveis |
 | preço | Produto | gratuito na validação, sem cobrança automática |
 | propriedade e licenças | Produto | uso não transfere direitos; terceiros preservam licenças |
@@ -41,15 +41,17 @@ Status: aprovado para publicação
 | aprovação jurídica comunicada pelo projeto | Bruno Araujo, responsável pelo projeto | 2026-07-24 | confirmada em `AD-004` |
 | aceite final para publicação | Bruno Araujo, operador e responsável pelo projeto | 2026-07-27 | concluído |
 | aprovação da Política 1.1 e da regra de analytics | Bruno Araujo, operador e responsável pelo projeto | 2026-07-27 | confirmada em `D0-005` |
+| aprovação da Política 1.2 e do Vercel Web Analytics | Bruno Araujo, operador e responsável pelo projeto | 2026-07-29 | confirmada em `DEC-018`/`ANA-003` |
 
 ## Regra de liberação
 
-Os Termos 1.0 e a Política 1.1 foram limitados aos fatos confirmados do MVP
-gratuito operado por pessoa física. A Política 1.1 autoriza somente o analytics
-first-party delimitado em `D0-005`; a coleta continua desativada até os gates de
-`ANA-003`. Cobrança, publicidade, novos fornecedores, identificadores ou novas
-categorias de dados exigem revisão antes do deploy correspondente. As minutas
-0.1 permanecem somente como histórico e não são fonte do conteúdo público.
+Os Termos 1.0 e a Política 1.2 foram limitados aos fatos confirmados do MVP
+gratuito operado por pessoa física. A Política 1.2 autoriza somente os pageviews
+agregados do Vercel Web Analytics delimitados em `DEC-018`; custom events
+permanecem `noop`. Cobrança, publicidade, novos fornecedores, identificadores ou
+novas categorias de dados exigem revisão antes do deploy correspondente. As
+minutas 0.1 permanecem somente como histórico e não são fonte do conteúdo
+público.
 
 ## Verificações obrigatórias antes da liberação
 
@@ -65,8 +67,8 @@ categorias de dados exigem revisão antes do deploy correspondente. As minutas
 
 ## Resultado da liberação
 
-Em 2026-07-27, as verificações das versões publicáveis foram aprovadas. O build
-estático gera `/privacidade` e `/termos`; os testes automatizados confirmam
-conteúdo, SEO, exclusão do sitemap e cliente analytics ainda `noop`. A política
-1.1 antecipa com transparência a coleta first-party aprovada, que só poderá ser
-ativada após `ANA-003`.
+Em 2026-07-29, as verificações da Política 1.2 e dos Termos publicáveis foram
+aprovadas. O build estático gera `/privacidade` e `/termos`; os testes
+automatizados confirmam conteúdo, SEO, exclusão do sitemap e ausência de
+analytics nas rotas legais. O Vercel Web Analytics aprovado em `DEC-018` foi
+integrado à home de produção em `ANA-003`.

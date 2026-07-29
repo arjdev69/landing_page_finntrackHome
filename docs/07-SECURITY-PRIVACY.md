@@ -8,9 +8,8 @@ Data: 2026-07-29
 
 A landing não possui conta ou formulário financeiro. Ela processa localmente
 URL/referrer allowlisted, informações técnicas mínimas e interação com
-conteúdo. `DEC-006/007` autoriza um endpoint first-party mínimo e uma tabela
-dedicada no Supabase, ainda não implementados; até os gates de `ANA-003`, a
-coleta permanece `noop`.
+conteúdo. `DEC-018` autoriza o Vercel Web Analytics somente para pageviews
+agregados da home de produção; custom events permanecem `noop`.
 
 As UTMs encaminhadas ao app permanecem somente em memória durante a página
 atual. O MVP não as grava no perfil, não as associa à conta e mede retenção do
@@ -24,7 +23,7 @@ produto separadamente.
 | open redirect | destinos somente por configuração de build validada |
 | XSS em conteúdo/terceiros | conteúdo confiável, sanitização e CSP |
 | supply chain | lockfile, atualização controlada e auditoria |
-| exfiltração por analytics | endpoint first-party, allowlist, descarte de IP, segredo server-side e retenção de 90 dias |
+| exfiltração por analytics | endpoint de mesma origem, pageview apenas da home, remoção de query/fragmento e nenhum custom event |
 | indexação de preview | robots + `X-Robots-Tag` + gate automatizado |
 | vazamento por screenshot | dados fictícios e revisão de ativos |
 | falsa alegação de segurança | copy limitada ao comportamento verificável |
@@ -79,10 +78,11 @@ Antes de ativar analytics em produção devem existir:
 - canal público de solicitações relacionadas a dados;
 - processo para atualização da política quando a instrumentação mudar.
 
-`DEC-006/007` adota legítimo interesse para a medição first-party mínima, sem
-consentimento prévio porque não há cookie, storage, pixel, SDK externo,
-identificador persistente ou correlação com conta. O teste de balanceamento,
-inventário e salvaguardas estão em
+`DEC-018` adota legítimo interesse para pageviews agregados, sem consentimento
+prévio porque não há cookie, storage, identificador persistente ou correlação
+com conta. O pacote oficial da Vercel é o único script de analytics aprovado; o
+identificador temporário do provedor é descartado após 24 horas. O teste de
+balanceamento, inventário e salvaguardas estão em
 `docs/privacy/D0-005-ANALYTICS-POLICY.md`.
 
 Qualquer mudança que introduza persistência no navegador, identificador, terceiro
@@ -102,12 +102,11 @@ solicitações de informação ou oposição usam o canal
 
 ## 7. Resposta e manutenção
 
-Enquanto `ANA-003` não existe, rollback do site é o principal mecanismo de
-contenção. O futuro endpoint first-party deve possuir kill switch para retornar
-imediatamente ao cliente `noop`.
-Incidente de script/asset de terceiro deve permitir desativação por configuração
-e novo deploy. Dependências e headers devem ser revistos periodicamente e sempre
-que analytics, hospedagem ou fontes externas mudarem.
+O rollback de analytics remove o componente/pacote, executa novo deploy e
+desativa Web Analytics no painel da Vercel. Incidente de script/asset de terceiro
+deve permitir desativação por novo deploy. Dependências e headers devem ser
+revistos periodicamente e sempre que analytics, hospedagem ou fontes externas
+mudarem.
 
 ## 8. Checklist de lançamento
 

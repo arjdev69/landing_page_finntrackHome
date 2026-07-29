@@ -1,0 +1,12 @@
+---
+import Analytics from '@vercel/analytics/astro';
+---
+
+<script>
+  import { sanitizeVercelAnalyticsEvent } from '@lib/analytics/vercel';
+
+  window.webAnalyticsBeforeSend = (event) =>
+    sanitizeVercelAnalyticsEvent(event, window.location.origin);
+</script>
+
+<Analytics mode="production" />

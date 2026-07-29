@@ -7,7 +7,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath, URL } from 'node:url';
 import { chromium } from '@playwright/test';
-import { createVercelConfig, deployedInlineScriptHashes } from '../vercel.mjs';
+import { createVercelConfig, deployedInlineScriptHashesByEnvironment } from '../vercel.mjs';
 import { buildSecurityHeaders, extractInlineScriptHashes } from './security-headers.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -99,8 +99,8 @@ const html = await readFile(path.join(dist, 'index.html'), 'utf8');
 const generatedInlineScriptHashes = extractInlineScriptHashes(html);
 assert.deepEqual(
   generatedInlineScriptHashes,
-  deployedInlineScriptHashes,
-  'O hash CSP publicado diverge dos scripts inline do build',
+  deployedInlineScriptHashesByEnvironment.preview,
+  'O hash CSP de preview publicado diverge dos scripts inline do build',
 );
 
 const previewHeaders = readConfiguredHeaders('preview');
@@ -111,7 +111,7 @@ const preview = buildSecurityHeaders({
 });
 const production = buildSecurityHeaders({
   environment: 'production',
-  inlineScriptHashes: generatedInlineScriptHashes,
+  inlineScriptHashes: deployedInlineScriptHashesByEnvironment.production,
 });
 
 assert.deepEqual(previewHeaders, preview.headers, 'Mapeamento Vercel de preview divergente');
@@ -133,7 +133,10 @@ await writeFile(
   `${JSON.stringify(
     {
       generatedAt: new Date().toISOString(),
-      inlineScriptHashes: preview.inlineScriptHashes,
+      inlineScriptHashes: {
+        preview: preview.inlineScriptHashes,
+        production: production.inlineScriptHashes,
+      },
       preview: preview.headers,
       production: production.headers,
     },

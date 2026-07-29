@@ -26,21 +26,22 @@ entre conteúdo, apresentação, analytics e navegação externa.
   controladas; copy da home pode permanecer em módulos tipados.
 
 Astro + TypeScript estrito + Tailwind é a decisão aprovada em `DEC-002`.
-Hospedagem e analytics first-party estão definidos em `DEC-010` e
-`DEC-006/007`; a implementação do endpoint permanece em `ANA-003`.
+Hospedagem e analytics estão definidos em `DEC-010` e `DEC-018`; a integração
+do Vercel Web Analytics foi concluída em `ANA-003`.
 
 ## 3. Contexto e fronteiras
 
 ```text
 Navegador
   ├─ HTML/CSS/assets estáticos ── Hospedagem/CDN
-  ├─ eventos allowlisted ─────── Endpoint first-party (pendente em ANA-003)
+  ├─ pageview agregado ───────── Vercel Web Analytics (ANA-003)
+  ├─ eventos allowlisted ─────── NoopAnalytics no plano Hobby
   └─ login/cadastro + UTMs ───── App FinnTrack Home
 
 Landing
   não autentica
-  não acessa Supabase diretamente
-  não recebe segredo do Supabase
+  não acessa banco de analytics
+  não recebe segredo de analytics
   não recebe dados financeiros
   não decide ativação dentro do app
 ```
@@ -153,8 +154,9 @@ Comportamento:
 O contrato de campanha do MVP termina na memória da página do app. Landing e
 app não persistem first-touch/last-touch em cookie, Web Storage, banco ou perfil
 de conta, nem correlacionam UTM com usuário. Retenção 7/30 dias é calculada pelo
-produto a partir de cadastro/atividade, separadamente da origem de campanha. A
-retenção de eventos brutos do analytics first-party continua limitada a 90 dias.
+produto a partir de cadastro/atividade, separadamente da origem de campanha. O
+relatório do Vercel Web Analytics segue a janela de um mês do plano Hobby; o
+identificador temporário descrito pelo provedor é descartado após 24 horas.
 
 ## 8. Analytics por adaptador
 
@@ -168,19 +170,19 @@ interface AnalyticsClient {
 Implementações:
 
 - `NoopAnalytics`: padrão seguro em desenvolvimento, preview, configuração
-  incompleta ou falha;
-- adaptador first-party: envia somente o contrato allowlisted para endpoint de
-  mesma origem, sem SDK de terceiro, cookie, storage ou identificador;
-- endpoint server-side: valida schema, descarta IP/cabeçalhos desnecessários e
-  persiste no Supabase com segredo não público e retenção máxima de 90 dias.
+  incompleta, custom events e falha;
+- `@vercel/analytics/astro`: somente na home de produção, registra pageview
+  agregado por endpoint de mesma origem, sem cookie ou storage e com
+  `beforeSend` removendo query e fragmento;
+- o plano Hobby não recebe os eventos personalizados do contrato nem UTMs; eles
+  permanecem no adaptador `NoopAnalytics`.
 
 Componentes emitem intenção sem conhecer SDK, ID ou consent manager. O adaptador
-faz sanitização final pela allowlist do contrato.
+tipado existente preserva o contrato para uma decisão futura, sem rede no MVP.
 
-O endpoint e a tabela não fazem parte do build estático da landing e serão
-entregues por `ANA-003`. Até todos os gates de
-`docs/privacy/D0-005-ANALYTICS-POLICY.md` passarem, produção usa
-`NoopAnalytics`.
+`ANA-003` integra apenas o componente oficial de pageview. Os gates de
+`docs/privacy/D0-005-ANALYTICS-POLICY.md` passaram localmente; a inspeção do
+payload implantado permanece em `ANA-004`.
 
 `lib/analytics/classification.ts` implementa os breakpoints de `device_group`, a
 precedência de `referrer_group` e as allowlists versionadas definidas em
@@ -268,11 +270,11 @@ Pipeline mínimo:
 
 ## 14. Observabilidade e falhas
 
-O único backend planejado é o endpoint first-party mínimo de analytics de
-`ANA-003`. Falhas relevantes são:
+Não há backend próprio de analytics no MVP; o pageview usa a entrada de mesma
+origem administrada pela Vercel. Falhas relevantes são:
 
 - configuração ausente: falha de build;
-- analytics indisponível: degrada para noop;
+- analytics indisponível: a página e os CTAs continuam funcionais;
 - imagem ausente: falha de build/teste de assets;
 - app indisponível: link permanece correto, smoke test acusa dependência;
 - conteúdo legal placeholder: falha do gate de lançamento;
