@@ -124,7 +124,7 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Próximo passo**: `ANA-003`, primeiro checkbox pendente do próximo épico,
   continua dependendo de `SUPABASE_URL`, chave server-side e autorização para
   aplicar/verificar a migração no Supabase/Vercel.
-- **Validação**: contrato focado 4/4; formatação, lint e tipagem aprovados; suíte
+- **Validação**: contrato focado revalidado em 2026-07-29, 4/4; formatação, lint e tipagem aprovados; suíte
   completa passou de 66 para 68 testes; build estático aprovado. Evidência
   externa inclui testes do app 7/7, E2E 4/4 desktop/mobile e smoke público
   landing → cadastro com descarte de `email`/`redirect`; zero OAuth ativo.
@@ -137,7 +137,8 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   em `REL-002`.
 - **Arquivos não commitados**: nenhum após o checkpoint.
 - **Branch**: `codex/ana-003-preflight`
-- **Orçamento na parada**: contexto 17,4% · quota semanal 91,0%, com reset em
+- **Orçamento na parada**: contexto 13,9% · quota semanal 90,0%, com reset em
   2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: ciclo concluído após exatamente uma tarefa, `INT-004`;
-  nenhuma tarefa do próximo épico foi iniciada.
+- **Motivo da parada**: preflight SDD revalidou `INT-004` e confirmou que
+  `ANA-003` continua bloqueada pela configuração server-side; nenhuma tarefa do
+  próximo épico foi iniciada.
