@@ -334,16 +334,16 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 
 ## Épico 6 — Qualidade e lançamento
 
-- [ ] `QA-001` Automatizar E2E dos fluxos P0.
-  - Evidência parcial (atualizada em 2026-07-29): Playwright 1.61.1 configurado contra o preview
-    do build, com projetos Chromium 1440×900 e 360×800. Dez cenários, sem skips,
-    validam home 200/H1/seções, navegação desktop, menu móvel por teclado, CTAs
-    configurados, CTA secundário, allowlist/encoding de UTMs, descarte de e-mail e
-    redirect arbitrário, ausência de erros no navegador e status 404 HTTP real.
-    `npm run test:e2e` passou 32/32 após `INT-004`, `INT-001`, `LEG-001`,
-    `ERR-001` e `ANA-003`; a suíte nativa passou 72/72, além de formatação, lint,
-    tipagem e build. A conclusão formal de `QA-001` não foi avaliada neste ciclo
-    dedicado exclusivamente a `ANA-003`.
+- [x] `QA-001` Automatizar E2E dos fluxos P0.
+  - Evidência (2026-07-29): dez cenários funcionais P0 executam em Chromium
+    1440×900 e 360×800. A cobertura foi ampliada para ativos carregados/alt,
+    público/FAQ/rodapé, páginas legais e os destinos reais
+    `finntrackhome.app/cadastro` e `/entrar`, ambos HTTP 200. O host de exemplo
+    que não resolvia foi removido do setup E2E. `tsconfig.json` exclui artefatos
+    gerados, impedindo que o relatório Playwright contamine `astro check`.
+    Teste focado 20/20; suíte completa aumentou de 32 para 40/40, sem skips;
+    suíte nativa 75/75; formatação, lint, tipagem e build passaram. Relatório:
+    `docs/audits/QA-001-P0-E2E.md`.
 - [ ] `QA-002` Executar auditoria manual/automática WCAG 2.2 AA.
   - Evidência parcial (2026-07-22): `@axe-core/playwright` e a suíte
     `test/e2e/accessibility.e2e.mjs` cobrem Axe WCAG A/AA, teclado, foco,

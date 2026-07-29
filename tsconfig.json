@@ -12,5 +12,6 @@
       "@styles/*": ["src/styles/*"],
       "@types/*": ["src/types/*"]
     }
-  }
+  },
+  "exclude": ["artifacts", "dist", "node_modules"]
 }
