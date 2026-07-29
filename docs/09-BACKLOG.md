@@ -260,9 +260,19 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     loader same-origin 200 e um único `POST /view` 200 com `dp:"/"`, sem query,
     hash, UTM ou e-mail sintético; `/privacidade` permaneceu sem Analytics.
   - Cobertura: `ANA-006..008`, `PRIV-001..002`.
-- [ ] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
-  - Dependência satisfeita por `ANA-003`; requer deploy e inspeção de debug no
-    ambiente de produção.
+- [x] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
+  - Evidência (2026-07-29): painel Vercel autenticado confirmou `Production`,
+    uma única página agregada `/`, 9 visitantes/10 pageviews na fotografia
+    anterior ao teste, ausência de referrer/UTM e nenhum custom event. O runner
+    `scripts/validate-production-analytics.mjs` auditou o host canônico com
+    marcadores sintéticos: exatamente um `POST /view` 200 por carregamento,
+    payload restrito a sete campos e sem query, hash, UTM ou e-mail; zero
+    cookie, `Set-Cookie`, `localStorage` e `sessionStorage`; zero loader/coleta
+    em páginas legais, `/entrar` e 404. Com o loader bloqueado, home, CTA e FAQ
+    permaneceram funcionais. Formatação, lint e tipagem passaram; suíte 75/75,
+    segurança/CSP sem violações e vulnerabilidades e E2E 32/32 foram aprovados.
+    Relatório: `docs/audits/ANA-004-PRODUCTION-ANALYTICS.md`.
+  - Cobertura: `ANA-001..008`, `PRIV-001..002`.
 
 ## Épico 5 — SEO, legal e assets
 
