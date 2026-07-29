@@ -217,13 +217,18 @@ datas de calendário aprovado.
 - Implementação concluída: pipeline e preview remoto em `FND-006`, página 404
   em `ERR-001` e headers reais em `QA-005`, validados pelos PRs #1, #3 e #4,
   GitHub Actions, Preview Deployment protegido e smokes de produção.
-- Pendências de implementação: `/entrar` em `INT-001`; smoke de rollback e
-  redirects finais em `REL-002`.
+- Implementação de entrega concluída: `/entrar` foi publicada por `INT-001` no
+  PR #7; `REL-002` confirmou preview protegido, produção, host/canonical, HTTPS,
+  404, destinos do app, descarte de parâmetros sensíveis e o procedimento de
+  rollback. Um domínio customizado continua opcional e exige nova verificação
+  de canonical e redirects quando for adotado.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
 - Data de aceitação: 2026-07-24.
-- Evidência: `D0-002`, configuração de produção validada, deploy público na
-  Vercel e smoke HTTP de `https://finntrack-home-landing.vercel.app`,
+- Evidência: `D0-002`, PR #7, merge `dddc615`, deployment Vercel
+  `FYnCQXk2DCbJpPKHcNtwUx8XZhCg`,
+  `docs/operations/REL-002-RELEASE.md` e smoke HTTP de
+  `https://finntrack-home-landing.vercel.app`,
   `https://finntrackhome.app/cadastro` e `https://finntrackhome.app/entrar`.
 
 ### DEC-011 — Canal público de suporte e dados
