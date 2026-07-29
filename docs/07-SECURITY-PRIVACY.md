@@ -1,8 +1,8 @@
 # Segurança e privacidade
 
-Versão: 0.1.2
+Versão: 0.1.3
 Status: approved — baseline, jurídico e política de analytics definidos
-Data: 2026-07-27
+Data: 2026-07-29
 
 ## 1. Escopo de dados
 
@@ -11,6 +11,10 @@ URL/referrer allowlisted, informações técnicas mínimas e interação com
 conteúdo. `DEC-006/007` autoriza um endpoint first-party mínimo e uma tabela
 dedicada no Supabase, ainda não implementados; até os gates de `ANA-003`, a
 coleta permanece `noop`.
+
+As UTMs encaminhadas ao app permanecem somente em memória durante a página
+atual. O MVP não as grava no perfil, não as associa à conta e mede retenção do
+produto separadamente.
 
 ## 2. Modelo de ameaças resumido
 
@@ -82,8 +86,9 @@ inventário e salvaguardas estão em
 `docs/privacy/D0-005-ANALYTICS-POLICY.md`.
 
 Qualquer mudança que introduza persistência no navegador, identificador, terceiro
-ou nova finalidade exige nova decisão. A landing e os CTAs continuam funcionais
-com `NoopAnalytics`, e solicitações de informação ou oposição usam o canal
+ou nova finalidade — incluindo correlação de campanha com conta — exige nova
+decisão. A landing e os CTAs continuam funcionais com `NoopAnalytics`, e
+solicitações de informação ou oposição usam o canal
 `jobslens.ia@gmail.com`.
 
 ## 6. Screenshots e conteúdo

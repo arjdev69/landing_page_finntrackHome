@@ -1,0 +1,38 @@
+---
+import AppLinkEnhancer from '@components/layout/AppLinkEnhancer.astro';
+import ButtonLink from '@components/ui/ButtonLink.astro';
+import Container from '@components/ui/Container.astro';
+import { publicConfig } from '@config/public';
+import { loginFallbackSeo } from '@config/site';
+import LegalLayout from '@layouts/LegalLayout.astro';
+---
+
+<LegalLayout {...loginFallbackSeo}>
+  <main id="main-content" tabindex="-1">
+    <Container size="reading" class="py-16 sm:py-24">
+      <div class="rounded-card border border-border bg-surface p-6 shadow-card sm:p-10">
+        <p class="text-sm font-semibold tracking-wide text-action uppercase">Área do usuário</p>
+        <h1 class="mt-3 text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
+          {loginFallbackSeo.heading}
+        </h1>
+        <p class="mt-5 max-w-prose text-base leading-7 text-muted">
+          Continue para o aplicativo oficial para acessar sua conta. Se você chegou por uma
+          campanha, somente os parâmetros UTM permitidos serão encaminhados.
+        </p>
+        <ButtonLink
+          href={publicConfig.appLoginUrl}
+          class="mt-8"
+          data-app-link
+          data-destination-type="login"
+          data-cta-location="middle"
+        >
+          Continuar para entrar
+        </ButtonLink>
+        <p class="mt-5 text-sm leading-6 text-muted">
+          O link continua funcionando mesmo quando o JavaScript está desativado.
+        </p>
+      </div>
+    </Container>
+  </main>
+  <AppLinkEnhancer />
+</LegalLayout>

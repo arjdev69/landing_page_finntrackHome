@@ -102,6 +102,30 @@ test('T-UTM-001 enriches app links with the allowlist and discards sensitive que
   expect(errors).toEqual([]);
 });
 
+test('T-UTM-003 keeps /entrar functional and forwards only allowed UTMs', async ({ page }) => {
+  const errors = collectRuntimeErrors(page);
+  const response = await page.goto(
+    '/entrar?utm_source=google&utm_medium=cpc&utm_term=alugu%C3%A9is&email=pessoa%40example.com&redirect=https%3A%2F%2Fevil.invalid%2F#private',
+  );
+
+  expect(response?.status()).toBe(200);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex,nofollow');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Entrar no FinnTrack Home');
+
+  const login = page.getByRole('link', { name: 'Continuar para entrar' });
+  await expect.poll(async () => login.getAttribute('href')).toContain('utm_term=alugu%C3%A9is');
+
+  const destination = new URL(await login.getAttribute('href'));
+  expect(destination.origin + destination.pathname).toBe(loginPath);
+  expect(destination.searchParams.get('utm_source')).toBe('google');
+  expect(destination.searchParams.get('utm_medium')).toBe('cpc');
+  expect(destination.searchParams.get('utm_term')).toBe('aluguéis');
+  expect(destination.searchParams.has('email')).toBe(false);
+  expect(destination.searchParams.has('redirect')).toBe(false);
+  expect(destination.hash).toBe('');
+  expect(errors).toEqual([]);
+});
+
 test('T-ROUTE-001/T-404-001 serves the recovery page with a real 404 status', async ({ page }) => {
   const errors = collectRuntimeErrors(page);
   const response = await page.goto('/rota-inexistente-e2e');

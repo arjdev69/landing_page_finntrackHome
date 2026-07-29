@@ -89,27 +89,56 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-27
 - **Status**: ativa
 
+### AD-007
+
+- **Decisão**: implementar `/entrar` como fallback estático, em vez de redirect
+  genérico da Vercel, reutilizando o enriquecimento progressivo allowlisted.
+- **Razão**: o host não oferece filtro por chave para encaminhar somente as
+  cinco UTMs aprovadas; preservar toda a query violaria `FR-UTM-004`.
+- **Trade-off**: existe uma etapa explícita de confirmação antes de abrir o app,
+  mas o login funciona sem JavaScript, o destino não vem da query e parâmetros
+  desconhecidos ou sensíveis não são propagados.
+- **Data**: 2026-07-27
+- **Status**: ativa
+
+### AD-008
+
+- **Decisão**: encerrar o contrato de aquisição do MVP com UTMs somente em
+  memória no app, sem persistência first/last-touch e sem correlação com conta.
+  Cadastro, atividade e retenção 7/30 dias serão medidos separadamente no
+  produto.
+- **Razão**: validar retenção de usuários não exige identificar a campanha de
+  cada conta; separar as medições reduz complexidade e tratamento de dados.
+- **Trade-off**: o MVP mede intenção/saída na landing e retenção no app, mas não
+  calcula conversão identificada landing → cadastro nem retenção por campanha.
+- **Data**: 2026-07-29
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 0 — Decisões e contratos
-- **Tasks concluídas neste bloco**: `D0-005`
+- **Bloco atual**: Épico 3 — Rotas e integração
+- **Tasks concluídas neste bloco**: `INT-001`, `INT-004`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: `ANA-003` está desbloqueada, mas não iniciada. Implementar
-  endpoint/tabela e todos os gates de
-  `docs/privacy/D0-005-ANALYTICS-POLICY.md`, mantendo `noop` até a validação.
-- **Validação**: teste focado 4/4; formatação, lint e typecheck aprovados; suíte
-  completa passou de 62 para 64 testes; build estático aprovado; E2E 30/30 em
-  desktop/mobile.
-- **Passada de negação**: endpoint, tabela, credenciais, expiração, rate limit,
-  descarte real de IP, CSP e debug de produção não foram implementados; todos
-  permanecem explicitamente em `ANA-003/004`. O cliente ativo continua
-  `NoopAnalytics`.
-- **Bloqueios**: nenhum para `D0-005`. `INT-001`, `INT-004` e `SEO-003`
-  continuam dependentes de suas decisões/contratos próprios.
-- **Arquivos não commitados**: nenhum após o commit atômico.
-- **Branch**: `codex/d0-005-decision-handoff`
-- **Orçamento na parada**: contexto 28,0% · quota semanal 22,0%, com reset em
-  2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: ciclo SDD concluído após uma única tarefa, `D0-005`
+- **Próximo passo**: `ANA-003`, primeiro checkbox pendente do próximo épico,
+  continua dependendo de `SUPABASE_URL`, chave server-side e autorização para
+  aplicar/verificar a migração no Supabase/Vercel.
+- **Validação**: contrato focado revalidado em 2026-07-29, 4/4; formatação, lint e tipagem aprovados; suíte
+  completa passou de 66 para 68 testes; build estático aprovado. Evidência
+  externa inclui testes do app 7/7, E2E 4/4 desktop/mobile e smoke público
+  landing → cadastro com descarte de `email`/`redirect`; zero OAuth ativo.
+- **Passada de negação**: a confirmação de e-mail impediu sessão pós-cadastro,
+  mas submissão/autenticação interna do app não integra o escopo da landing. A
+  conta sintética pendente foi removida pelo usuário. Persistência/correlação de
+  campanha não foi validada porque foi explicitamente retirada do MVP.
+- **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel.
+  `SEO-003` depende de `DEC-012`; publicação/smoke dos commits locais permanece
+  em `REL-002`.
+- **Arquivos não commitados**: nenhum após o checkpoint.
+- **Branch**: `codex/ana-003-preflight`
+- **Orçamento na parada**: contexto 13,9% · quota semanal 90,0%, com reset em
+  2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`)
+- **Motivo da parada**: preflight SDD revalidou `INT-004` e confirmou que
+  `ANA-003` continua bloqueada pela configuração server-side; nenhuma tarefa do
+  próximo épico foi iniciada.

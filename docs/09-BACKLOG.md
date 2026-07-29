@@ -191,7 +191,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 
 ## Épico 3 — Rotas e integração
 
-- [ ] `INT-001` Implementar `/entrar` e configuração de redirect na plataforma.
+- [x] `INT-001` Implementar `/entrar` e configuração de redirect na plataforma.
   - Bloqueada por: `D0-002`/`DEC-010`, que define a estratégia de hospedagem.
   - Aceite: preserva somente a allowlist de UTMs e nunca aceita destino vindo da
     query; quando o host não filtrar parâmetros, usa o fallback documentado.
@@ -213,9 +213,13 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     qualquer falha. `test/app-link-enrichment.test.mjs`, a suíte completa
     (25/25), build e smoke no navegador comprovaram allowlist, encoding,
     ausência de PII/redirect/fragmento e fallback sem UTMs ou logs.
-- [ ] `INT-004` Validar contrato real de cadastro/login e UTMs com o app.
+- [x] `INT-004` Validar contrato real de cadastro/login e UTMs com o app.
   - Bloqueado por: `D0-003`.
   - Cobertura: `FR-CTA-007..008`, `FR-UTM-006..007`.
+  - Evidência (2026-07-29): contrato simplificado aprovado sem persistência ou
+    correlação com conta; app publicado mantém rotas diretas, allowlist e
+    captura em memória. E2E do app 4/4 em desktop/mobile e smoke real da landing
+    confirmaram descarte de dados sensíveis e ausência de OAuth ativo.
 
 ## Épico 4 — Analytics
 
