@@ -115,7 +115,7 @@ mudarem.
 - [ ] CSP e demais headers verificados em produção.
 - [ ] Preview confirmado como não indexável.
 - [ ] Inventário de terceiros coincide com a política.
-- [ ] Payloads de analytics não contêm PII.
+- [x] Payloads de analytics não contêm PII.
 - [ ] Screenshots e metadados foram revisados.
 - [ ] Privacidade, termos e canal de dados foram aprovados.
 - [ ] Rollback da hospedagem foi testado ou documentado.

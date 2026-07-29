@@ -21,6 +21,7 @@
     "test:compat": "playwright test --config playwright.compat.config.mjs",
     "test:e2e": "playwright test",
     "test:e2e:report": "playwright show-report artifacts/playwright/html",
+    "test:analytics:production": "node scripts/validate-production-analytics.mjs",
     "test:perf": "node scripts/run-performance-audit.mjs",
     "test:perf:baseline": "node scripts/run-performance-audit.mjs --baseline",
     "test:security": "node scripts/validate-security-headers.mjs && npm audit --audit-level=moderate",

@@ -147,39 +147,36 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 4 — Analytics
-- **Task concluída neste bloco**: `ANA-003`
-- **Implementação**: `@vercel/analytics` 2.0.1 é renderizado somente pela home no
-  build de produção; `src/lib/analytics/vercel.ts` restringe a coleta a
-  pageview same-origin de `/` sem query/hash. Preview, páginas legais,
-  `/entrar`, 404 e eventos customizados permanecem sem coleta.
-- **Próximo passo elegível**: `ANA-004` — publicar a integração e validar no
-  debug de produção o payload, ausência de duplicidade/PII e comportamento de
-  bloqueadores. Não iniciar outra tarefa no mesmo ciclo.
-- **Validação**: testes focados; `npm run format:check`; `npm run lint`;
-  `npm run typecheck` sem erros/avisos; `npm test` 75/75; `npm run
-  test:security` com CSP sem violações e auditoria npm zerada; `npm run
-  test:e2e` 32/32; `npm run test:perf` com Lighthouse 99/99, acessibilidade 100,
-  TBT 0 ms e 4.107 bytes de JavaScript. PRs #15–#17 e deployment
-  `2SDb6urVBFZEf6737CAwB1Rbp6DX` aprovados; smoke final observou loader 200 e um
-  único `POST /view` 200 com caminho `/`, sem query/PII, enquanto o Preview
-  final permaneceu com zero Analytics e `noindex,nofollow`.
-- **Passada de negação**: os testes locais comprovam configuração, sanitização e
-  ausência do componente nas rotas excluídas. O primeiro Preview remoto expôs
-  que `PUBLIC_ENVIRONMENT=production` também estava configurado nesse ambiente;
-  a detecção agora exige concordância com `VERCEL_ENV` e falha para preview sem
-  coleta/indexação. O primeiro deploy de produção revelou ainda que a Vercel
-  transforma o loader ao injetar a configuração pública do projeto; o hash
-  específico dessa variante foi adicionado ao CSP sem liberar `unsafe-inline`.
-  Recebimento, deduplicação e ausência de PII no payload implantado permanecem
-  corretamente em `ANA-004`. O Analytics não mede cadastro, ativação ou
-  retenção do app e o plano Hobby não expõe eventos customizados nem UTMs.
-- **Bloqueios**: nenhum para `ANA-003`; `ANA-004` agora está elegível para
-  auditoria formal contínua no painel de produção. `SEO-003` ainda depende de
-  `DEC-012`.
-- **Branch**: `codex/vercel-web-analytics`
-- **Orçamento na parada**: última medição disponível antes da execução em
-  `WARN`, com contexto restante 43,7%, quota semanal restante 26,0% e reset em
-  2026-08-05 11:17 BRT (`AMBIGUOUS=0`). A reconsulta final não retornou goal
-  ativo nem percentuais, portanto nenhum valor posterior foi inferido.
-- **Motivo da parada**: `ANA-003` concluída, publicada e validada como um bloco
-  atômico; `ANA-004` fica para o próximo ciclo.
+- **Task concluída neste bloco**: `ANA-004`
+- **Implementação**: `scripts/validate-production-analytics.mjs` oferece
+  auditoria reproduzível do host HTTPS informado, cobrindo payload,
+  duplicidade, respostas do endpoint, rotas excluídas, cookie/storage e
+  bloqueio do loader. O relatório está em
+  `docs/audits/ANA-004-PRODUCTION-ANALYTICS.md`.
+- **Próximo passo elegível**: `QA-001` — fazer a avaliação formal da cobertura
+  E2E P0 já implementada. `SEO-003`, que aparece antes no backlog, continua
+  bloqueada por `DEC-012`. Não iniciar outra tarefa no mesmo ciclo.
+- **Validação**: painel Vercel autenticado com `Production`, página única `/`,
+  9 visitantes/10 pageviews antes do teste e nenhum custom event/UTM; runner de
+  produção aprovado com um `POST /view` 200 por carregamento, sete campos
+  permitidos, zero PII/query/hash/cookie/storage e zero coleta nas rotas
+  excluídas. Loader bloqueado manteve home 200, CTA e FAQ funcionais.
+  `npm run format:check`, `npm run lint` e `npm run typecheck` passaram; `npm
+  test` 75/75; `npm run test:security` sem violação CSP ou vulnerabilidade; `npm
+  run test:e2e` 32/32 em desktop/mobile.
+- **Passada de negação**: a primeira tentativa detectou apenas a barra final
+  legítima em `o`; a asserção foi alinhada ao payload real sem relaxar query,
+  fragmento ou origem. A auditoria real gera tráfego: este ciclo somou 5
+  pageviews sintéticos após a fotografia do painel. O comando agora exige
+  `ANALYTICS_ALLOW_SYNTHETIC_PAGEVIEWS=1`, e `REL-004` deve anotar esse QA na
+  linha de base. O plano Hobby não permite excluir esses hits
+  retroativamente.
+- **Bloqueios**: nenhum para `ANA-004`. `SEO-003` depende de `DEC-012`;
+  `QA-002` depende de smoke com leitor de tela real; `QA-003` depende de
+  navegadores/versionamentos reais não disponíveis neste ambiente.
+- **Branch**: `codex/analytics-production-audit`
+- **Orçamento na parada**: medição final `OK`, com contexto restante 56,4%,
+  quota semanal restante 95,0% e reset em 2026-08-05 17:19 BRT
+  (`AMBIGUOUS=0`).
+- **Motivo da parada**: `ANA-004` concluída como um bloco atômico; `QA-001`
+  permanece para o próximo ciclo.
