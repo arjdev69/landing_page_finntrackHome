@@ -133,30 +133,31 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 6 — Qualidade e lançamento
 - **Tasks concluídas neste bloco**: `REL-002`, `REL-003`
-- **Em andamento (arquivo:linha)**: migração canônica para
-  `https://finntrackhomepage.app`; autenticação concluída, variável e redirects
-  configurados na Vercel, aguardando PR/deploy.
-- **Próximo passo**: publicar o PR; aguardar CI e deployment de produção;
-  validar redirects, canonical, robots/sitemap e configurar a propriedade nova
-  no Search Console.
-- **Validação**: novo domínio público responde `200`, mas o deployment atual
-  ainda publica canonical/OG antigos. Alteração local passou em formatação,
-  lint, tipagem, `69/69` testes e build isolado; o artefato isolado contém
-  canonical, `og:url`, robots e sitemap na nova origem. Redirects de produção
-  possuem teste de regressão.
-- **Passada de negação**: nenhum novo deploy foi executado; o certificado de
-  `www` ainda está sendo gerado; a nova propriedade do Search Console e o novo
-  sitemap ainda não foram configurados. A migração não pode ser declarada
-  concluída.
+- **Em andamento (arquivo:linha)**: nenhuma implementação; migração canônica
+  concluída e documentada em
+  `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`.
+- **Próximo passo**: monitorar o processamento de `/sitemap.xml` na propriedade
+  `https://finntrackhomepage.app/` e selecionar uma única tarefa pendente e
+  elegível do backlog em um novo ciclo.
+- **Validação**: PRs #12/#13 e pipelines da `main` aprovados; deployment final
+  Vercel `5662052222`; home, robots e sitemap respondem `200`; canonical e
+  `og:url` usam a nova origem; host anterior e `www` respondem `308` preservando
+  path/query; propriedade nova verificada por tag HTML e sitemap submetido.
+- **Passada de negação**: o Search Console confirmou o envio, mas a primeira
+  leitura ainda mostra “Não foi possível buscar o sitemap”; isso não comprova
+  processamento nem indexação. A tag da propriedade anterior foi preservada
+  durante a migração. Analytics continua desativado (`noop`) e nenhuma tarefa
+  pendente foi iniciada neste ciclo.
 - **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel;
   `SEO-003` depende de `DEC-012`; `REL-001` ainda depende do fechamento das
   pendências de analytics/SEO/QA.
-- **Arquivos não commitados**: `.github/workflows/ci.yml`, `README.md`,
-  `docs/10-DECISION-LOG.md`, `docs/STATE.md`,
-  `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`,
-  `test/ci-workflow.test.mjs`, `test/security-headers.test.mjs`, `vercel.mjs`;
-  `.env.production` foi atualizado localmente e permanece ignorado.
-- **Branch**: `codex/domain-migration`
-- **Orçamento na parada**: contexto 36,7% · quota semanal 49,0%, com reset em
-  2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`).
-- **Motivo da parada**: nenhum; implementação pronta para checkpoint e PR.
+- **Arquivos não commitados**: documentação de encerramento em
+  `docs/10-DECISION-LOG.md`, `docs/11-TRACEABILITY.md`, `docs/STATE.md` e
+  `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`; `.env.production` permanece
+  atualizado localmente e ignorado.
+- **Branch**: `codex/domain-migration-closeout`
+- **Orçamento na parada**: contexto restante 66,6% · quota semanal restante
+  31,0%, com reset em 2026-08-05 11:17 BRT (medido; `WARN`,
+  `AMBIGUOUS=0`).
+- **Motivo da parada**: bloco de revalidação do domínio concluído; checkpoint
+  documental pronto para revisão e merge.

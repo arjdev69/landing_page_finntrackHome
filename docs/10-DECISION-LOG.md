@@ -63,6 +63,11 @@ datas de calendário aprovado.
   `https://finntrackhomepage.app`, sem alterar os destinos do app. A migração
   exige atualizar configuração, canonical, sitemap, Search Console e redirects
   permanentes do host anterior e da variante `www`.
+- Migração concluída em 2026-07-29 pelos PRs #12/#13: produção passou a emitir a
+  nova origem, os dois hosts secundários respondem `308` preservando path/query
+  e a propriedade nova do Search Console foi verificada e recebeu o sitemap. O
+  primeiro processamento do Google ainda reporta falha transitória e permanece
+  em monitoramento.
 - Privacidade: a captura entregue é somente em memória, sem cookie, Web Storage,
   escrita no Supabase, analytics, terceiro ou atribuição durável. Essa ausência
   de persistência é a decisão final do MVP, alinhada a `DEC-007`.
@@ -229,6 +234,11 @@ datas de calendário aprovado.
   origem canônica foi verificada por tag HTML no Google Search Console e
   `/sitemap.xml` foi submetido. A primeira leitura do Google ainda reportou falha
   transitória, registrada sem afirmar sucesso de processamento.
+- Revalidação do domínio customizado concluída em 2026-07-29: os PRs #12/#13
+  publicaram canonical, Open Graph, robots e sitemap em
+  `https://finntrackhomepage.app`; o host Vercel anterior e `www` redirecionam
+  com `308`, preservando path e query; a propriedade nova foi verificada por tag
+  HTML e recebeu `/sitemap.xml`.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
 - Data de aceitação: 2026-07-24.
@@ -237,7 +247,9 @@ datas de calendário aprovado.
   `docs/operations/REL-002-RELEASE.md` e smoke HTTP de
   `https://finntrack-home-landing.vercel.app`,
   `https://finntrackhome.app/cadastro`, `https://finntrackhome.app/entrar` e
-  `docs/operations/REL-003-SEARCH-CONSOLE.md`.
+  `docs/operations/REL-003-SEARCH-CONSOLE.md`; PRs #12/#13, merges
+  `fb454a3`/`f9d701b`, deployment Vercel `5662052222`, pipeline
+  `30475375794` e `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`.
 
 ### DEC-011 — Canal público de suporte e dados
 
