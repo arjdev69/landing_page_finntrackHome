@@ -80,6 +80,10 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.match(html, /<html lang="pt-BR">/);
   assert.match(html, /<meta charset="UTF-8">/);
   assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1">/);
+  assert.match(
+    html,
+    /<meta name="google-site-verification" content="4QKruYz5C39n-OzQwi5ZszK4DshkoBMnxpea5t_qkbY">/,
+  );
   assert.match(html, /<title>Controle Financeiro de Imóveis e Aluguéis \| FinnTrack Home<\/title>/);
   assert.match(html, /<meta name="description" content="Organize receitas, despesas/);
   assert.match(html, /<link rel="canonical" href="https:\/\/www\.finntrack-home\.com\.br\/">/);
@@ -166,6 +170,7 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
 
   for (const legalHtml of [privacyHtml, termsHtml]) {
     assert.match(legalHtml, /href="\/">Voltar ao início<\/a>/);
+    assert.doesNotMatch(legalHtml, /google-site-verification/);
     assert.doesNotMatch(legalHtml, /data-analytics-event|landing_view|astro-island/);
     assert.doesNotMatch(legalHtml, /RASCUNHO|NÃO APROVADO|lorem ipsum|TODO|TBD|\[preencher\]/i);
   }
@@ -179,6 +184,7 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.equal((notFoundHtml.match(/<h1\b/g) ?? []).length, 1);
   assert.match(notFoundHtml, /Página não encontrada/);
   assert.match(notFoundHtml, /href="\/"[^>]*>Voltar à página inicial<\/a>/);
+  assert.doesNotMatch(notFoundHtml, /google-site-verification/);
   assert.doesNotMatch(
     notFoundHtml,
     /data-analytics-event|data-analytics-page|landing_view|astro-island/,

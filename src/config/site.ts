@@ -9,6 +9,7 @@ export const siteConfig = Object.freeze({
   faviconPath: '/favicon.png',
   appleTouchIconPath: '/apple-touch-icon.png',
   socialImageAlt: 'FinnTrack Home — controle financeiro para proprietários de imóveis.',
+  googleSiteVerification: '4QKruYz5C39n-OzQwi5ZszK4DshkoBMnxpea5t_qkbY',
 });
 
 export const homeSeo = Object.freeze({
