@@ -28,13 +28,14 @@ test('LEG-001 final documents are dated, approved and contain no publication mar
   }
 
   for (const document of [privacy, terms]) {
-    assert.match(document, /Vigência: 2026-07-27/);
     assert.match(document, /Status: aprovado para publicação/);
     assert.match(document, /jobslens\.ia@gmail\.com/);
   }
 
-  assert.match(privacy, /Versão: 1\.1/);
+  assert.match(privacy, /Versão: 1\.2/);
+  assert.match(privacy, /Vigência: 2026-07-29/);
   assert.match(terms, /Versão: 1\.0/);
+  assert.match(terms, /Vigência: 2026-07-27/);
 
   for (const page of [privacyPage, termsPage]) {
     assert.match(page, /footerContent\.supportEmail/);
@@ -45,18 +46,19 @@ test('LEG-001 final documents are dated, approved and contain no publication mar
   assert.match(privacy, /Vercel/);
   assert.match(privacy, /Supabase/);
   assert.match(privacy, /Google\/Gmail/);
-  assert.match(privacy, /analytics first-party aprovado permanece\s+desativado/i);
-  assert.match(privacy, /não persistirá IP[\s\S]*cookie[\s\S]*Web Storage[\s\S]*pixel/i);
+  assert.match(privacy, /Vercel Web Analytics registra\s+pageviews agregados/i);
+  assert.match(privacy, /query e fragmento são removidos/i);
+  assert.match(privacy, /não usa cookie ou Web Storage/i);
   assert.match(privacy, /legítimo interesse documentado/i);
-  assert.match(privacy, /eventos brutos de analytics[\s\S]*até 90 dias/i);
-  assert.match(privacy, /oposição ao analytics first-party/i);
-  assert.match(privacyPage, /Versão 1\.1/);
-  assert.match(privacyPage, /analytics first-party aprovado/);
-  assert.match(privacyPage, /até 90\s+dias/i);
+  assert.match(privacy, /janela de relatório de um mês/i);
+  assert.match(privacy, /oposição ao Web Analytics/i);
+  assert.match(privacyPage, /Versão 1\.2/);
+  assert.match(privacyPage, /Vercel Web Analytics/);
+  assert.match(privacyPage, /24\s+horas/i);
   assert.match(approval, /Status: aprovado para publicação/);
   assert.match(approval, /validação factual do MVP simplificado[\s\S]*Bruno Araujo/i);
   assert.match(approval, /aceite final para publicação[\s\S]*Bruno Araujo/i);
-  assert.match(approval, /aprovação da Política 1\.1 e da regra de analytics/i);
+  assert.match(approval, /aprovação da Política 1\.2 e do Vercel Web Analytics/i);
   assert.match(approval, /T-LEGAL-001/);
   assert.match(approval, /T-PRIV-001/);
 });
@@ -76,5 +78,5 @@ test('LEG-001 public routes use the isolated legal layout and approved SEO defin
   assert.match(legalLayout, /Voltar ao início/);
   assert.match(legalLayout, /href="\/privacidade"/);
   assert.match(legalLayout, /href="\/termos"/);
-  assert.doesNotMatch(legalLayout, /AnalyticsInstrumentation|AppLinkEnhancer/);
+  assert.doesNotMatch(legalLayout, /AnalyticsInstrumentation|VercelWebAnalytics|AppLinkEnhancer/);
 });

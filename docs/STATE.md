@@ -44,7 +44,7 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   `DEC-007`, e a solução própria exigirá proteção contra abuso, RLS, retenção e
   operação.
 - **Data**: 2026-07-24
-- **Status**: ativa
+- **Status**: superseded por AD-010
 
 ### AD-004
 
@@ -87,7 +87,7 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   com contas; métricas de conversão/ativação e retenção do produto continuam
   dependentes do app. A coleta permanece `noop` até `ANA-003`.
 - **Data**: 2026-07-27
-- **Status**: ativa
+- **Status**: superseded por AD-010
 
 ### AD-007
 
@@ -127,37 +127,50 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-29
 - **Status**: ativa
 
+### AD-010
+
+- **Decisão**: usar Vercel Web Analytics no plano Hobby somente para pageview
+  agregado da home em produção, sanitizando o caminho para `/` e descartando
+  query, hash, eventos customizados, rotas legais, `/entrar`, 404 e previews.
+  O cliente de eventos tipados existente permanece `noop`.
+- **Razão**: o responsável ativou o recurso gratuito da hospedagem e priorizou
+  uma medição simples para validar interesse, sem operar endpoint ou banco
+  próprios e sem correlacionar aquisição com contas.
+- **Trade-off**: o plano Hobby oferece 50.000 eventos mensais e relatório de um
+  mês, mas não oferece eventos customizados nem dimensões UTM. Conversão,
+  ativação e retenção continuam sendo métricas separadas do app.
+- **Data**: 2026-07-29
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Tasks concluídas neste bloco**: `REL-002`, `REL-003`
-- **Em andamento (arquivo:linha)**: nenhuma implementação; migração canônica
-  concluída e documentada em
-  `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`.
-- **Próximo passo**: monitorar o processamento de `/sitemap.xml` na propriedade
-  `https://finntrackhomepage.app/` e selecionar uma única tarefa pendente e
-  elegível do backlog em um novo ciclo.
-- **Validação**: PRs #12/#13 e pipelines da `main` aprovados; deployment final
-  Vercel `5662052222`; home, robots e sitemap respondem `200`; canonical e
-  `og:url` usam a nova origem; host anterior e `www` respondem `308` preservando
-  path/query; propriedade nova verificada por tag HTML e sitemap submetido.
-- **Passada de negação**: o Search Console confirmou o envio, mas a primeira
-  leitura ainda mostra “Não foi possível buscar o sitemap”; isso não comprova
-  processamento nem indexação. A tag da propriedade anterior foi preservada
-  durante a migração. Analytics continua desativado (`noop`) e nenhuma tarefa
-  pendente foi iniciada neste ciclo.
-- **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel;
-  `SEO-003` depende de `DEC-012`; `REL-001` ainda depende do fechamento das
-  pendências de analytics/SEO/QA.
-- **Arquivos não commitados**: documentação de encerramento em
-  `docs/10-DECISION-LOG.md`, `docs/11-TRACEABILITY.md`, `docs/STATE.md` e
-  `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`; `.env.production` permanece
-  atualizado localmente e ignorado.
-- **Branch**: `codex/domain-migration-closeout`
-- **Orçamento na parada**: contexto restante 66,6% · quota semanal restante
-  31,0%, com reset em 2026-08-05 11:17 BRT (medido; `WARN`,
-  `AMBIGUOUS=0`).
-- **Motivo da parada**: bloco de revalidação do domínio concluído; checkpoint
-  documental pronto para revisão e merge.
+- **Bloco atual**: Épico 4 — Analytics
+- **Task concluída neste bloco**: `ANA-003`
+- **Implementação**: `@vercel/analytics` 2.0.1 é renderizado somente pela home no
+  build de produção; `src/lib/analytics/vercel.ts` restringe a coleta a
+  pageview same-origin de `/` sem query/hash. Preview, páginas legais,
+  `/entrar`, 404 e eventos customizados permanecem sem coleta.
+- **Próximo passo elegível**: `ANA-004` — publicar a integração e validar no
+  debug de produção o payload, ausência de duplicidade/PII e comportamento de
+  bloqueadores. Não iniciar outra tarefa no mesmo ciclo.
+- **Validação**: testes focados 13/13; `npm run format:check`; `npm run lint`;
+  `npm run typecheck` sem erros/avisos; `npm test` 72/72; `npm run
+  test:security` com CSP sem violações e auditoria npm zerada; `npm run
+  test:e2e` 32/32; `npm run test:perf` com Lighthouse 99/99, acessibilidade 100,
+  TBT 0 ms e 4.107 bytes de JavaScript.
+- **Passada de negação**: os testes locais comprovam configuração, sanitização e
+  ausência do componente nas rotas excluídas, mas não comprovam recebimento,
+  deduplicação ou ausência de PII no payload implantado; esses itens permanecem
+  corretamente em `ANA-004`. O Analytics não mede cadastro, ativação ou
+  retenção do app e o plano Hobby não expõe eventos customizados nem UTMs.
+- **Bloqueios**: nenhum para publicar `ANA-003`; `ANA-004` depende do deploy de
+  produção. `SEO-003` ainda depende de `DEC-012`.
+- **Branch**: `codex/vercel-web-analytics`
+- **Orçamento na parada**: última medição disponível antes da execução em
+  `WARN`, com contexto restante 43,7%, quota semanal restante 26,0% e reset em
+  2026-08-05 11:17 BRT (`AMBIGUOUS=0`). A reconsulta final não retornou goal
+  ativo nem percentuais, portanto nenhum valor posterior foi inferido.
+- **Motivo da parada**: `ANA-003` concluída e validada como um bloco atômico;
+  `ANA-004` fica para o próximo ciclo após publicação.

@@ -16,7 +16,7 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
           {privacySeo.heading}
         </h1>
         <p class="mt-4 text-sm leading-6 text-muted">
-          Versão 1.1 · Vigente desde 27 de julho de 2026
+          Versão 1.2 · Vigente desde 29 de julho de 2026
         </p>
         <p class="mt-5 text-base leading-7 text-muted">
           Esta política explica de forma prática como o FinnTrack Home utiliza dados pessoais
@@ -60,14 +60,16 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
             </li>
           </ul>
           <p>
-            A landing pública não possui formulário nem cria conta. O analytics first-party aprovado
-            permanece desativado até concluir os gates técnicos. Quando ativado, poderá registrar
-            eventos de interação, o caminho fixo da página, grupos amplos de dispositivo e origem e
-            somente as UTMs autorizadas.
+            A landing pública não possui formulário nem cria conta. Na home, o Vercel Web Analytics
+            registra pageviews agregados para entender o uso básico do site. Podem compor o
+            relatório o caminho da página, horário, origem de referência, país ou região, navegador,
+            sistema e tipo de dispositivo. Query e fragmento são removidos antes do envio.
           </p>
           <p>
-            A aplicação não persistirá IP, URL ou referrer completos, cookie, Web Storage, pixel,
-            fingerprint, identificador de conta, sessão ou dispositivo.
+            Não enviamos nome, e-mail, dados de conta, dados de imóvel ou eventos personalizados.
+            Essa medição não usa cookie ou Web Storage nem cria identificador persistente. A Vercel
+            informa que o identificador temporário derivado da requisição é descartado após 24
+            horas. A landing não correlaciona analytics com contas do aplicativo.
           </p>
         </section>
 
@@ -78,15 +80,15 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
             <li>criar e proteger a conta, autenticar o acesso e recuperar credenciais;</li>
             <li>oferecer as funções solicitadas de organização financeira de imóveis;</li>
             <li>
-              quando o analytics first-party for ativado, entender aquisição e usabilidade durante a
-              validação do produto;
+              entender o uso básico da landing por pageviews agregados durante a validação do
+              produto;
             </li>
             <li>prestar suporte, responder solicitações e corrigir problemas;</li>
             <li>prevenir fraude, abuso e incidentes de segurança;</li>
             <li>cumprir obrigações legais ou atender autoridades quando exigido por lei.</li>
           </ul>
           <p>
-            A medição first-party terá como base o legítimo interesse documentado, com minimização e
+            A medição terá como base o legítimo interesse documentado, com minimização e
             salvaguardas. Os demais tratamentos ocorrem para executar o serviço solicitado, adotar
             medidas anteriores à contratação, atender obrigações legais e proteger o serviço e seus
             usuários. Quando a lei exigir consentimento específico, ele será solicitado
@@ -97,11 +99,10 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
         <section aria-labelledby="privacidade-fornecedores">
           <h2 id="privacidade-fornecedores">4. Fornecedores e compartilhamento</h2>
           <p>
-            Utilizamos a Vercel para hospedagem e futuro endpoint first-party, o Supabase para
-            autenticação, armazenamento do aplicativo e futura tabela dedicada de eventos, e o
-            Google/Gmail para o canal de suporte. Esses fornecedores tratam dados somente na medida
-            necessária para prestar seus serviços e aplicam seus próprios termos e controles de
-            segurança.
+            Utilizamos a Vercel para hospedagem e Web Analytics, o Supabase para autenticação e
+            armazenamento do aplicativo, e o Google/Gmail para o canal de suporte. Esses
+            fornecedores tratam dados somente na medida necessária para prestar seus serviços e
+            aplicam seus próprios termos e controles de segurança.
           </p>
           <p>
             A infraestrutura desses fornecedores pode envolver processamento fora do Brasil. Não
@@ -123,9 +124,9 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
             informações suficientes para confirmar a identidade do solicitante.
           </p>
           <p>
-            Quando ativados, eventos brutos de analytics serão excluídos automaticamente em até 90
-            dias. Como não possuem identificador persistente ou vínculo com conta, eles não serão
-            usados para criar perfil individual.
+            O plano Hobby do Vercel Web Analytics mantém uma janela de relatório de um mês. O
+            identificador temporário usado pelo provedor é descartado após 24 horas. Os pageviews
+            não são vinculados à conta e não são usados para criar perfil individual.
           </p>
         </section>
 
@@ -134,7 +135,7 @@ const supportHref = `mailto:${footerContent.supportEmail}?subject=FinnTrack%20Ho
           <p>
             Nos termos da legislação aplicável, o titular pode solicitar confirmação e acesso,
             correção, informações sobre compartilhamento, portabilidade quando regulamentada,
-            eliminação ou bloqueio quando cabíveis, oposição ao analytics first-party e revogação do
+            eliminação ou bloqueio quando cabíveis, oposição ao Web Analytics e revogação do
             consentimento quando ele for a base aplicável.
           </p>
           <p>

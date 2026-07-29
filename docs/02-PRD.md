@@ -102,8 +102,8 @@ preço ou beta são proibidas até nova decisão comercial explícita e rastreá
 - Contrato de abertura direta do cadastro.
 - Captura allowlisted de UTMs somente em memória no app, sem correlação com
   contas; retenção do produto é medida separadamente.
-- Implementação do analytics first-party aprovado em `DEC-006/007`, ainda
-  condicionada aos gates de `ANA-003/004`.
+- Implementação do Vercel Web Analytics aprovado em `DEC-018`, limitada a
+  pageviews agregados no plano Hobby e condicionada aos gates de `ANA-003/004`.
 - logotipo e screenshots finais aprovados.
 - conteúdo jurídico aprovado e canal público de suporte.
 - domínio, hospedagem, Search Console e política de previews.

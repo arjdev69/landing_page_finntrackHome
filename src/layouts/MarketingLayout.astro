@@ -3,6 +3,7 @@ import Header from '@components/layout/Header.astro';
 import Footer from '@components/layout/Footer.astro';
 import AppLinkEnhancer from '@components/layout/AppLinkEnhancer.astro';
 import AnalyticsInstrumentation from '@components/layout/AnalyticsInstrumentation.astro';
+import VercelWebAnalytics from '@components/layout/VercelWebAnalytics.astro';
 import SeoHead from '@components/seo/SeoHead.astro';
 import { publicConfig } from '@config/public';
 import { getRuntimeSiteConfig, siteConfig } from '@config/site';
@@ -13,6 +14,7 @@ type Props = PageSeoDefinition;
 
 const runtimeConfig = getRuntimeSiteConfig(Astro.url);
 const metadata = resolveSeoMetadata(runtimeConfig.origin, Astro.props, runtimeConfig.environment);
+const enableVercelWebAnalytics = runtimeConfig.environment === 'production';
 ---
 
 <!doctype html>
@@ -40,5 +42,6 @@ const metadata = resolveSeoMetadata(runtimeConfig.origin, Astro.props, runtimeCo
     <Footer loginUrl={publicConfig.appLoginUrl} />
     <AppLinkEnhancer />
     <AnalyticsInstrumentation />
+    {enableVercelWebAnalytics && <VercelWebAnalytics />}
   </body>
 </html>

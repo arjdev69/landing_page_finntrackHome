@@ -1,7 +1,7 @@
 # Especificação de SEO, analytics e aquisição
 
 Versão: 0.1.3
-Status: approved — aquisição simplificada e política first-party definidas
+Status: approved — aquisição simplificada e Vercel Web Analytics definidos
 Data: 2026-07-29
 
 ## 1. Objetivo
@@ -132,9 +132,10 @@ aceitam o domínio exato ou subdomínios e nunca são incluídos no payload.
 - URL completa quando puder carregar dados além da allowlist;
 - parâmetros de campanha fora da allowlist.
 
-O endpoint first-party deve descartar IP e cabeçalhos desnecessários antes da
-persistência. Cookie, storage, pixel, SDK externo e identificador persistente
-continuam proibidos por `DEC-006/007`.
+O Vercel Web Analytics deve receber somente pageview da home, com query e
+fragmento removidos em `beforeSend`. Cookie, storage, identificador persistente,
+custom events no plano Hobby e correlação com conta continuam proibidos por
+`DEC-018`.
 
 ## 6. UTMs e atribuição
 
@@ -188,20 +189,21 @@ coortes próprias, sem UTMs ou identificadores da landing.
 
 ## 8. Validação operacional
 
-- ambiente preview usa analytics noop ou propriedade separada;
-- produção oferece modo de debug documentado;
+- ambiente preview não carrega Vercel Web Analytics;
+- produção oferece painel e inspeção de rede documentados;
 - cada evento tem teste de contrato sem chamar rede real;
 - QA verifica ausência de PII no payload;
-- dashboard/relatório do provedor só é criado depois de os eventos passarem;
+- dashboard do provedor recebe somente pageviews; custom events permanecem
+  `noop` no plano Hobby;
 - Search Console e sitemap são verificados após produção.
 
 ## 9. Política aprovada
 
-`DEC-006/007` escolhe endpoint first-party e Supabase, com legítimo interesse
-documentado, retenção bruta máxima de 90 dias e nenhuma persistência no
-navegador. O inventário, teste de balanceamento e gates de ativação estão em
+`DEC-018` substitui a implementação própria por Vercel Web Analytics no plano
+Hobby, com legítimo interesse documentado, pageviews agregados, nenhuma
+persistência no navegador e identificador temporário descartado pelo provedor
+após 24 horas. O inventário, teste de balanceamento e gates de ativação estão em
 `docs/privacy/D0-005-ANALYTICS-POLICY.md`.
 
-Esta decisão não ativa coleta. `ANA-003` deve implementar o endpoint e
-permanecer `noop` até passar segurança, privacidade e debug; `ANA-004` valida o
-comportamento real em produção.
+`ANA-003` deve integrar somente a home de produção e remover query/fragmento
+antes do envio; `ANA-004` valida o comportamento real no painel e na rede.

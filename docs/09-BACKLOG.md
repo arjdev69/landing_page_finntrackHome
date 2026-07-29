@@ -50,12 +50,12 @@ Data: 2026-07-15
     alegações de gratuidade/beta sem nova decisão; pergunta sobre gratuidade foi
     retirada do FAQ normativo. PRD e especificação de UX atualizados.
 - [x] `D0-005` Escolher analytics e política de consentimento (`DEC-006/007`).
-  - Evidência (2026-07-27): aprovado analytics first-party por endpoint
-    server-side e Supabase, sem cookie, storage, pixel, SDK externo ou
-    identificador persistente. `DEC-006/007`, política pública 1.1 e
-    `docs/privacy/D0-005-ANALYTICS-POLICY.md` registram legítimo interesse,
-    descarte de IP, retenção bruta máxima de 90 dias, inventário, teste de
-    balanceamento e gates. A coleta continua `noop` até `ANA-003`.
+  - Evidência (atualizada em 2026-07-29): `DEC-018` substituiu a arquitetura
+    original de `DEC-006/007` por Vercel Web Analytics no plano Hobby, restrito a
+    pageview agregado da home em produção, sem cookie, storage, identificador
+    persistente, evento customizado ou parâmetros de URL. A política interna
+    2.0, a política pública 1.2 e a aprovação legal registram inventário,
+    balanceamento, retenção e gates aplicáveis.
 - [x] `D0-006` Definir responsáveis por jurídico, suporte e ativos
   (`DEC-008/009/011`).
   - Evidência (2026-07-21): governança jurídica aceita com redação assistida,
@@ -240,12 +240,18 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     `product_preview_view` e contém falhas do adaptador. O cliente padrão segue
     noop. `test/analytics-instrumentation.test.mjs`, smoke no navegador,
     formatação, lint, tipagem, build e 36 testes aprovados.
-- [ ] `ANA-003` Integrar provedor e consentimento aprovados.
-  - Dependência satisfeita: `D0-005`; implementar somente conforme os gates do
-    inventário aprovado.
+- [x] `ANA-003` Integrar provedor e consentimento aprovados.
+  - Evidência (2026-07-29): `@vercel/analytics` 2.0.1 integrado somente à home
+    no build de produção; `beforeSend` aceita apenas pageview same-origin de `/`
+    e remove query/hash, enquanto preview, páginas legais, `/entrar`, 404,
+    eventos customizados e o cliente tipado existente permanecem sem coleta.
+    Política pública 1.2 e aprovação legal foram publicadas. Testes focados
+    13/13, segurança/CSP, auditoria npm sem vulnerabilidades, E2E 32/32 e
+    Lighthouse 99/99 com 4.107 bytes de JavaScript foram aprovados localmente.
   - Cobertura: `ANA-006..008`, `PRIV-001..002`.
 - [ ] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
-  - Bloqueada por: `ANA-003` para validação de debug em produção.
+  - Dependência satisfeita por `ANA-003`; requer deploy e inspeção de debug no
+    ambiente de produção.
 
 ## Épico 5 — SEO, legal e assets
 
@@ -308,16 +314,15 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 ## Épico 6 — Qualidade e lançamento
 
 - [ ] `QA-001` Automatizar E2E dos fluxos P0.
-  - Evidência parcial (2026-07-22): Playwright 1.61.1 configurado contra o preview
+  - Evidência parcial (atualizada em 2026-07-29): Playwright 1.61.1 configurado contra o preview
     do build, com projetos Chromium 1440×900 e 360×800. Dez cenários, sem skips,
     validam home 200/H1/seções, navegação desktop, menu móvel por teclado, CTAs
     configurados, CTA secundário, allowlist/encoding de UTMs, descarte de e-mail e
     redirect arbitrário, ausência de erros no navegador e status 404 HTTP real.
-    `npm run test:e2e` passou 10/10; a suíte nativa permaneceu separada e passou
-    51/51, além de formatação, lint, tipagem e build. A tarefa permanece aberta
-    para cadastro/login reais (`INT-004`), `/entrar` (`INT-001`) e consentimento
-    (`ANA-003`); páginas legais foram concluídas em `LEG-001` e a experiência 404
-    em `ERR-001`.
+    `npm run test:e2e` passou 32/32 após `INT-004`, `INT-001`, `LEG-001`,
+    `ERR-001` e `ANA-003`; a suíte nativa passou 72/72, além de formatação, lint,
+    tipagem e build. A conclusão formal de `QA-001` não foi avaliada neste ciclo
+    dedicado exclusivamente a `ANA-003`.
 - [ ] `QA-002` Executar auditoria manual/automática WCAG 2.2 AA.
   - Evidência parcial (2026-07-22): `@axe-core/playwright` e a suíte
     `test/e2e/accessibility.e2e.mjs` cobrem Axe WCAG A/AA, teclado, foco,

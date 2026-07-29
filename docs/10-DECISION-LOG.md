@@ -104,7 +104,7 @@ datas de calendário aprovado.
 
 ### DEC-006 — Provedor de analytics
 
-- Status: **Aceita; implementação permanece bloqueada até `ANA-003`**.
+- Status: **Substituída por `DEC-018`**.
 - Decisão: usar endpoint first-party de mesma origem com persistência em tabela
   dedicada no Supabase. O navegador não acessa o banco nem recebe segredo ou SDK
   de analytics de terceiro.
@@ -122,7 +122,7 @@ datas de calendário aprovado.
 
 ### DEC-007 — Consentimento, cookies e pixels
 
-- Status: **Aceita para o analytics first-party mínimo**.
+- Status: **Substituída por `DEC-018`**.
 - Base e regra: legítimo interesse documentado por teste de balanceamento para
   medição de aquisição/usabilidade. Não há banner de consentimento porque a
   coleta aprovada não usa cookie, Web Storage, pixel, SDK externo, fingerprint,
@@ -369,6 +369,32 @@ datas de calendário aprovado.
   `vercel.mjs`, PR #4, Actions `30303082672`,
   `artifacts/security/security-headers.json` e
   `docs/audits/QA-005-SECURITY.md`.
+
+### DEC-018 — Analytics básico no plano Hobby da Vercel
+
+- Status: **Aceita para o MVP**.
+- Contexto: o responsável ativou o Web Analytics gratuito no projeto da Vercel
+  e priorizou uma solução prática para observar tráfego inicial. O plano Hobby
+  não oferece custom events nem dimensões de UTM.
+- Decisão: substituir o endpoint/Supabase previstos em `DEC-006/007` pelo
+  `@vercel/analytics` oficial, limitado a pageviews agregados da home de
+  produção. Preview, páginas legais, `/entrar` e 404 não carregam o componente;
+  os eventos personalizados existentes permanecem `noop`.
+- Minimização: `beforeSend` remove query e fragmento; não há cookie, Web Storage,
+  identificador persistente ou correlação com conta. A Vercel informa que o
+  identificador temporário derivado da requisição é descartado após 24 horas e
+  que o plano Hobby mantém relatório por um mês.
+- Base: legítimo interesse documentado para entender uso básico da landing, sem
+  publicidade comportamental ou identificação individual. O canal de oposição
+  permanece `jobslens.ia@gmail.com`.
+- Limites: a landing não calcula conversão por campanha nem retenção do produto.
+  Ativação e retenção 7/30 dias continuam separadas no app.
+- Rollback: remover o componente/pacote, publicar novo deployment e desativar
+  Web Analytics no painel da Vercel.
+- Responsável: Bruno Araujo, com implementação do responsável técnico.
+- Data de aceitação: 2026-07-29.
+- Evidência: aprovação explícita do responsável nesta execução, documentação
+  oficial da Vercel, Política de Privacidade 1.2 e `ANA-003`.
 
 ## Template para novas decisões
 

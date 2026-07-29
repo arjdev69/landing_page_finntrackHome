@@ -10,7 +10,7 @@ import {
   canonicalProductionOrigin,
   createCanonicalRedirects,
   createVercelConfig,
-  deployedInlineScriptHashes,
+  deployedInlineScriptHashesByEnvironment,
   legacyProductionHosts,
   resolveVercelEnvironment,
 } from '../vercel.mjs';
@@ -46,6 +46,24 @@ test('CSP de produção bloqueia superfícies não usadas e dispensa unsafe-inli
   assert.doesNotMatch(policy, /unsafe-inline|unsafe-eval/);
 });
 
+test('CSP inclui todos os scripts inline do analytics sem liberar origem externa', () => {
+  const productionHashes = deployedInlineScriptHashesByEnvironment.production;
+  assert.equal(deployedInlineScriptHashesByEnvironment.preview.length, 1);
+  assert.equal(productionHashes.length, 3);
+
+  const policy = buildContentSecurityPolicy({
+    environment: 'production',
+    inlineScriptHashes: productionHashes,
+  });
+
+  for (const hash of productionHashes) {
+    assert.match(policy, new RegExp(hash.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+  assert.match(policy, /connect-src 'self'/);
+  assert.match(policy, /script-src 'self'/);
+  assert.doesNotMatch(policy, /vercel\.com|vercel-scripts\.com|unsafe-inline/);
+});
+
 test('headers separam preview HTTP da política HTTPS de produção', () => {
   const html = '<html></html>';
   const preview = buildSecurityHeaders({ environment: 'preview', html }).headers;
@@ -72,7 +90,7 @@ test('mapeia o contrato portátil para todos os caminhos da Vercel', () => {
   for (const environment of ['preview', 'production']) {
     const expected = buildSecurityHeaders({
       environment,
-      inlineScriptHashes: deployedInlineScriptHashes,
+      inlineScriptHashes: deployedInlineScriptHashesByEnvironment[environment],
     }).headers;
 
     assert.deepEqual(readConfiguredHeaders(environment), expected);
