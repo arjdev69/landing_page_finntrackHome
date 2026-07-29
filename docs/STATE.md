@@ -147,34 +147,22 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Task concluída neste bloco**: `QA-001`
-- **Implementação**: `test/e2e/p0-home.e2e.mjs` agora possui dez cenários P0
-  por perfil, incluindo ativos carregados, conteúdo/FAQ/rodapé, destinos reais
-  do app e páginas legais. `playwright.config.mjs` usa
-  `https://finntrackhome.app`; `tsconfig.json` exclui artefatos gerados do
-  typecheck. Relatório em `docs/audits/QA-001-P0-E2E.md`.
-- **Próximo passo operacional**: `REL-004` poderá registrar a linha de base
-  quando houver amostra real suficiente no Analytics, anotando os 5 pageviews
-  sintéticos de `ANA-004`. Não iniciar novo bloco sem reavaliar essa
-  pré-condição.
-- **Validação**: teste focado 20/20; `npm run test:e2e` aumentou de 32 para
-  40/40, zero skips, em Chromium 1440×900 e 360×800; cadastro e login publicados
-  responderam HTTP 200 nos dois perfis. `npm run format:check`, `npm run lint`
-  e `npm run typecheck` passaram; `npm test` 75/75. O build foi aprovado mesmo
-  com relatórios Playwright presentes.
-- **Passada de negação**: a baseline paralela inicial gerou 404 transitório por
-  dois builds concorrentes e foi descartada; a repetição sequencial revelou que
-  `astro check` analisava o relatório Playwright, corrigido pela exclusão de
-  `artifacts`. Metadados/hash/PII de ativos permanecem cobertos pelo teste
-  nativo; persistência/correlação de UTM continua coberta pelo contrato e E2E do
-  app em `INT-004`; outros navegadores pertencem a `QA-003` e leitor de tela
-  real a `QA-002`.
+- **Última task concluída**: `QA-001`, integrada na `main` pelo PR #20 e merge
+  `ace75ff`.
+- **Retomada validada**: a suíte focada de `QA-001` passou novamente em 2026-07-29
+  com 20/20 cenários P0 em Chromium desktop/mobile. Os quatro checks remotos do
+  PR #20 estavam verdes antes do squash merge.
+- **Próximo passo operacional**: não há task pendente elegível sem evidência ou
+  decisão externa. Reavaliar primeiro a pré-condição de `REL-004` após existir
+  uma amostra real confiável no Vercel Analytics, descontando/anotando os 5
+  pageviews sintéticos de `ANA-004`.
 - **Bloqueios**: `SEO-003` depende de `DEC-012`; `QA-002` depende de leitor de
   tela real; `QA-003` depende de versões anteriores reais e Safari em macOS;
   `REL-001` depende do fechamento desses gates/decisões; `REL-004` aguarda
   amostra real utilizável.
-- **Branch**: `codex/qa-001-p0-e2e`
-- **Orçamento na parada**: `WARN`, com contexto restante 13,8%, quota semanal
-  restante 86,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
-- **Motivo da parada**: `QA-001` concluída como um bloco atômico; nenhum outro
-  bloco foi iniciado neste ciclo.
+- **Branch**: `codex/sdd-handoff-blocked`, criada a partir de `origin/main`.
+- **Orçamento no pré-voo**: `OK`, com contexto restante 89,1%, quota semanal
+  restante 82,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
+- **Motivo da parada**: bloqueio; nenhum novo checkbox foi marcado porque todas
+  as tarefas pendentes exigem decisão, ambiente manual ou dados reais ainda
+  indisponíveis.
