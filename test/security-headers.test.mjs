@@ -7,8 +7,11 @@ import {
   extractInlineScriptHashes,
 } from '../scripts/security-headers.mjs';
 import {
+  canonicalProductionOrigin,
+  createCanonicalRedirects,
   createVercelConfig,
   deployedInlineScriptHashes,
+  legacyProductionHosts,
   resolveVercelEnvironment,
 } from '../vercel.mjs';
 
@@ -81,6 +84,22 @@ test('trata somente o ambiente production da Vercel como produção', () => {
   assert.equal(resolveVercelEnvironment('preview'), 'preview');
   assert.equal(resolveVercelEnvironment('development'), 'preview');
   assert.equal(resolveVercelEnvironment(undefined), 'preview');
+});
+
+test('redireciona hosts antigos somente em produção para a origem canônica', () => {
+  assert.deepEqual(createCanonicalRedirects('preview'), []);
+
+  const redirects = createCanonicalRedirects('production');
+  assert.equal(redirects.length, legacyProductionHosts.length);
+
+  for (const [index, host] of legacyProductionHosts.entries()) {
+    assert.deepEqual(redirects[index], {
+      source: '/:path*',
+      has: [{ type: 'host', value: host }],
+      destination: `${canonicalProductionOrigin}/:path*`,
+      permanent: true,
+    });
+  }
 });
 
 test('mantém a API legada sobre o minimatch corrigido para os gates de lint', () => {

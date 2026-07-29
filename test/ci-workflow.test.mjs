@@ -15,6 +15,7 @@ test('FND-006 defines reproducible pull request gates and a preview artifact', (
   assert.match(workflow, /\s+workflow_dispatch:/);
   assert.match(workflow, /permissions:\s*[\r\n]+\s+contents: read/);
   assert.match(workflow, /PUBLIC_ENVIRONMENT: preview/);
+  assert.match(workflow, /PUBLIC_SITE_URL: https:\/\/finntrackhomepage\.app/);
 
   const commands = [
     'npm ci',

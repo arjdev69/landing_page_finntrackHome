@@ -31,7 +31,7 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Trade-off**: o host canônico definitivo e a configuração de DNS permanecem
   pendentes até a escolha do domínio customizado.
 - **Data**: 2026-07-24
-- **Status**: ativa
+- **Status**: superseded por AD-009
 
 ### AD-003
 
@@ -114,32 +114,49 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-29
 - **Status**: ativa
 
+### AD-009
+
+- **Decisão**: adotar `https://finntrackhomepage.app` como origem canônica da
+  landing e redirecionar permanentemente o host Vercel anterior e a variante
+  `www`, preservando path e query.
+- **Razão**: o responsável do projeto vinculou o domínio customizado à landing;
+  manter canonical e sitemap no host anterior dividiria sinais de indexação.
+- **Trade-off**: Search Console e sitemap precisam ser configurados novamente
+  para a nova propriedade; o host anterior deve continuar vinculado à Vercel
+  durante a migração para entregar o redirect.
+- **Data**: 2026-07-29
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 6 — Qualidade e lançamento
 - **Tasks concluídas neste bloco**: `REL-002`, `REL-003`
-- **Em andamento (arquivo:linha)**: nenhuma tarefa iniciada após `REL-003`.
-- **Próximo passo**: selecionar uma única tarefa elegível. `REL-004` pode
-  registrar a linha de base inicial quando houver amostra; `REL-001` permanece
-  dependente das pendências de analytics/SEO/QA.
-- **Validação**: propriedade
-  `https://finntrack-home-landing.vercel.app/` confirmada pelo Search Console via
-  tag HTML; sitemap submetido. Home e sitemap retornaram `200`, inclusive com
-  agente Googlebot, e o XML contém somente a home canônica. Gates finais:
-  formatação, lint e tipagem sem erros; `68/68` testes aprovados; build estático
-  concluído.
-- **Passada de negação**: a primeira leitura do Search Console ainda exibe “Não
-  foi possível ler o sitemap”, e o teste ao vivo retornou erro genérico. A
-  documentação não afirma estado “Sucesso”; registra a submissão concluída e a
-  necessidade de monitorar o processamento assíncrono do Google.
+- **Em andamento (arquivo:linha)**: migração canônica para
+  `https://finntrackhomepage.app`; autenticação concluída, variável e redirects
+  configurados na Vercel, aguardando PR/deploy.
+- **Próximo passo**: publicar o PR; aguardar CI e deployment de produção;
+  validar redirects, canonical, robots/sitemap e configurar a propriedade nova
+  no Search Console.
+- **Validação**: novo domínio público responde `200`, mas o deployment atual
+  ainda publica canonical/OG antigos. Alteração local passou em formatação,
+  lint, tipagem, `69/69` testes e build isolado; o artefato isolado contém
+  canonical, `og:url`, robots e sitemap na nova origem. Redirects de produção
+  possuem teste de regressão.
+- **Passada de negação**: nenhum novo deploy foi executado; o certificado de
+  `www` ainda está sendo gerado; a nova propriedade do Search Console e o novo
+  sitemap ainda não foram configurados. A migração não pode ser declarada
+  concluída.
 - **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel;
   `SEO-003` depende de `DEC-012`; `REL-001` ainda depende do fechamento das
   pendências de analytics/SEO/QA.
-- **Arquivos não commitados**: nenhum após o checkpoint de encerramento.
-- **Branch**: `main`, após merge do PR #10 (`43c854c`).
-- **Orçamento na parada**: contexto 75,0% · quota semanal 60,0%, com reset em
+- **Arquivos não commitados**: `.github/workflows/ci.yml`, `README.md`,
+  `docs/10-DECISION-LOG.md`, `docs/STATE.md`,
+  `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`,
+  `test/ci-workflow.test.mjs`, `test/security-headers.test.mjs`, `vercel.mjs`;
+  `.env.production` foi atualizado localmente e permanece ignorado.
+- **Branch**: `codex/domain-migration`
+- **Orçamento na parada**: contexto 36,7% · quota semanal 49,0%, com reset em
   2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`).
-- **Motivo da parada**: nenhum; `REL-003` concluída, revisada, publicada e com
-  CI da `main` aprovado.
+- **Motivo da parada**: nenhum; implementação pronta para checkpoint e PR.

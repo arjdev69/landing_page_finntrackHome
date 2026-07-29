@@ -56,11 +56,13 @@ datas de calendário aprovado.
   aceita somente `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` e
   `utm_term`, mantendo o primeiro valor não vazio e descartando internamente
   parâmetros desconhecidos, sensíveis, fragmentos e controle de redirect.
-- Confirmado em 2026-07-24 por `D0-002`: a landing usa inicialmente
+- Confirmado em 2026-07-24 por `D0-002`: a landing usou inicialmente
   `https://finntrack-home-landing.vercel.app` como origem canônica de produção,
-  também servida pela Vercel. O domínio customizado fica adiado sem alterar os
-  destinos do app; qualquer migração futura exige atualizar configuração,
-  canonical, sitemap, Search Console e redirect permanente do host anterior.
+  também servida pela Vercel.
+- Migração aprovada em 2026-07-29: a origem canônica passa a ser
+  `https://finntrackhomepage.app`, sem alterar os destinos do app. A migração
+  exige atualizar configuração, canonical, sitemap, Search Console e redirects
+  permanentes do host anterior e da variante `www`.
 - Privacidade: a captura entregue é somente em memória, sem cookie, Web Storage,
   escrita no Supabase, analytics, terceiro ou atribuição durável. Essa ausência
   de persistência é a decisão final do MVP, alinhada a `DEC-007`.
@@ -203,10 +205,10 @@ datas de calendário aprovado.
 ### DEC-010 — Domínio e hospedagem
 
 - Status: **Aceita**.
-- Decisão: publicar a landing estática na Vercel. A origem canônica inicial é
-  `https://finntrack-home-landing.vercel.app`; o app permanece em
-  `https://finntrackhome.app`. Um domínio customizado pode ser adotado depois,
-  mediante migração canônica e redirects verificados.
+- Decisão: publicar a landing estática na Vercel. A origem canônica inicial foi
+  `https://finntrack-home-landing.vercel.app`; em 2026-07-29 ela foi substituída
+  por `https://finntrackhomepage.app`. O app permanece em
+  `https://finntrackhome.app`.
 - Critérios: deploy estático, preview, redirects/status 404, headers, rollback,
   domínio/HTTPS e proteção contra indexação.
 - Resultado da decisão: o provedor e as origens estão definidos e o build de
@@ -220,8 +222,9 @@ datas de calendário aprovado.
 - Implementação de entrega concluída: `/entrar` foi publicada por `INT-001` no
   PR #7; `REL-002` confirmou preview protegido, produção, host/canonical, HTTPS,
   404, destinos do app, descarte de parâmetros sensíveis e o procedimento de
-  rollback. Um domínio customizado continua opcional e exige nova verificação
-  de canonical e redirects quando for adotado.
+  rollback. A migração para o domínio customizado reabre somente a validação de
+  host/canonical, redirects, sitemap e Search Console, sem reabrir os destinos
+  do app.
 - Operação de descoberta concluída por `REL-003`: a propriedade de prefixo da
   origem canônica foi verificada por tag HTML no Google Search Console e
   `/sitemap.xml` foi submetido. A primeira leitura do Google ainda reportou falha

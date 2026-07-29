@@ -12,8 +12,8 @@ de o requisito correspondente estar aprovado e rastreado.
 - Baseline documental: `0.1.1-approved`, 2026-07-15.
 - Implementação: Astro + TypeScript estrito + Tailwind CSS.
 - Idioma inicial: português do Brasil (`pt-BR`).
-- Hospedagem: Vercel, com produção inicial em
-  `https://finntrack-home-landing.vercel.app`.
+- Hospedagem: Vercel, com produção canônica em
+  `https://finntrackhomepage.app`.
 - Aplicativo: `https://finntrackhome.app`, com cadastro em `/cadastro` e login
   em `/entrar`.
 
@@ -48,19 +48,21 @@ Variáveis `PUBLIC_*` são publicáveis no artefato estático e nunca podem cont
 segredos. Analytics e verificação do Search Console permanecem opcionais até as
 decisões correspondentes serem aprovadas.
 
-Na produção inicial da Vercel, a configuração aprovada é:
+Na produção da Vercel, a configuração aprovada é:
 
 ```dotenv
 PUBLIC_ENVIRONMENT=production
-PUBLIC_SITE_URL=https://finntrack-home-landing.vercel.app
+PUBLIC_SITE_URL=https://finntrackhomepage.app
 PUBLIC_APP_URL=https://finntrackhome.app
 PUBLIC_APP_SIGNUP_URL=https://finntrackhome.app/cadastro
 PUBLIC_APP_LOGIN_URL=https://finntrackhome.app/entrar
 ```
 
-Esses valores devem ser configurados no ambiente `Production` da Vercel. Uma
-futura troca de domínio exige atualizar `PUBLIC_SITE_URL`, canonical,
-`robots.txt`, sitemap, Search Console e o redirect permanente do host anterior.
+Esses valores devem ser configurados no ambiente `Production` da Vercel. O host
+anterior e a variante `www` devem redirecionar permanentemente para a origem
+canônica. Uma futura troca de domínio exige atualizar `PUBLIC_SITE_URL`,
+canonical, `robots.txt`, sitemap, Search Console e os redirects dos hosts
+anteriores.
 
 ## Fonte de verdade
 
