@@ -1,5 +1,7 @@
 import { PUBLIC_ENVIRONMENT, PUBLIC_SITE_URL } from 'astro:env/server';
+import process from 'node:process';
 
+import { resolveDeploymentEnvironment } from '@config/deployment-environment';
 import type { PageSeoDefinition, PublicEnvironment } from '@lib/seo/metadata';
 
 export const siteConfig = Object.freeze({
@@ -70,7 +72,10 @@ export function getRuntimeSiteConfig(fallbackUrl: URL): Readonly<{
   const configuredOrigin = PUBLIC_SITE_URL ? new URL(PUBLIC_SITE_URL).origin : fallbackUrl.origin;
 
   return Object.freeze({
-    environment: PUBLIC_ENVIRONMENT ?? 'preview',
+    environment: resolveDeploymentEnvironment(
+      PUBLIC_ENVIRONMENT ?? 'preview',
+      process.env.VERCEL_ENV,
+    ),
     origin: configuredOrigin,
   });
 }

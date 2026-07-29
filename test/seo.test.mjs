@@ -51,6 +51,7 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
       cwd: process.cwd(),
       env: {
         ...process.env,
+        VERCEL_ENV: 'production',
         PUBLIC_ENVIRONMENT: 'production',
         PUBLIC_SITE_URL: 'https://www.finntrack-home.com.br',
         PUBLIC_APP_URL: 'https://app.finntrack-home.com.br',
@@ -207,4 +208,36 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
 
   assert.doesNotMatch(sitemap, /privacidade|termos/);
   assert.doesNotMatch(sitemap, /404/);
+});
+
+test('Vercel preview prevalece sobre PUBLIC_ENVIRONMENT de produção', async () => {
+  const npmCli = process.env.npm_execpath;
+  assert.ok(npmCli, 'npm_execpath must be available while running npm test');
+
+  const result = await import('node:child_process').then(({ spawnSync }) =>
+    spawnSync(process.execPath, [npmCli, 'run', 'build'], {
+      cwd: process.cwd(),
+      env: {
+        ...process.env,
+        VERCEL_ENV: 'preview',
+        PUBLIC_ENVIRONMENT: 'production',
+        PUBLIC_SITE_URL: 'https://www.finntrack-home.com.br',
+        PUBLIC_APP_URL: 'https://app.finntrack-home.com.br',
+        PUBLIC_APP_SIGNUP_URL: 'https://app.finntrack-home.com.br/cadastro',
+        PUBLIC_APP_LOGIN_URL: 'https://app.finntrack-home.com.br/entrar',
+      },
+      encoding: 'utf8',
+    }),
+  );
+
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+
+  const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+  const robots = await readFile(new URL('../dist/robots.txt', import.meta.url), 'utf8');
+  const sitemap = await readFile(new URL('../dist/sitemap.xml', import.meta.url), 'utf8');
+
+  assert.match(html, /<meta name="robots" content="noindex,nofollow">/);
+  assert.doesNotMatch(html, /<vercel-analytics\b/);
+  assert.equal(robots, 'User-agent: *\nDisallow: /\n');
+  assert.doesNotMatch(sitemap, /<url>/);
 });

@@ -245,9 +245,13 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     no build de produção; `beforeSend` aceita apenas pageview same-origin de `/`
     e remove query/hash, enquanto preview, páginas legais, `/entrar`, 404,
     eventos customizados e o cliente tipado existente permanecem sem coleta.
-    Política pública 1.2 e aprovação legal foram publicadas. Testes focados
-    13/13, segurança/CSP, auditoria npm sem vulnerabilidades, E2E 32/32 e
-    Lighthouse 99/99 com 4.107 bytes de JavaScript foram aprovados localmente.
+    Política pública 1.2 e aprovação legal foram publicadas. Testes focados,
+    suíte completa 75/75, segurança/CSP, auditoria npm sem vulnerabilidades,
+    E2E 32/32 e Lighthouse 99/99 com 4.107 bytes de JavaScript foram aprovados
+    localmente.
+    A inspeção do primeiro Preview remoto revelou `PUBLIC_ENVIRONMENT` de
+    produção; a correção passou a exigir concordância com `VERCEL_ENV`, falhando
+    de modo seguro para preview sem coleta e sem indexação.
   - Cobertura: `ANA-006..008`, `PRIV-001..002`.
 - [ ] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
   - Dependência satisfeita por `ANA-003`; requer deploy e inspeção de debug no
