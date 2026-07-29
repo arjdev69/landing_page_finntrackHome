@@ -84,6 +84,11 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
     html,
     /<meta name="google-site-verification" content="4QKruYz5C39n-OzQwi5ZszK4DshkoBMnxpea5t_qkbY">/,
   );
+  assert.match(
+    html,
+    /<meta name="google-site-verification" content="YPatDH2g5pRgsAYJEMmQrEDriF1TlSkVV_nFH32ur_E">/,
+  );
+  assert.equal((html.match(/<meta name="google-site-verification"/g) ?? []).length, 2);
   assert.match(html, /<title>Controle Financeiro de Imóveis e Aluguéis \| FinnTrack Home<\/title>/);
   assert.match(html, /<meta name="description" content="Organize receitas, despesas/);
   assert.match(html, /<link rel="canonical" href="https:\/\/www\.finntrack-home\.com\.br\/">/);
