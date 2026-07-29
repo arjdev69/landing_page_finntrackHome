@@ -119,25 +119,26 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Tasks concluídas neste bloco**: `REL-002`
-- **Em andamento (arquivo:linha)**: `REL-003`, etapa externa de autenticação no
-  Google Search Console; nenhuma alteração de código iniciada.
-- **Próximo passo**: o usuário deve concluir o login na aba do Google já aberta.
-  Em seguida, criar a propriedade por prefixo
-  `https://finntrack-home-landing.vercel.app/`, obter o método de verificação,
-  publicar a prova de propriedade e submeter `/sitemap.xml`.
-- **Validação**: preflight revalidou home `200`, sitemap `200` e URL inexistente
-  `404`; repositório estava limpo e sincronizado com `main`.
-- **Passada de negação**: nenhuma propriedade foi criada e nenhum sitemap foi
-  submetido porque a sessão Google exige autenticação humana. `REL-003`
-  permanece aberta e nenhum código parcial foi produzido.
+- **Tasks concluídas neste bloco**: `REL-002`, `REL-003`
+- **Em andamento (arquivo:linha)**: nenhuma tarefa iniciada após `REL-003`.
+- **Próximo passo**: selecionar uma única tarefa elegível. `REL-004` pode
+  registrar a linha de base inicial quando houver amostra; `REL-001` permanece
+  dependente das pendências de analytics/SEO/QA.
+- **Validação**: propriedade
+  `https://finntrack-home-landing.vercel.app/` confirmada pelo Search Console via
+  tag HTML; sitemap submetido. Home e sitemap retornaram `200`, inclusive com
+  agente Googlebot, e o XML contém somente a home canônica. Gates finais:
+  formatação, lint e tipagem sem erros; `68/68` testes aprovados; build estático
+  concluído.
+- **Passada de negação**: a primeira leitura do Search Console ainda exibe “Não
+  foi possível ler o sitemap”, e o teste ao vivo retornou erro genérico. A
+  documentação não afirma estado “Sucesso”; registra a submissão concluída e a
+  necessidade de monitorar o processamento assíncrono do Google.
 - **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel;
   `SEO-003` depende de `DEC-012`; `REL-001` ainda depende do fechamento das
-  pendências de analytics/SEO/QA. `REL-003` aguarda login do usuário no Google
-  Search Console.
-- **Arquivos não commitados**: nenhum após o checkpoint.
-- **Branch**: `codex/rel-003-search-console`
-- **Orçamento na parada**: contexto 41,0% · quota semanal 79,0%, com reset em
-  2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: bloqueio de autenticação externa antes de iniciar
-  alterações da tarefa `REL-003`.
+  pendências de analytics/SEO/QA.
+- **Arquivos não commitados**: nenhum após o checkpoint de encerramento.
+- **Branch**: `codex/rel-003-rollout`
+- **Orçamento na parada**: contexto 75,0% · quota semanal 60,0%, com reset em
+  2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`).
+- **Motivo da parada**: nenhum; `REL-003` concluída e pronta para revisão.

@@ -222,6 +222,10 @@ datas de calendário aprovado.
   404, destinos do app, descarte de parâmetros sensíveis e o procedimento de
   rollback. Um domínio customizado continua opcional e exige nova verificação
   de canonical e redirects quando for adotado.
+- Operação de descoberta concluída por `REL-003`: a propriedade de prefixo da
+  origem canônica foi verificada por tag HTML no Google Search Console e
+  `/sitemap.xml` foi submetido. A primeira leitura do Google ainda reportou falha
+  transitória, registrada sem afirmar sucesso de processamento.
 - Responsável: responsável técnico/Plataforma.
 - Data de registro: 2026-07-15.
 - Data de aceitação: 2026-07-24.
@@ -229,7 +233,8 @@ datas de calendário aprovado.
   `FYnCQXk2DCbJpPKHcNtwUx8XZhCg`,
   `docs/operations/REL-002-RELEASE.md` e smoke HTTP de
   `https://finntrack-home-landing.vercel.app`,
-  `https://finntrackhome.app/cadastro` e `https://finntrackhome.app/entrar`.
+  `https://finntrackhome.app/cadastro`, `https://finntrackhome.app/entrar` e
+  `docs/operations/REL-003-SEARCH-CONSOLE.md`.
 
 ### DEC-011 — Canal público de suporte e dados
 
