@@ -155,16 +155,19 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Próximo passo elegível**: `ANA-004` — publicar a integração e validar no
   debug de produção o payload, ausência de duplicidade/PII e comportamento de
   bloqueadores. Não iniciar outra tarefa no mesmo ciclo.
-- **Validação**: testes focados 13/13; `npm run format:check`; `npm run lint`;
-  `npm run typecheck` sem erros/avisos; `npm test` 72/72; `npm run
+- **Validação**: testes focados; `npm run format:check`; `npm run lint`;
+  `npm run typecheck` sem erros/avisos; `npm test` 75/75; `npm run
   test:security` com CSP sem violações e auditoria npm zerada; `npm run
   test:e2e` 32/32; `npm run test:perf` com Lighthouse 99/99, acessibilidade 100,
   TBT 0 ms e 4.107 bytes de JavaScript.
 - **Passada de negação**: os testes locais comprovam configuração, sanitização e
-  ausência do componente nas rotas excluídas, mas não comprovam recebimento,
-  deduplicação ou ausência de PII no payload implantado; esses itens permanecem
-  corretamente em `ANA-004`. O Analytics não mede cadastro, ativação ou
-  retenção do app e o plano Hobby não expõe eventos customizados nem UTMs.
+  ausência do componente nas rotas excluídas. O primeiro Preview remoto expôs
+  que `PUBLIC_ENVIRONMENT=production` também estava configurado nesse ambiente;
+  a detecção agora exige concordância com `VERCEL_ENV` e falha para preview sem
+  coleta/indexação. Recebimento, deduplicação e ausência de PII no payload
+  implantado permanecem corretamente em `ANA-004`. O Analytics não mede
+  cadastro, ativação ou retenção do app e o plano Hobby não expõe eventos
+  customizados nem UTMs.
 - **Bloqueios**: nenhum para publicar `ANA-003`; `ANA-004` depende do deploy de
   produção. `SEO-003` ainda depende de `DEC-012`.
 - **Branch**: `codex/vercel-web-analytics`
