@@ -1,7 +1,7 @@
 # Registro de decisões e questões abertas
 
-Versão: 0.1.1  
-Data: 2026-07-15
+Versão: 0.1.2
+Data: 2026-07-29
 
 Status possíveis: `Aceita`, `Proposta`, `Pendente`, `Substituída`.
 
@@ -46,9 +46,10 @@ datas de calendário aprovado.
 
 ### DEC-004 — Domínios, URLs do app e contrato de aquisição
 
-- Status: **Pendente — bloqueador de lançamento**.
-- Confirmar: domínio do site, domínio do app, login, URL que abre cadastro,
-  comportamento pós-auth, allowlist/atribuição de UTMs e OAuth origins.
+- Status: **Aceita para o MVP da landing**.
+- Decisão: aprovar os destinos reais de cadastro/login e a captura allowlisted
+  somente em memória. O MVP não persiste first-touch/last-touch, não correlaciona
+  UTM com conta e mede cadastro/atividade/retenção separadamente no app.
 - Confirmado em 2026-07-24: o app de produção usa
   `https://finntrackhome.app`, servido pela Vercel; cadastro abre diretamente
   em `/cadastro`, login em `/entrar` e `/dashboard` permanece protegido. O app
@@ -61,19 +62,22 @@ datas de calendário aprovado.
   destinos do app; qualquer migração futura exige atualizar configuração,
   canonical, sitemap, Search Console e redirect permanente do host anterior.
 - Privacidade: a captura entregue é somente em memória, sem cookie, Web Storage,
-  escrita no Supabase, analytics, terceiro ou atribuição durável. Persistência,
-  first/last-touch, consentimento e exclusão continuam em `DEC-007`.
+  escrita no Supabase, analytics, terceiro ou atribuição durável. Essa ausência
+  de persistência é a decisão final do MVP, alinhada a `DEC-007`.
 - Evidência: `D0-003`, `14-APP-INTEGRATION-HANDOVER.md` e commits do app
   `f1a7919`, `4e104a3`, `ee88d6c`, `f2c18fd`.
-- Pendente para encerrar a decisão: origins/callbacks OAuth aprovados,
-  atribuição consent-aware e E2E real landing → app cobrindo submissão de
-  cadastro/login.
+- Validação final em 2026-07-29: landing → `/cadastro` preservou somente as UTMs
+  permitidas e descartou `email`/`redirect`; o app publicado não expõe provedor
+  OAuth ativo. O Supabase aceitou cadastro sintético com confirmação de e-mail
+  obrigatória; o registro pendente foi excluído pelo responsável.
+- OAuth: nenhum provedor está ativo no MVP publicado, portanto não há
+  origin/callback de terceiro a aprovar. Ativação futura reabre esta decisão.
 - Responsável: responsável técnico do app, com validação do responsável técnico
   da landing.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `INT-004` e obrigatoriamente antes do lançamento.
-- Evidência para encerrar: URLs de login/cadastro aprovadas, OAuth origins
-  configuradas e E2E landing → app cobrindo cadastro, login e UTMs.
+- Data de aceitação: 2026-07-29.
+- Evidência de encerramento: URLs de login/cadastro, E2E do app 4/4 em
+  desktop/mobile, smoke público e `T-CTA-002/T-UTM-002`.
 
 ### DEC-005 — Beta e gratuidade
 
@@ -123,8 +127,9 @@ datas de calendário aprovado.
   `jobslens.ia@gmail.com` para informação e oposição. A landing e os CTAs
   funcionam integralmente com analytics `noop`.
 - Mudança de escopo: qualquer persistência no navegador, terceiro, identificador
-  ou nova finalidade exige nova decisão, revisão jurídica, atualização da CSP e
-  consentimento quando aplicável.
+  ou nova finalidade — inclusive correlação de UTM com conta — exige nova
+  decisão, revisão jurídica, atualização da CSP e consentimento quando
+  aplicável.
 - Responsável: Bruno Araujo, com implementação do responsável técnico.
 - Data de registro: 2026-07-15.
 - Data de aceitação: 2026-07-27.

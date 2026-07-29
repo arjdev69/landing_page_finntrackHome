@@ -101,33 +101,43 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-27
 - **Status**: ativa
 
+### AD-008
+
+- **Decisão**: encerrar o contrato de aquisição do MVP com UTMs somente em
+  memória no app, sem persistência first/last-touch e sem correlação com conta.
+  Cadastro, atividade e retenção 7/30 dias serão medidos separadamente no
+  produto.
+- **Razão**: validar retenção de usuários não exige identificar a campanha de
+  cada conta; separar as medições reduz complexidade e tratamento de dados.
+- **Trade-off**: o MVP mede intenção/saída na landing e retenção no app, mas não
+  calcula conversão identificada landing → cadastro nem retenção por campanha.
+- **Data**: 2026-07-29
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 3 — Rotas e integração
-- **Tasks concluídas neste bloco**: `INT-001`
-- **Em andamento (arquivo:linha)**: `INT-004` — validação externa; nenhum
-  arquivo de implementação editado.
-- **Próximo passo**: após o usuário autenticar a aba aberta do Supabase, excluir
-  a conta sintética pendente
-  `jobslens.ia+codex-int004-20260729143345@gmail.com`. Em seguida, registrar a
-  decisão aprovada de não correlacionar UTMs com contas, alinhar SRS/Analytics/
-  `DEC-004`/`T-UTM-002` e concluir somente as validações que não exigem e-mail
-  confirmado.
-- **Validação**: usuário aprovou o contrato simplificado do MVP. O fluxo
-  produção landing → cadastro descartou `email`/`redirect`, preservou somente
-  UTMs permitidas e mostrou zero provedores OAuth ativos. O Supabase aceitou o
-  cadastro sintético, mas exigiu confirmação de e-mail e não criou sessão.
-- **Passada de negação**: login real e pós-auth não foram exercitados porque a
-  conta requer confirmação; a conta pendente ainda não foi removida; nenhum
-  callback OAuth existe para validar; `INT-004` permanece aberta.
-- **Bloqueios**: limpeza do registro sintético requer login do usuário no painel
-  Supabase já aberto. `ANA-003` continua bloqueada pela ausência de configuração
-  server-side do Supabase/Vercel. `SEO-003` depende de `DEC-012`.
+- **Tasks concluídas neste bloco**: `INT-001`, `INT-004`
+- **Em andamento (arquivo:linha)**: nenhuma
+- **Próximo passo**: `ANA-003`, primeiro checkbox pendente do próximo épico,
+  continua dependendo de `SUPABASE_URL`, chave server-side e autorização para
+  aplicar/verificar a migração no Supabase/Vercel.
+- **Validação**: contrato focado 4/4; formatação, lint e tipagem aprovados; suíte
+  completa passou de 66 para 68 testes; build estático aprovado. Evidência
+  externa inclui testes do app 7/7, E2E 4/4 desktop/mobile e smoke público
+  landing → cadastro com descarte de `email`/`redirect`; zero OAuth ativo.
+- **Passada de negação**: a confirmação de e-mail impediu sessão pós-cadastro,
+  mas submissão/autenticação interna do app não integra o escopo da landing. A
+  conta sintética pendente foi removida pelo usuário. Persistência/correlação de
+  campanha não foi validada porque foi explicitamente retirada do MVP.
+- **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel.
+  `SEO-003` depende de `DEC-012`; publicação/smoke dos commits locais permanece
+  em `REL-002`.
 - **Arquivos não commitados**: nenhum após o checkpoint.
 - **Branch**: `codex/ana-003-preflight`
-- **Orçamento na parada**: contexto 51,3% · quota semanal 98,0%, com reset em
+- **Orçamento na parada**: contexto 17,4% · quota semanal 91,0%, com reset em
   2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: ação do usuário necessária para autenticar o painel e
-  permitir a limpeza segura do dado sintético antes de continuar `INT-004`.
+- **Motivo da parada**: ciclo concluído após exatamente uma tarefa, `INT-004`;
+  nenhuma tarefa do próximo épico foi iniciada.

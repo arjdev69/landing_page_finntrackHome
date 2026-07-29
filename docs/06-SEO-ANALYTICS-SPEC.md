@@ -1,8 +1,8 @@
 # Especificação de SEO, analytics e aquisição
 
-Versão: 0.1.2
-Status: approved — política first-party definida; implementação permanece noop
-Data: 2026-07-27
+Versão: 0.1.3
+Status: approved — aquisição simplificada e política first-party definidas
+Data: 2026-07-29
 
 ## 1. Objetivo
 
@@ -163,23 +163,28 @@ Antes do lançamento, o app deve:
 
 1. aceitar a URL de cadastro definida;
 2. aceitar a allowlist de UTMs;
-3. definir first-touch/last-touch e prazo de retenção;
-4. associar campanha à criação de conta/primeira sessão de forma compatível com
-   consentimento;
-5. expor a ativação sem enviar PII à ferramenta de analytics.
+3. manter a campanha somente em memória durante a página atual;
+4. não persistir first-touch/last-touch nem associar campanha à conta;
+5. manter cadastro, atividade e retenção do produto separados da origem de
+   campanha;
+6. não enviar PII à ferramenta de analytics.
 
-O código atual do app não atende aos itens 1–4; ver validação e `DEC-004`.
+Rotas, allowlist e adaptador em memória foram validados em `D0-003/INT-004`.
+Nenhum provedor OAuth está ativo no MVP publicado; ativação futura exige nova
+configuração e validação de origins/callbacks.
 
 ## 7. Métricas derivadas
 
 - CTR de cadastro = sessões com `signup_cta_click` / sessões da landing.
 - Saída para cadastro = sessões com `outbound_to_app{signup}` / sessões.
-- Conversão landing → cadastro exige evento correlacionável do app.
+- Conversão identificada landing → cadastro não é calculada no MVP, pois não há
+  correlação entre campanha e conta.
 - Ativação recomendada: usuário cadastrou imóvel, registrou movimentação
   financeira relevante e visualizou o resultado mensal.
 
 Não definir meta percentual antes de linha de base confiável. Métricas de
-retenção em 7/30 dias pertencem ao app/produto, não à landing isolada.
+cadastro, ativação e retenção em 7/30 dias pertencem ao app/produto e usam
+coortes próprias, sem UTMs ou identificadores da landing.
 
 ## 8. Validação operacional
 

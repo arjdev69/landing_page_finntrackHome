@@ -1,8 +1,8 @@
 # Software Design Document — Landing Page
 
-Versão: 0.1.1  
+Versão: 0.1.2
 Status: approved — decisões pendentes continuam condicionando tarefas dependentes  
-Data: 2026-07-15
+Data: 2026-07-29
 
 ## 1. Objetivo técnico
 
@@ -150,9 +150,11 @@ Comportamento:
 5. ignora chaves desconhecidas e nunca aceita destino vindo do visitante;
 6. analytics observa o clique, mas não cancela a navegação.
 
-Persistência de first-touch além da página atual continua fora da landing. O
-MVP não cria cookies, storage ou identificador persistente; a retenção de
-eventos brutos do analytics first-party é limitada a 90 dias.
+O contrato de campanha do MVP termina na memória da página do app. Landing e
+app não persistem first-touch/last-touch em cookie, Web Storage, banco ou perfil
+de conta, nem correlacionam UTM com usuário. Retenção 7/30 dias é calculada pelo
+produto a partir de cadastro/atividade, separadamente da origem de campanha. A
+retenção de eventos brutos do analytics first-party continua limitada a 90 dias.
 
 ## 8. Analytics por adaptador
 

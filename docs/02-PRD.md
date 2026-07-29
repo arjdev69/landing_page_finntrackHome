@@ -1,8 +1,8 @@
 # Product Requirements Document — Landing Page
 
-Versão: 0.1.1  
+Versão: 0.1.2
 Status: approved  
-Data: 2026-07-15
+Data: 2026-07-29
 
 ## 1. Resumo
 
@@ -100,7 +100,8 @@ preço ou beta são proibidas até nova decisão comercial explícita e rastreá
 
 - URL e domínio de produção do app.
 - Contrato de abertura direta do cadastro.
-- Tratamento de UTMs e atribuição no app.
+- Captura allowlisted de UTMs somente em memória no app, sem correlação com
+  contas; retenção do produto é medida separadamente.
 - Implementação do analytics first-party aprovado em `DEC-006/007`, ainda
   condicionada aos gates de `ANA-003/004`.
 - logotipo e screenshots finais aprovados.

@@ -1,8 +1,8 @@
 # Software Requirements Specification — Landing Page
 
-Versão: 0.1.1  
+Versão: 0.1.2
 Status: approved — baseline autoritativo  
-Data: 2026-07-15
+Data: 2026-07-29
 
 ## 1. Finalidade e prioridade
 
@@ -79,8 +79,8 @@ Prioridades:
 | FR-UTM-003 | MUST | Valores DEVEM ser decodificados e recodificados por API de URL; concatenação manual de query strings é proibida. |
 | FR-UTM-004 | MUST | Parâmetros desconhecidos, fragmentos e dados sensíveis NÃO DEVEM ser propagados automaticamente. |
 | FR-UTM-005 | MUST | A falha de captura/persistência NÃO DEVE bloquear o CTA. |
-| FR-UTM-006 | MUST | A retenção de campanha no navegador, se adotada, DEVE ter prazo documentado e respeitar a decisão de consentimento. |
-| FR-UTM-007 | MUST | O contrato ponta a ponta com o app DEVE ser aprovado antes do lançamento. |
+| FR-UTM-006 | MUST | O MVP NÃO DEVE reter campanha em cookie, Web Storage ou outro mecanismo persistente no navegador; qualquer adoção futura exige prazo documentado e nova decisão de privacidade. |
+| FR-UTM-007 | MUST | O contrato ponta a ponta aprovado para o MVP DEVE limitar UTMs à memória da página no app, sem persistência ou correlação com conta; métricas de retenção do produto DEVEM permanecer separadas. |
 
 ### 3.5 Páginas legais e erro
 

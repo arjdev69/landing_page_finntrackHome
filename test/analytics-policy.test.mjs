@@ -39,7 +39,8 @@ test('D0-005 aprova provedor, base, inventário e retenção sem ampliar dados',
   );
   assert.match(policy, /não armazenará IP/i);
   assert.match(srs, /ANA-008[\s\S]*descartar IP[\s\S]*90 dias/i);
-  assert.match(analyticsSpec, /política first-party definida; implementação permanece noop/i);
+  assert.match(analyticsSpec, /política first-party definid/i);
+  assert.match(analyticsSpec, /permanecer `?noop`?/i);
   assert.match(security, /solicitações de informação ou oposição/i);
 });
 

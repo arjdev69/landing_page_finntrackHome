@@ -1,8 +1,8 @@
 # Plano de testes e qualidade
 
-Versão: 0.1.1  
+Versão: 0.1.2
 Status: approved  
-Data: 2026-07-15
+Data: 2026-07-29
 
 ## 1. Objetivo
 
@@ -45,9 +45,9 @@ valide o provedor separadamente em modo de debug.
 | T-ASSET-001 | `FR-HOME-007..008`, `PRIV-003` | ativos aprovados, dimensões e alt text; revisão sem PII |
 | T-CONTENT-001 | `FR-HOME-009..012` | público, FAQ, rodapé e alegações revisados |
 | T-CTA-001 | `FR-CTA-001..006` | todos os CTAs têm href correto e eventos sem bloquear navegação |
-| T-CTA-002 | `FR-CTA-007..009` | cadastro/login reais em mobile/desktop; build falha sem config |
+| T-CTA-002 | `FR-CTA-007..009` | destinos reais abrem cadastro/login diretamente em mobile/desktop; build falha sem config |
 | T-UTM-001 | `FR-UTM-001..005` | allowlist, encoding, merge e degradação cobertos unitariamente |
-| T-UTM-002 | `FR-UTM-006..007` | decisão de retenção e contrato ponta a ponta aprovados |
+| T-UTM-002 | `FR-UTM-006..007` | contrato ponta a ponta aprovado sem persistência, correlação com conta ou OAuth ativo |
 | T-UTM-003 | `FR-CTA-003`, `FR-UTM-001..005` | `/entrar` preserva somente UTMs permitidas até o login; parâmetros desconhecidos e destino externo são descartados |
 | T-LEGAL-001 | `FR-LEG-001..003` | conteúdo datado/aprovado; detector de placeholder passa |
 | T-404-001 | `FR-ERR-001..002` | status 404, noindex, link home e nenhum landing_view |
