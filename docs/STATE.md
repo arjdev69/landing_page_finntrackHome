@@ -138,7 +138,8 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   `SEO-003` depende de `DEC-012`; `REL-001` ainda depende do fechamento das
   pendências de analytics/SEO/QA.
 - **Arquivos não commitados**: nenhum após o checkpoint de encerramento.
-- **Branch**: `codex/rel-003-rollout`
+- **Branch**: `main`, após merge do PR #10 (`43c854c`).
 - **Orçamento na parada**: contexto 75,0% · quota semanal 60,0%, com reset em
   2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`).
-- **Motivo da parada**: nenhum; `REL-003` concluída e pronta para revisão.
+- **Motivo da parada**: nenhum; `REL-003` concluída, revisada, publicada e com
+  CI da `main` aprovado.
