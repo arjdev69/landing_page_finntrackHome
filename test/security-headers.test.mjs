@@ -49,7 +49,11 @@ test('CSP de produção bloqueia superfícies não usadas e dispensa unsafe-inli
 test('CSP inclui todos os scripts inline do analytics sem liberar origem externa', () => {
   const productionHashes = deployedInlineScriptHashesByEnvironment.production;
   assert.equal(deployedInlineScriptHashesByEnvironment.preview.length, 1);
-  assert.equal(productionHashes.length, 3);
+  assert.equal(productionHashes.length, 4);
+  assert.ok(
+    productionHashes.includes("'sha256-nz++TAZBF7tYnemSr5ep4eVk8RrqHm2oawBe3M1AGOM='"),
+    'CSP precisa autorizar o loader transformado pela Vercel em produção',
+  );
 
   const policy = buildContentSecurityPolicy({
     environment: 'production',

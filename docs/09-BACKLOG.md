@@ -252,6 +252,9 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     A inspeção do primeiro Preview remoto revelou `PUBLIC_ENVIRONMENT` de
     produção; a correção passou a exigir concordância com `VERCEL_ENV`, falhando
     de modo seguro para preview sem coleta e sem indexação.
+    No primeiro deploy de produção, o loader recebeu a configuração pública
+    injetada pela Vercel e mudou de hash; o CSP foi atualizado para autorizar
+    explicitamente também essa variante publicada, sem `unsafe-inline`.
   - Cobertura: `ANA-006..008`, `PRIV-001..002`.
 - [ ] `ANA-004` Validar payloads, duplicidade, PII e debug de produção.
   - Dependência satisfeita por `ANA-003`; requer deploy e inspeção de debug no
