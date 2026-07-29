@@ -118,27 +118,30 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 3 — Rotas e integração
-- **Tasks concluídas neste bloco**: `INT-001`, `INT-004`
+- **Bloco atual**: Épico 6 — Qualidade e lançamento
+- **Tasks concluídas neste bloco**: `REL-002`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: `ANA-003`, primeiro checkbox pendente do próximo épico,
-  continua dependendo de `SUPABASE_URL`, chave server-side e autorização para
-  aplicar/verificar a migração no Supabase/Vercel.
-- **Validação**: contrato focado revalidado em 2026-07-29, 4/4; formatação, lint e tipagem aprovados; suíte
-  completa passou de 66 para 68 testes; build estático aprovado. Evidência
-  externa inclui testes do app 7/7, E2E 4/4 desktop/mobile e smoke público
-  landing → cadastro com descarte de `email`/`redirect`; zero OAuth ativo.
-- **Passada de negação**: a confirmação de e-mail impediu sessão pós-cadastro,
-  mas submissão/autenticação interna do app não integra o escopo da landing. A
-  conta sintética pendente foi removida pelo usuário. Persistência/correlação de
-  campanha não foi validada porque foi explicitamente retirada do MVP.
-- **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel.
-  `SEO-003` depende de `DEC-012`; publicação/smoke dos commits locais permanece
-  em `REL-002`.
+- **Próximo passo recomendado**: `REL-003`, configurar uma propriedade no Google
+  Search Console e submeter o sitemap já publicado. O primeiro item pendente
+  global, `ANA-003`, permanece adiado sem bloquear a landing publicada.
+- **Validação**: PR #7 aprovado e mesclado em `dddc615`; deployment Vercel
+  `FYnCQXk2DCbJpPKHcNtwUx8XZhCg`; GitGuardian, Vercel e pipeline remoto verdes.
+  Testes focados 8/8, suíte 68/68 e build aprovados. Smoke HTTP/navegador
+  confirmou home, `/entrar`, páginas legais, robots, sitemap e app disponíveis,
+  404 real, HTTP → HTTPS 308, canonical/headers e descarte de `email`/`redirect`
+  com preservação somente das UTMs aprovadas.
+- **Passada de negação**: um rollback real não foi provocado porque a produção
+  estava saudável; `OPS-006` exige procedimento documentado, atendido em
+  `docs/operations/REL-002-RELEASE.md`. Search Console não pertence a
+  `REL-002` e permanece em `REL-003`; analytics continua noop e separado em
+  `ANA-003..004`.
+- **Bloqueios**: `ANA-003` requer configuração server-side do Supabase/Vercel;
+  `SEO-003` depende de `DEC-012`; `REL-001` ainda depende do fechamento das
+  pendências de analytics/SEO/QA. `REL-003` exige acesso a uma conta Google para
+  verificar a propriedade.
 - **Arquivos não commitados**: nenhum após o checkpoint.
-- **Branch**: `codex/ana-003-preflight`
-- **Orçamento na parada**: contexto 13,9% · quota semanal 90,0%, com reset em
+- **Branch**: `codex/rel-002-rollout`
+- **Orçamento na parada**: contexto 56,4% · quota semanal 83,0%, com reset em
   2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: preflight SDD revalidou `INT-004` e confirmou que
-  `ANA-003` continua bloqueada pela configuração server-side; nenhuma tarefa do
-  próximo épico foi iniciada.
+- **Motivo da parada**: ciclo concluído após exatamente uma tarefa, `REL-002`;
+  nenhuma outra tarefa foi iniciada.

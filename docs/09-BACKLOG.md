@@ -356,7 +356,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     `includeSubDomains`/`preload` desativados conforme `DEC-017`. Evidência
     detalhada em `docs/audits/QA-005-SECURITY.md`.
 - [ ] `REL-001` Fechar todas as decisões bloqueadoras e checklist de lançamento.
-- [ ] `REL-002` Publicar, executar smoke/rollback e validar host/canonical/404.
+- [x] `REL-002` Publicar, executar smoke/rollback e validar host/canonical/404.
 - [ ] `REL-003` Configurar Search Console e submeter sitemap.
 - [ ] `REL-004` Registrar linha de base de aquisição e conversão.
 
