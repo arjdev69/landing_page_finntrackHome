@@ -107,28 +107,27 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 3 — Rotas e integração
 - **Tasks concluídas neste bloco**: `INT-001`
-- **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: obter decisão explícita para `INT-004`. Recomendação
-  prática para o MVP: não persistir nem correlacionar UTMs com contas; aprovar o
-  contrato em memória já entregue e medir retenção diretamente no app por
-  coortes de cadastro/atividade no Supabase. Depois, alinhar SRS, Analytics,
-  `DEC-004` e `T-UTM-002` antes de validar o fluxo real.
-- **Validação**: `INT-001` revalidada em 9/9. Inspeção somente leitura do app
-  confirmou que os últimos commits funcionais de aquisição continuam sendo os
-  de 2026-07-24 e o adaptador permanece em memória. Smoke público em 2026-07-29
-  confirmou HTTP 200 para `/cadastro`, `/entrar` e `/dashboard`.
-- **Passada de negação**: não foram executadas submissão real de cadastro/login,
-  callbacks OAuth nem associação de campanha à conta. HTTP 200 não comprova
-  autenticação, pós-auth, retenção ou atribuição; portanto `INT-004` permanece
-  aberta.
-- **Bloqueios**: `INT-004` requer escolha entre simplificar formalmente o
-  contrato do MVP ou aprovar/implementar persistência consent-aware. `ANA-003`
-  continua bloqueada pela ausência de configuração server-side do
-  Supabase/Vercel. `SEO-003` depende de `DEC-012`.
+- **Em andamento (arquivo:linha)**: `INT-004` — validação externa; nenhum
+  arquivo de implementação editado.
+- **Próximo passo**: após o usuário autenticar a aba aberta do Supabase, excluir
+  a conta sintética pendente
+  `jobslens.ia+codex-int004-20260729143345@gmail.com`. Em seguida, registrar a
+  decisão aprovada de não correlacionar UTMs com contas, alinhar SRS/Analytics/
+  `DEC-004`/`T-UTM-002` e concluir somente as validações que não exigem e-mail
+  confirmado.
+- **Validação**: usuário aprovou o contrato simplificado do MVP. O fluxo
+  produção landing → cadastro descartou `email`/`redirect`, preservou somente
+  UTMs permitidas e mostrou zero provedores OAuth ativos. O Supabase aceitou o
+  cadastro sintético, mas exigiu confirmação de e-mail e não criou sessão.
+- **Passada de negação**: login real e pós-auth não foram exercitados porque a
+  conta requer confirmação; a conta pendente ainda não foi removida; nenhum
+  callback OAuth existe para validar; `INT-004` permanece aberta.
+- **Bloqueios**: limpeza do registro sintético requer login do usuário no painel
+  Supabase já aberto. `ANA-003` continua bloqueada pela ausência de configuração
+  server-side do Supabase/Vercel. `SEO-003` depende de `DEC-012`.
 - **Arquivos não commitados**: nenhum após o checkpoint.
 - **Branch**: `codex/ana-003-preflight`
-- **Orçamento na parada**: contexto 63,8% · quota semanal 7,0%, com reset em
-  2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: `INT-004` bloqueada por decisão de produto/privacidade e
-  ausência de E2E real; nenhuma tarefa ou implementação parcial foi iniciada
-  neste ciclo.
+- **Orçamento na parada**: contexto 51,3% · quota semanal 98,0%, com reset em
+  2026-08-05 11:17 BRT (medido; `AMBIGUOUS=0`)
+- **Motivo da parada**: ação do usuário necessária para autenticar o painel e
+  permitir a limpeza segura do dado sintético antes de continuar `INT-004`.
