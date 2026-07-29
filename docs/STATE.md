@@ -108,21 +108,27 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Bloco atual**: Épico 3 — Rotas e integração
 - **Tasks concluídas neste bloco**: `INT-001`
 - **Em andamento (arquivo:linha)**: nenhuma
-- **Próximo passo**: avaliar `INT-004`, primeiro checkbox pendente. A validação
-  real de cadastro/login e atribuição durável continua condicionada ao contrato
-  `DEC-004/007`; não presumir persistência apenas porque as rotas do app abrem.
-- **Validação**: teste focado 9/9; formatação, lint e tipagem aprovados; suíte
-  completa passou de 64 para 66 testes; build gerou `/entrar/index.html`; E2E
-  passou de 30 para 32 cenários em Chromium desktop/mobile.
-- **Passada de negação**: não foi feito smoke da nova rota no deploy de
-  produção; essa evidência permanece em `REL-002`. O fallback não dispara
-  analytics porque `ANA-003/004` continuam pendentes.
-- **Bloqueios**: `INT-004` depende do contrato real de atribuição
-  (`DEC-004/007`). `ANA-003` continua bloqueada pela ausência de configuração
-  server-side do Supabase/Vercel. `SEO-003` depende de `DEC-012`.
+- **Próximo passo**: obter decisão explícita para `INT-004`. Recomendação
+  prática para o MVP: não persistir nem correlacionar UTMs com contas; aprovar o
+  contrato em memória já entregue e medir retenção diretamente no app por
+  coortes de cadastro/atividade no Supabase. Depois, alinhar SRS, Analytics,
+  `DEC-004` e `T-UTM-002` antes de validar o fluxo real.
+- **Validação**: `INT-001` revalidada em 9/9. Inspeção somente leitura do app
+  confirmou que os últimos commits funcionais de aquisição continuam sendo os
+  de 2026-07-24 e o adaptador permanece em memória. Smoke público em 2026-07-29
+  confirmou HTTP 200 para `/cadastro`, `/entrar` e `/dashboard`.
+- **Passada de negação**: não foram executadas submissão real de cadastro/login,
+  callbacks OAuth nem associação de campanha à conta. HTTP 200 não comprova
+  autenticação, pós-auth, retenção ou atribuição; portanto `INT-004` permanece
+  aberta.
+- **Bloqueios**: `INT-004` requer escolha entre simplificar formalmente o
+  contrato do MVP ou aprovar/implementar persistência consent-aware. `ANA-003`
+  continua bloqueada pela ausência de configuração server-side do
+  Supabase/Vercel. `SEO-003` depende de `DEC-012`.
 - **Arquivos não commitados**: nenhum após o checkpoint.
 - **Branch**: `codex/ana-003-preflight`
-- **Orçamento na parada**: contexto 66,5% · quota semanal 8,0%, com reset em
+- **Orçamento na parada**: contexto 63,8% · quota semanal 7,0%, com reset em
   2026-08-03 11:24 BRT (medido; `AMBIGUOUS=0`)
-- **Motivo da parada**: ciclo SDD concluído após exatamente uma tarefa,
-  `INT-001`; quota semanal em WARN e nenhuma próxima tarefa iniciada.
+- **Motivo da parada**: `INT-004` bloqueada por decisão de produto/privacidade e
+  ausência de E2E real; nenhuma tarefa ou implementação parcial foi iniciada
+  neste ciclo.
