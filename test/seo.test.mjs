@@ -121,9 +121,14 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.match(html, /Saiba quais imóveis realmente dão lucro\./);
   assert.match(html, /<main id="main-content"/);
   assert.match(html, /<vercel-analytics\b/);
-  assert.deepEqual(
-    extractInlineScriptHashes(html),
-    deployedInlineScriptHashesByEnvironment.production,
+  const generatedProductionHashes = extractInlineScriptHashes(html);
+  for (const hash of generatedProductionHashes) {
+    assert.ok(deployedInlineScriptHashesByEnvironment.production.includes(hash));
+  }
+  assert.equal(
+    deployedInlineScriptHashesByEnvironment.production.length,
+    generatedProductionHashes.length + 1,
+    'produção também autoriza o loader transformado pela plataforma Vercel',
   );
   assert.match(html, /Seu fechamento mensal não precisa depender de várias planilhas\./);
   assert.match(html, /Resultado mensal por imóvel/);

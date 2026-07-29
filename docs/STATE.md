@@ -164,10 +164,12 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   ausência do componente nas rotas excluídas. O primeiro Preview remoto expôs
   que `PUBLIC_ENVIRONMENT=production` também estava configurado nesse ambiente;
   a detecção agora exige concordância com `VERCEL_ENV` e falha para preview sem
-  coleta/indexação. Recebimento, deduplicação e ausência de PII no payload
-  implantado permanecem corretamente em `ANA-004`. O Analytics não mede
-  cadastro, ativação ou retenção do app e o plano Hobby não expõe eventos
-  customizados nem UTMs.
+  coleta/indexação. O primeiro deploy de produção revelou ainda que a Vercel
+  transforma o loader ao injetar a configuração pública do projeto; o hash
+  específico dessa variante foi adicionado ao CSP sem liberar `unsafe-inline`.
+  Recebimento, deduplicação e ausência de PII no payload implantado permanecem
+  corretamente em `ANA-004`. O Analytics não mede cadastro, ativação ou
+  retenção do app e o plano Hobby não expõe eventos customizados nem UTMs.
 - **Bloqueios**: nenhum para publicar `ANA-003`; `ANA-004` depende do deploy de
   produção. `SEO-003` ainda depende de `DEC-012`.
 - **Branch**: `codex/vercel-web-analytics`
