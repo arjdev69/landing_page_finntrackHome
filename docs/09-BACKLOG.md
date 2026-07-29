@@ -293,8 +293,11 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     dimensões 1200×630 e texto alternativo. O teste do artefato confirma as
     tags no HTML inicial e a presença dos três PNGs em `dist`; formatação, lint,
     tipagem, build e 49 testes aprovados.
-- [ ] `SEO-003` Adicionar apenas dados estruturados aprovados e testar.
-  - Bloqueado por: `DEC-012`.
+- [x] `SEO-003` Adicionar apenas dados estruturados aprovados e testar.
+  - Evidência (2026-07-29): `DEC-012` aprovou uma lista vazia de schemas para o
+    MVP. Nenhum JSON-LD é publicado; `test/seo.test.mjs` verifica a ausência de
+    `application/ld+json` na home, páginas legais e 404. Teste focado 3/3,
+    formatação, lint, tipagem, suíte 75/75 e build estático aprovados.
   - Cobertura: `SEO-010..011`.
 - [x] `LEG-001` Publicar privacidade e termos aprovados.
   - Evidência (2026-07-27): versões 1.0 aprovadas em
@@ -353,6 +356,8 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     execução final passou 8/8, sem skips e com zero violações Axe. Relatório em
     `docs/audits/QA-002-ACCESSIBILITY.md`. A tarefa permanece aberta somente
     para o smoke com leitor de tela real exigido por `A11Y-011`.
+  - Adiada explicitamente pelo responsável em 2026-07-29; permanece aberta e
+    não será contabilizada como validação concluída até o smoke real.
 - [ ] `QA-003` Executar matriz responsiva e navegadores.
   - Evidência parcial (2026-07-22): matriz Playwright isolada executou 24/24
     cenários, sem skips, nos seis viewports normativos com Chromium 149, Edge
@@ -362,6 +367,8 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     das larguras extremas. A tarefa permanece aberta para as versões anteriores
     reais de Chrome/Edge/Firefox e Safari atual/anterior em macOS, conforme
     `RWD-005` e `docs/audits/QA-003-COMPATIBILITY.md`.
+  - Adiada explicitamente pelo responsável em 2026-07-29; permanece aberta e
+    não será contabilizada como validação concluída até a matriz real.
 - [x] `QA-004` Medir bundle/Lighthouse e aprovar orçamento sintético.
   - Evidência (2026-07-22): runner Lighthouse 13.4.1 reproduzível mede três
     rodadas mobile e três desktop sobre o build e aplica o orçamento aceito em

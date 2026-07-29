@@ -213,6 +213,14 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
 
   assert.doesNotMatch(sitemap, /privacidade|termos/);
   assert.doesNotMatch(sitemap, /404/);
+
+  for (const routeHtml of [html, privacyHtml, termsHtml, notFoundHtml]) {
+    assert.doesNotMatch(
+      routeHtml,
+      /<script\b[^>]*type=["']application\/ld\+json["'][^>]*>/i,
+      'DEC-012 mantém vazia a lista de JSON-LD aprovada para o MVP',
+    );
+  }
 });
 
 test('Vercel preview prevalece sobre PUBLIC_ENVIRONMENT de produção', async () => {

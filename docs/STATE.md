@@ -142,27 +142,54 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-29
 - **Status**: ativa
 
+### AD-011
+
+- **Decisão**: aprovar `DEC-012` com lista vazia de dados estruturados no MVP;
+  nenhum JSON-LD será publicado até existir nova decisão com campos e evidência
+  visíveis.
+- **Razão**: o responsável priorizou uma implementação prática e sem alegações
+  ou marcação desnecessária durante a validação inicial do produto.
+- **Trade-off**: a landing não buscará resultados enriquecidos nesta fase, mas
+  evita schemas sem benefício ou evidência comprovados.
+- **Data**: 2026-07-29
+- **Status**: ativa
+
+### AD-012
+
+- **Decisão**: adiar os testes manuais restantes de `QA-002` e `QA-003` para uma
+  etapa posterior, mantendo ambas as tarefas abertas.
+- **Razão**: leitor de tela real, Safari/macOS e versões anteriores de
+  navegadores não estão disponíveis no ambiente atual.
+- **Trade-off**: as coberturas automatizadas permanecem válidas, mas o projeto
+  não reivindica conclusão integral de acessibilidade ou compatibilidade até as
+  evidências manuais existirem.
+- **Data**: 2026-07-29
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco atual**: Épico 6 — Qualidade e lançamento
-- **Última task concluída**: `QA-001`, integrada na `main` pelo PR #20 e merge
-  `ace75ff`.
-- **Retomada validada**: a suíte focada de `QA-001` passou novamente em 2026-07-29
-  com 20/20 cenários P0 em Chromium desktop/mobile. Os quatro checks remotos do
-  PR #20 estavam verdes antes do squash merge.
-- **Próximo passo operacional**: não há task pendente elegível sem evidência ou
-  decisão externa. Reavaliar primeiro a pré-condição de `REL-004` após existir
-  uma amostra real confiável no Vercel Analytics, descontando/anotando os 5
-  pageviews sintéticos de `ANA-004`.
-- **Bloqueios**: `SEO-003` depende de `DEC-012`; `QA-002` depende de leitor de
-  tela real; `QA-003` depende de versões anteriores reais e Safari em macOS;
-  `REL-001` depende do fechamento desses gates/decisões; `REL-004` aguarda
-  amostra real utilizável.
-- **Branch**: `codex/sdd-handoff-blocked`, criada a partir de `origin/main`.
-- **Orçamento no pré-voo**: `OK`, com contexto restante 89,1%, quota semanal
-  restante 82,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
-- **Motivo da parada**: bloqueio; nenhum novo checkbox foi marcado porque todas
-  as tarefas pendentes exigem decisão, ambiente manual ou dados reais ainda
-  indisponíveis.
+- **Bloco concluído neste ciclo**: Épico 5 — `SEO-003`.
+- **Implementação**: `DEC-012` foi aceita com lista vazia de schemas no MVP.
+  SRS, especificação de SEO e plano de testes agora proíbem JSON-LD até nova
+  decisão; o teste do artefato cobre home, páginas legais e 404.
+- **Validação**: teste SEO focado 3/3; formatação com finais de linha automáticos;
+  lint; tipagem com 0 erros/avisos; suíte completa 75/75, mesma contagem
+  anterior; build estático de 5 páginas aprovado.
+- **Passada de negação**: nenhum Rich Results Test foi executado porque não há
+  schema no artefato; `Organization`, `WebSite`, `SoftwareApplication` e
+  `FAQPage` permanecem candidatos futuros sem aprovação. `AggregateRating`,
+  preço, avaliações e métricas de usuários não são emitidos.
+- **Decisão adicional**: `QA-002` e `QA-003` foram adiadas por `DEC-019`, mas
+  permanecem abertas e não são apresentadas como concluídas.
+- **Próximo passo operacional**: `REL-004` quando houver amostra real confiável
+  no Vercel Analytics, anotando os 5 pageviews sintéticos de `ANA-004`.
+- **Bloqueios restantes**: `QA-002` exige leitor de tela real; `QA-003` exige
+  versões anteriores reais e Safari/macOS; `REL-001` depende do fechamento
+  formal desses gates; `REL-004` aguarda amostra real utilizável.
+- **Branch**: `codex/seo-003-no-schema`.
+- **Orçamento após o bloco**: `OK`, com contexto restante 58,6%, quota semanal
+  restante 77,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
+- **Motivo da parada**: um bloco atômico concluído; nenhum outro bloco foi
+  iniciado neste ciclo.

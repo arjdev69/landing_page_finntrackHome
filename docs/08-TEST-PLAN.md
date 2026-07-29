@@ -58,7 +58,7 @@ valide o provedor separadamente em modo de debug.
 |---|---|---|
 | T-SEO-001 | `SEO-001..005` | análise do HTML de cada rota indexável |
 | T-SEO-002 | `SEO-006..009`, `SEO-013` | robots/sitemap/cards/ícones válidos por ambiente; páginas legais com noindex/canonical e fora do sitemap |
-| T-SEO-003 | `SEO-010..011` | schemas validados e campos sem alegações proibidas |
+| T-SEO-003 | `SEO-010..011` | quando a lista aprovada for vazia, ausência de JSON-LD em todas as rotas; schemas futuros exigem validação e campos sem alegações proibidas |
 | T-SEO-004 | `SEO-012` | redirect HTTPS/host canônico sem cadeia ou loop |
 | T-ANA-001 | `ANA-001..005` | contrato, classificação determinística de device/referrer, payload permitido e falha do SDK |
 | T-ANA-002 | `ANA-006..007` | preview sem coleta; produção verificável por painel/rede; eventos não suportados permanecem `noop` |

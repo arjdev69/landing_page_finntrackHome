@@ -276,14 +276,16 @@ datas de calendário aprovado.
 
 ### DEC-012 — Dados estruturados
 
-- Status: **Proposta**.
-- Decisão proposta: não publicar schema automaticamente; ativar somente tipos e
-  campos validados contra conteúdo visível. `FAQPage` não é requisito do MVP.
-- Responsável: responsável técnico de SEO.
+- Status: **Aceita**.
+- Decisão: a lista aprovada de schemas do MVP é vazia. Não publicar JSON-LD
+  automaticamente; `Organization`, `WebSite`, `SoftwareApplication` e
+  `FAQPage` permanecem candidatos futuros e exigem nova decisão, campos
+  validados contra conteúdo visível e validação do artefato.
+- Responsável: Bruno Araujo, com implementação do responsável técnico de SEO.
 - Data de registro: 2026-07-15.
-- Data limite: antes de `SEO-003`.
-- Evidência para encerrar: lista de schemas/campos aprovada e validação do
-  artefato no Rich Results Test ou ferramenta equivalente.
+- Data de aceitação: 2026-07-29.
+- Evidência: aprovação explícita do responsável e teste do artefato garantindo
+  ausência de `application/ld+json` em todas as rotas publicadas.
 
 ### DEC-013 — Estratégia de `/entrar`
 
@@ -395,6 +397,23 @@ datas de calendário aprovado.
 - Data de aceitação: 2026-07-29.
 - Evidência: aprovação explícita do responsável nesta execução, documentação
   oficial da Vercel, Política de Privacidade 1.2 e `ANA-003`.
+
+### DEC-019 — Postergação das validações manuais complementares
+
+- Status: **Aceita**.
+- Contexto: `QA-002` e `QA-003` já possuem cobertura automatizada aprovada, mas
+  ainda dependem de leitor de tela real, Safari/macOS e versões anteriores reais
+  dos navegadores.
+- Decisão: adiar essas validações manuais para uma etapa posterior, mantendo as
+  duas tarefas abertas e sem apresentar suas coberturas como integralmente
+  concluídas.
+- Consequência: a landing pode continuar captando usuários com a evidência
+  automatizada atual, mas o fechamento formal de acessibilidade e
+  compatibilidade permanece pendente.
+- Responsável: Bruno Araujo.
+- Data de aceitação: 2026-07-29.
+- Evidência: aprovação explícita do responsável nesta execução e relatórios
+  parciais `QA-002-ACCESSIBILITY.md` e `QA-003-COMPATIBILITY.md`.
 
 ## Template para novas decisões
 

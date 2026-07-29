@@ -110,6 +110,10 @@ Prioridades:
 | SEO-012 | MUST | Variantes canônicas de host/protocolo DEVEM redirecionar de forma consistente para HTTPS e host oficial. |
 | SEO-013 | MUST | `/privacidade` e `/termos` DEVEM usar `noindex,follow`, canonical próprio e permanecer fora do sitemap no MVP. |
 
+Para o MVP atual, a lista aprovada de tipos JSON-LD é vazia conforme
+`DEC-012`; nenhum schema deve ser emitido até nova decisão com campos e
+evidência próprios.
+
 ## 5. Analytics
 
 | ID | Pri. | Requisito |

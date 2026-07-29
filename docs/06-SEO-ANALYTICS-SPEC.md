@@ -45,9 +45,10 @@ preceder novas páginas. Não criar páginas artificiais apenas para repetir ter
 
 ### Dados estruturados
 
-Tipos candidatos: `Organization`, `WebSite` e `SoftwareApplication`. Cada campo
-deve corresponder a conteúdo visível e aprovado. `FAQPage` é opcional e só pode
-ser adicionado após conferir elegibilidade e benefício no momento da publicação.
+`Organization`, `WebSite`, `SoftwareApplication` e `FAQPage` permanecem apenas
+como candidatos futuros. A lista aprovada para o MVP atual é vazia: nenhum
+JSON-LD será publicado. Qualquer ativação futura exige nova decisão, campos
+correspondentes ao conteúdo visível e validação do artefato.
 
 ## 3. Eventos
 
