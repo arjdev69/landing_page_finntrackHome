@@ -11,6 +11,8 @@ Propriedade: `https://finntrack-home-landing.vercel.app/`
 - Método de verificação: tag HTML pública na home
 - Pull request da verificação: `#9`
 - Merge de produção: `57544ef`
+- Pull request de encerramento operacional: `#10`
+- Merge do encerramento: `43c854c`
 - Deployment Vercel:
   `EpEMJajVQWszjQzr9Z83eY6VwveK`
 - Sitemap submetido:
@@ -55,4 +57,6 @@ ao vivo:
 
 A origem canônica foi verificada no Search Console e o sitemap foi submetido.
 `REL-003` está concluída no seu escopo operacional, com o estado inicial de
-processamento registrado como ressalva de monitoramento.
+processamento registrado como ressalva de monitoramento. Após o merge do
+encerramento, o CI da `main` passou em 3m09s e o deployment de produção da Vercel
+foi concluído com sucesso.
