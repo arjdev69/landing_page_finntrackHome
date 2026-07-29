@@ -20,6 +20,7 @@ const metadata = resolveSeoMetadata(runtimeConfig.origin, Astro.props, runtimeCo
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content={siteConfig.googleSiteVerification} />
     <SeoHead {...metadata} />
     <slot name="head" />
   </head>
