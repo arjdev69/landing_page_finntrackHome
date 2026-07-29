@@ -17,7 +17,7 @@ concurrency:
 env:
   CI: true
   PUBLIC_ENVIRONMENT: preview
-  PUBLIC_SITE_URL: https://finntrack-home-landing.vercel.app
+  PUBLIC_SITE_URL: https://finntrackhomepage.app
   PUBLIC_APP_URL: https://finntrackhome.app
   PUBLIC_APP_SIGNUP_URL: https://finntrackhome.app/cadastro
   PUBLIC_APP_LOGIN_URL: https://finntrackhome.app/entrar
