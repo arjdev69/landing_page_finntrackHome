@@ -2,9 +2,21 @@
 import { siteConfig } from '@config/site';
 import type { ResolvedSeoMetadata } from '@lib/seo/metadata';
 
-type Props = ResolvedSeoMetadata;
+interface Props extends ResolvedSeoMetadata {
+  openGraphLocale?: string;
+  socialImageAlt?: string;
+}
 
-const { title, description, canonical, image, robots, type } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  image,
+  robots,
+  type,
+  openGraphLocale = siteConfig.openGraphLocale,
+  socialImageAlt = siteConfig.socialImageAlt,
+} = Astro.props;
 ---
 
 <title>{title}</title>
@@ -15,7 +27,7 @@ const { title, description, canonical, image, robots, type } = Astro.props;
 <link rel="apple-touch-icon" sizes="180x180" href={siteConfig.appleTouchIconPath} />
 
 <meta property="og:site_name" content={siteConfig.name} />
-<meta property="og:locale" content={siteConfig.openGraphLocale} />
+<meta property="og:locale" content={openGraphLocale} />
 <meta property="og:type" content={type} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -24,10 +36,10 @@ const { title, description, canonical, image, robots, type } = Astro.props;
 {image && <meta property="og:image:type" content="image/png" />}
 {image && <meta property="og:image:width" content="1200" />}
 {image && <meta property="og:image:height" content="630" />}
-{image && <meta property="og:image:alt" content={siteConfig.socialImageAlt} />}
+{image && <meta property="og:image:alt" content={socialImageAlt} />}
 
 <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 {image && <meta name="twitter:image" content={image} />}
-{image && <meta name="twitter:image:alt" content={siteConfig.socialImageAlt} />}
+{image && <meta name="twitter:image:alt" content={socialImageAlt} />}

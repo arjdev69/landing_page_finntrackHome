@@ -1,0 +1,44 @@
+---
+import type { HomeContent } from '@i18n/content';
+import { localeConfig, supportedLocales, type Locale } from '@i18n/locales';
+
+interface Props {
+  locale: Locale;
+  shell: HomeContent['shell'];
+}
+
+const { locale, shell } = Astro.props;
+---
+
+<div
+  class="inline-flex min-h-11 items-center rounded-control border border-border-strong bg-surface p-1"
+  role="group"
+  aria-label={shell.languageSelectorLabel}
+  data-locale-switcher
+>
+  {
+    supportedLocales.map((targetLocale) => {
+      const target = localeConfig[targetLocale];
+      const isCurrent = targetLocale === locale;
+      const accessibleLabel = isCurrent
+        ? `${target.accessibleName} — ${shell.currentLanguageLabel}`
+        : `${shell.switchLanguageLabel} ${target.accessibleName}`;
+
+      return (
+        <a
+          class:list={[
+            'inline-flex min-h-9 min-w-11 items-center justify-center rounded-sm px-2 text-sm font-semibold',
+            isCurrent ? 'bg-foreground text-white' : 'text-foreground hover:bg-background',
+          ]}
+          href={target.path}
+          hreflang={targetLocale}
+          lang={targetLocale}
+          aria-label={accessibleLabel}
+          aria-current={isCurrent ? 'page' : undefined}
+        >
+          {target.visualLabel}
+        </a>
+      );
+    })
+  }
+</div>

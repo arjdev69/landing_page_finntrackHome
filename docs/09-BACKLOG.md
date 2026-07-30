@@ -17,19 +17,19 @@ Data: 2026-07-30
 
 - [x] `DOC-001` Importar o handover de origem.
 - [x] `DOC-002` Criar baseline de visão, PRD, SRS, SDD, UX, SEO/analytics,
-  segurança, testes, backlog, decisões e rastreabilidade.
+      segurança, testes, backlog, decisões e rastreabilidade.
 - [x] `DOC-003` Aprovar a baseline `0.1.1` e mudar documentos normativos de
-  `draft` para `approved`.
+      `draft` para `approved`.
 - [x] `DOC-004` Elaborar a proposta completa de internacionalização `en-US` sem
-  alterar código nem promover o escopo à baseline autoritativa.
+      alterar código nem promover o escopo à baseline autoritativa.
   - Evidência (2026-07-29): `docs/15-I18N-EN-US-REQUIREMENTS.md` registra
     diagnóstico em duas passagens, decisões recomendadas, mapa de rotas,
     estrutura mental da página, copy inicial, requisitos propostos,
     dependências, testes e sequência futura. Na conclusão de `DOC-004`,
     `DEC-020` ainda permanecia proposta e PRD/SRS não haviam sido alterados.
 - [x] `DOC-005` Corrigir a validação da proposta `en-US`, aceitar `DEC-020` para
-  a fase documental e promover requisitos, testes, bloqueadores e
-  rastreabilidade aos documentos normativos, sem alterar código.
+      a fase documental e promover requisitos, testes, bloqueadores e
+      rastreabilidade aos documentos normativos, sem alterar código.
   - Evidência (2026-07-30): baseline documental `0.2.0` atualizada em índice,
     PRD, SRS, SDD, UX, SEO/analytics, segurança, plano de testes, decisões,
     backlog, rastreabilidade e anexo i18n. Validação confirmou 70 requisitos
@@ -50,7 +50,7 @@ Data: 2026-07-30
     separa pipeline/preview, `/entrar`, 404, headers e rollback nas tarefas
     executáveis correspondentes; domínio customizado fica adiado.
 - [x] `D0-003` Implementar/confirmar no app a URL que abre cadastro diretamente e
-  o contrato de UTMs (`DEC-004`).
+      o contrato de UTMs (`DEC-004`).
   - Evidência (2026-07-24): o app publicou
     `https://finntrackhome.app/cadastro` e
     `https://finntrackhome.app/entrar`; `/dashboard` permanece protegido e
@@ -74,7 +74,7 @@ Data: 2026-07-30
     2.0, a política pública 1.2 e a aprovação legal registram inventário,
     balanceamento, retenção e gates aplicáveis.
 - [x] `D0-006` Definir responsáveis por jurídico, suporte e ativos
-  (`DEC-008/009/011`).
+      (`DEC-008/009/011`).
   - Evidência (2026-07-21): governança jurídica aceita com redação assistida,
     validação factual e aprovação humana obrigatória; canal real
     `jobslens.ia@gmail.com`, responsável operacional e fluxo para solicitações de
@@ -83,7 +83,7 @@ Data: 2026-07-30
     identidade demonstrativa e trechos em inglês. `LEG-001`, `AST-001` e
     `SEO-002` preservam seus próprios critérios de aprovação.
 - [x] `D0-007` Aprovar formalmente `DEC-020` e a baseline normativa `0.2.0` de
-  internacionalização `en-US`.
+      internacionalização `en-US`.
   - Evidência (2026-07-30): Produto comunicou “internacionalização aprovada”
     após revisar o esboço do seletor, a validação documental e as recomendações
     incorporadas à baseline. A aprovação autoriza executar o backlog
@@ -126,7 +126,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     artefato em 320/360/390/768/1024/1440 px sem overflow ou erros de navegador,
     com capturas em `artifacts/fnd-004-*.png`.
 - [x] `FND-005` Implementar `MarketingLayout`, o shell de `src/pages/index.astro`
-  e o contrato de SEO.
+      e o contrato de SEO.
   - Aceite: `/` responde 200 no artefato e monta o layout com metadados tipados;
     as seções de conteúdo podem ser adicionadas incrementalmente por `WEB-*`.
   - Cobertura: `FR-NAV-001`, `SEO-001..005`, `SEO-009`.
@@ -162,7 +162,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     confirmou links/âncoras, ausência de logs de erro e captura
     `artifacts/web-001-desktop.png`.
 - [x] `WEB-002` Implementar Hero com CTAs e asset temporário explicitamente
-  marcado para substituição antes da produção.
+      marcado para substituição antes da produção.
   - Cobertura: `FR-HOME-001..003`, `FR-CTA-001..005`.
   - Evidência (2026-07-21): `Hero.astro` renderiza no HTML inicial a copy
     aprovada, CTA “Criar conta” pela URL pública tipada, CTA secundário para
@@ -249,7 +249,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 ## Épico 4 — Analytics
 
 - [x] `ANA-001` Implementar tipos, classificação determinística de
-  `device_group`/`referrer_group`, contrato e `NoopAnalytics`.
+      `device_group`/`referrer_group`, contrato e `NoopAnalytics`.
   - Evidência (2026-07-21): `src/lib/analytics/contract.ts` expõe os sete eventos
     e somente as propriedades/enums catalogadas; `classification.ts` aplica os
     breakpoints, precedência e allowlists `2026-07-15.v1`; `noop.ts` fornece o
@@ -447,12 +447,17 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
   - Aceite: cadastro/login/onboarding em inglês ou exceção explícita; versões
     legais aprovadas; screenshot/social card sintéticos, com moeda identificada
     e aprovações próprias.
-- [ ] `I18N-003` Implementar configuração, catálogos tipados, rotas e seletor.
+- [x] `I18N-003` Implementar configuração, catálogos tipados, rotas e seletor.
   - Bloqueada por: `I18N-001`.
   - Cobertura: `I18N-FR-001..012`, `I18N-ARCH-001..007`,
     `I18N-A11Y-001..004`.
   - Aceite: `/` e `/en/` estáticas, componentes compartilhados, links
     `PT-BR`/`EN-US`, paridade de chaves e falha de build para catálogo inválido.
+  - Evidência: `src/i18n/**`, `src/components/pages/HomePage.astro`,
+    `src/components/layout/LocaleSwitcher.astro`, `src/pages/en/index.astro`,
+    `test/i18n.test.mjs`, `test/seo.test.mjs`; lint, typecheck, build estático
+    de 6 páginas, suíte 77/77 e acessibilidade 10/10 em desktop/mobile aprovados
+    em 2026-07-30.
 - [ ] `I18N-004` Integrar copy, legais, ativos e fluxo do app em `en-US`.
   - Bloqueada por: `I18N-002..003`.
   - Cobertura: `I18N-CONT-001..012`, `I18N-INT-001..005`.

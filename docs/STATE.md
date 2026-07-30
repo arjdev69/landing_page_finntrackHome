@@ -191,28 +191,41 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-30
 - **Status**: ativa
 
+### AD-015
+
+- **Decisão**: publicar a estrutura estática de `/en/` com copy aprovada e
+  `noindex,nofollow`, mas sem reutilizar o screenshot `pt-BR` nem expor links
+  jurídicos ingleses antes de existirem os artefatos e rotas aprovados.
+- **Razão**: `I18N-003` deve comprovar arquitetura, rotas e seletor sem apresentar
+  conteúdo misto ou criar destinos jurídicos inexistentes; ativos e integração
+  completa pertencem a `I18N-002/004`.
+- **Trade-off**: a página inglesa usa reserva visual neutra e rodapé reduzido
+  nesta etapa, permanecendo fora da indexação e sem prontidão de release.
+- **Data**: 2026-07-30
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
 - **Bloco atual**: Épico 7 — Internacionalização `en-US` (em andamento).
-- **Tasks concluídas neste bloco**: `I18N-001`.
+- **Tasks concluídas neste bloco**: `I18N-001`, `I18N-003`.
 - **Em andamento (arquivo:linha)**: nenhum.
-- **Próximo passo**: executar `I18N-003`, próxima tarefa elegível, para
-  implementar configuração, catálogos tipados, rotas e seletor; `I18N-002`
-  permanece bloqueada por aprovações externas.
-- **Validação**: segunda auditoria em duas passagens confirmou versão `0.2.0`,
-  70 requisitos únicos, 21 casos idênticos no anexo/plano, zero links locais
-  quebrados e diff somente em `docs/`; lint, suíte 75/75 e build estático de 5
-  páginas passaram. `format:check` continua falhando em quatro arquivos
-  preexistentes fora do escopo documental.
-- **Bloqueios**: `I18N-002` depende de App, Jurídico, Design/Marca, Privacidade e
-  Produto quanto às evidências materiais, embora as aprovações humanas tenham
-  sido registradas; release continua dependente das tarefas `I18N-002..006`.
-- **Arquivos não commitados**: documentação da baseline `0.2.0`, decisões
-  `D0-007`/`AD-013..014` e `I18N-001`, agrupadas no PR documental solicitado.
-- **Branch**: `codex/docs-i18n-en-us`.
-- **Orçamento na parada**: contexto 52,0% · quota semanal 51,0% (medido,
+- **Próximo passo**: produzir e registrar as evidências materiais de `I18N-002`
+  (app, versões jurídicas e ativos ingleses); depois executar `I18N-004`.
+- **Validação**: `I18N-003` passou em lint, typecheck sem diagnósticos, build
+  estático de 6 páginas, suíte 77/77 e acessibilidade 10/10 em desktop/mobile. O
+  artefato contém `/` e `/en/`, um H1 por locale, metadados coerentes, seletor
+  bidirecional e nenhum screenshot PT na página inglesa. `format:check` validou
+  os arquivos deste bloco e continua apontando apenas
+  `test/e2e/p0-home.e2e.mjs` e `playwright.config.mjs`, pendências preexistentes
+  fora do escopo.
+- **Bloqueios**: `I18N-002` ainda depende de smoke publicado do app em inglês,
+  versões jurídicas `en-US` e screenshot/social card finais; release continua
+  dependente de `I18N-002` e `I18N-004..006`.
+- **Arquivos não commitados**: implementação e evidências de `I18N-003`.
+- **Branch**: `codex/i18n-en-us-routing`.
+- **Orçamento na parada**: contexto 48,8% · quota semanal 31,0% (medido,
   `AMBIGUOUS=0`; reset em 2026-08-05 17:19 BRT).
 - **Motivo da parada**: uma tarefa atômica concluída conforme `AGENTS.md`;
   nenhuma outra tarefa foi iniciada.

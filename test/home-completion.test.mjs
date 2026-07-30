@@ -36,7 +36,7 @@ test('WEB-005 content matches the approved audience, FAQ, CTA and support decisi
 
 test('WEB-005 sections render semantically in initial HTML and use configured links', async () => {
   const [page, audience, faq, finalCta, footer, layout, instrumentation] = await Promise.all([
-    readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/pages/HomePage.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/sections/Audience.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/sections/Faq.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/sections/FinalCta.astro', import.meta.url), 'utf8'),
@@ -48,10 +48,10 @@ test('WEB-005 sections render semantically in initial HTML and use configured li
     ),
   ]);
 
-  assert.match(page, /<Audience\s*\/>/);
-  assert.match(page, /<Faq\s*\/>/);
-  assert.match(page, /<FinalCta\s*\/>/);
-  assert.match(audience, /id="para-quem"/);
+  assert.match(page, /<Audience/);
+  assert.match(page, /<Faq/);
+  assert.match(page, /<FinalCta/);
+  assert.match(audience, /getHomeAnchor\(locale, 'audience'\)/);
   assert.match(audience, /tabindex="-1"/);
   assert.match(faq, /<details/);
   assert.match(faq, /<summary/);
@@ -60,10 +60,11 @@ test('WEB-005 sections render semantically in initial HTML and use configured li
   assert.match(finalCta, /href={publicConfig\.appSignupUrl}/);
   assert.match(finalCta, /data-destination-type="signup"/);
   assert.match(finalCta, /data-cta-location="footer"/);
-  assert.match(layout, /<Footer loginUrl={publicConfig\.appLoginUrl} \/>/);
+  assert.match(layout, /<Footer/);
+  assert.match(layout, /loginUrl={publicConfig\.appLoginUrl}/);
   assert.match(footer, /href={loginUrl}/);
-  assert.match(footer, /href="\/privacidade"/);
-  assert.match(footer, /href="\/termos"/);
+  assert.match(footer, /getLocalizedRoute\('privacy', locale\)/);
+  assert.match(footer, /getLocalizedRoute\('terms', locale\)/);
   assert.match(footer, /mailto:/);
   assert.match(footer, /new Date\(\)\.getUTCFullYear\(\)/);
   assert.doesNotMatch(`${audience}${faq}${finalCta}${footer}`, /client:|<script/);

@@ -65,6 +65,7 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
 
   const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
+  const enHtml = await readFile(new URL('../dist/en/index.html', import.meta.url), 'utf8');
   const privacyHtml = await readFile(
     new URL('../dist/privacidade/index.html', import.meta.url),
     'utf8',
@@ -156,6 +157,23 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.match(html, /href="mailto:jobslens\.ia@gmail\.com"/);
   assert.match(html, new RegExp(`© ${new Date().getUTCFullYear()} FinnTrack Home`));
   assert.doesNotMatch(html, /<astro-island\b/);
+  assert.match(enHtml, /<html lang="en-US">/);
+  assert.equal((enHtml.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(enHtml, /See how each property performs month by month\./);
+  assert.match(
+    enHtml,
+    /<link rel="canonical" href="https:\/\/www\.finntrack-home\.com\.br\/en\/">/,
+  );
+  assert.match(enHtml, /<meta name="robots" content="noindex,nofollow">/);
+  assert.match(enHtml, /<meta property="og:locale" content="en_US">/);
+  assert.match(enHtml, /href="\/"[^>]+hreflang="pt-BR"/);
+  assert.match(enHtml, /href="\/en\/"[^>]+hreflang="en-US"[^>]+aria-current="page"/);
+  assert.match(enHtml, /data-asset-role="pending-dashboard-preview"/);
+  assert.doesNotMatch(
+    enHtml,
+    /dashboard-final-pt-br|Visão real do produto|Demonstração do produto/,
+  );
+  assert.doesNotMatch(enHtml, /<astro-island\b/);
   assert.equal(favicon.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
   assert.equal(appleTouchIcon.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
   assert.equal(socialCard.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');

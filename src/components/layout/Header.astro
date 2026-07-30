@@ -1,15 +1,27 @@
 ---
+import LocaleSwitcher from '@components/layout/LocaleSwitcher.astro';
 import MobileNavigation from '@components/layout/MobileNavigation.astro';
 import ButtonLink from '@components/ui/ButtonLink.astro';
 import Container from '@components/ui/Container.astro';
-import { headerContent, primaryNavigation } from '@config/navigation';
+import type { NavigationItem } from '@config/navigation';
+import type { HomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
+import { getHomeAnchorHref, getLocalizedRoute } from '@i18n/routes';
 
 interface Props {
+  locale: Locale;
+  shell: HomeContent['shell'];
+  content: HomeContent['header'];
   loginUrl: string;
   signupUrl: string;
 }
 
-const { loginUrl, signupUrl } = Astro.props;
+const { locale, shell, content, loginUrl, signupUrl } = Astro.props;
+const homeUrl = getLocalizedRoute('home', locale);
+const primaryNavigation: readonly NavigationItem[] = content.navigation.map((item) => ({
+  label: item.label,
+  href: getHomeAnchorHref(locale, item.anchor),
+}));
 ---
 
 <header class="border-b border-border bg-surface" data-site-header>
@@ -17,13 +29,13 @@ const { loginUrl, signupUrl } = Astro.props;
     <div class="flex min-h-16 items-center justify-between gap-4 py-2">
       <a
         class="inline-flex min-h-11 items-center rounded-control"
-        href="/"
-        aria-label="FinnTrack Home — página inicial"
+        href={homeUrl}
+        aria-label={shell.homeLinkLabel}
       >
         <img src="/brand/finntrack-home-logo.svg" alt="" width="160" height="32" decoding="async" />
       </a>
 
-      <nav class="hidden lg:block" aria-label="Navegação principal">
+      <nav class="hidden lg:block" aria-label={shell.primaryNavigationLabel}>
         <ul class="flex items-center gap-1">
           {
             primaryNavigation.map((item) => (
@@ -41,6 +53,7 @@ const { loginUrl, signupUrl } = Astro.props;
       </nav>
 
       <div class="hidden items-center gap-2 lg:flex">
+        <LocaleSwitcher locale={locale} shell={shell} />
         <a
           class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-semibold text-foreground hover:bg-background"
           href={loginUrl}
@@ -48,7 +61,7 @@ const { loginUrl, signupUrl } = Astro.props;
           data-destination-type="login"
           data-cta-location="header"
         >
-          {headerContent.loginLabel}
+          {content.loginLabel}
         </a>
         <ButtonLink
           href={signupUrl}
@@ -57,15 +70,17 @@ const { loginUrl, signupUrl } = Astro.props;
           data-destination-type="signup"
           data-cta-location="header"
         >
-          {headerContent.signupLabel}
+          {content.signupLabel}
         </ButtonLink>
       </div>
 
       <MobileNavigation
+        locale={locale}
+        shell={shell}
         items={primaryNavigation}
-        loginLabel={headerContent.loginLabel}
+        loginLabel={content.loginLabel}
         loginUrl={loginUrl}
-        signupLabel={headerContent.signupLabel}
+        signupLabel={content.signupLabel}
         signupUrl={signupUrl}
       />
     </div>

@@ -25,18 +25,18 @@ test('WEB-004 uses a governed product capture with synthetic data', async () => 
 test('ProductPreview reserves dimensions and delegates responsive formats to Astro', async () => {
   const [component, page] = await Promise.all([
     readFile(new URL('../src/components/sections/ProductPreview.astro', import.meta.url), 'utf8'),
-    readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/pages/HomePage.astro', import.meta.url), 'utf8'),
   ]);
 
-  assert.match(component, /id="demonstracao"/);
+  assert.match(component, /getHomeAnchor\(locale, 'demo'\)/);
   assert.match(component, /tabindex="-1"/);
   assert.match(component, /<Image/);
-  assert.match(component, /alt={dashboardPreview\.altText}/);
+  assert.match(component, /alt={content\.dashboardAltText}/);
   assert.match(component, /widths={\[640, 960, 1440\]}/);
   assert.match(component, /sizes="\(max-width: 767px\)/);
   assert.match(component, /format="webp"/);
   assert.match(component, /loading="lazy"/);
   assert.match(component, /<figcaption/);
-  assert.match(page, /<ProductPreview\s*\/>/);
+  assert.match(page, /<ProductPreview/);
   assert.doesNotMatch(component, /<script|client:/);
 });

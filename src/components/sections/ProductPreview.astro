@@ -1,14 +1,24 @@
 ---
 import { Image } from 'astro:assets';
 
-import dashboardImage from '@/assets/product/dashboard-final-pt-br.png';
 import Container from '@components/ui/Container.astro';
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import { dashboardPreview } from '@config/product-assets';
+import type { LocalizedHomeAsset } from '@i18n/assets';
+import type { HomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
+import { getHomeAnchor } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+  content: HomeContent['productPreview'];
+  asset: LocalizedHomeAsset;
+}
+
+const { locale, content, asset } = Astro.props;
 ---
 
 <section
-  id="demonstracao"
+  id={getHomeAnchor(locale, 'demo')}
   class="border-t border-border py-16 sm:py-24"
   aria-labelledby="product-preview-heading"
   tabindex="-1"
@@ -18,18 +28,20 @@ import { dashboardPreview } from '@config/product-assets';
     <div class="grid items-end gap-8 lg:grid-cols-[minmax(0,1fr)_auto]">
       <SectionHeading
         headingId="product-preview-heading"
-        eyebrow="Demonstração do produto"
-        title="Uma visão clara da sua carteira."
-        description="KPIs do período, gráficos de receitas e despesas e a visão dos imóveis reunidos no mesmo painel."
+        eyebrow={content.eyebrow}
+        title={content.title}
+        description={content.description}
       />
-      <p
-        class="w-fit rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-muted"
-      >
-        Captura do produto · dados demonstrativos
-      </p>
+      {
+        asset.image && (
+          <p class="w-fit rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-muted">
+            {content.badge}
+          </p>
+        )
+      }
     </div>
 
-    <figure class="mt-10">
+    <figure class="mt-10" data-asset-status={asset.approvalStatus}>
       <div class="overflow-hidden rounded-card border border-border bg-surface shadow-card">
         <div class="flex items-center gap-2 border-b border-border px-4 py-3" aria-hidden="true">
           <span class="size-2.5 rounded-full bg-danger/70"></span>
@@ -37,21 +49,31 @@ import { dashboardPreview } from '@config/product-assets';
           <span class="size-2.5 rounded-full bg-success/80"></span>
           <span class="ml-3 h-2.5 w-32 rounded-full bg-border sm:w-52"></span>
         </div>
-        <Image
-          src={dashboardImage}
-          alt={dashboardPreview.altText}
-          widths={[640, 960, 1440]}
-          sizes="(max-width: 767px) 100vw, (max-width: 1199px) calc(100vw - 3rem), 1200px"
-          format="webp"
-          loading="lazy"
-          decoding="async"
-          class="block h-auto w-full"
-        />
+        {
+          asset.image ? (
+            <Image
+              src={asset.image}
+              alt={content.dashboardAltText}
+              widths={[640, 960, 1440]}
+              sizes="(max-width: 767px) 100vw, (max-width: 1199px) calc(100vw - 3rem), 1200px"
+              format="webp"
+              loading="lazy"
+              decoding="async"
+              class="block h-auto w-full"
+            />
+          ) : (
+            <div
+              class="aspect-16/10 animate-pulse bg-linear-to-br from-background via-surface to-border motion-reduce:animate-none"
+              aria-hidden="true"
+            />
+          )
+        }
       </div>
-      <figcaption class="mt-4 text-sm leading-6 text-muted">
-        Dashboard real do ambiente demonstrativo, período de {dashboardPreview.capturedPeriod}; os
-        dados exibidos são sintéticos.
-      </figcaption>
+      {
+        asset.image && (
+          <figcaption class="mt-4 text-sm leading-6 text-muted">{content.caption}</figcaption>
+        )
+      }
     </figure>
   </Container>
 </section>

@@ -1,9 +1,15 @@
 ---
 import ButtonLink from '@components/ui/ButtonLink.astro';
 import Container from '@components/ui/Container.astro';
-import { finalCtaContent } from '@config/home-content';
-import { headerContent } from '@config/navigation';
 import { publicConfig } from '@config/public';
+import type { HomeContent } from '@i18n/content';
+
+interface Props {
+  content: HomeContent['finalCta'];
+  signupLabel: string;
+}
+
+const { content, signupLabel } = Astro.props;
 ---
 
 <section
@@ -15,17 +21,15 @@ import { publicConfig } from '@config/public';
     <div
       class="rounded-card bg-foreground px-6 py-12 text-center text-white shadow-card sm:px-10 sm:py-16"
     >
-      <p class="text-sm font-semibold tracking-widest text-success uppercase">
-        {finalCtaContent.eyebrow}
-      </p>
+      <p class="text-sm font-semibold tracking-widest text-success uppercase">{content.eyebrow}</p>
       <h2
         id="final-cta-heading"
         class="mx-auto mt-3 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl"
       >
-        {finalCtaContent.title}
+        {content.title}
       </h2>
       <p class="mx-auto mt-5 max-w-reading text-base leading-7 text-slate-300 sm:text-lg">
-        {finalCtaContent.description}
+        {content.description}
       </p>
       <ButtonLink
         href={publicConfig.appSignupUrl}
@@ -34,7 +38,7 @@ import { publicConfig } from '@config/public';
         data-destination-type="signup"
         data-cta-location="footer"
       >
-        {headerContent.signupLabel}
+        {signupLabel}
       </ButtonLink>
     </div>
   </Container>

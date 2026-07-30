@@ -3,6 +3,14 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
+  i18n: {
+    defaultLocale: 'pt-BR',
+    locales: ['pt-BR', { path: 'en', codes: ['en-US'] }],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+  },
   env: {
     schema: {
       PUBLIC_SITE_URL: envField.string({
