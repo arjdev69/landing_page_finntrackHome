@@ -1,8 +1,8 @@
 # Especificação de SEO, analytics e aquisição
 
-Versão: 0.1.3
-Status: approved — aquisição simplificada e Vercel Web Analytics definidos
-Data: 2026-07-29
+Versão: 0.2.0
+Status: approved — SEO bilíngue e Vercel Web Analytics definidos
+Data: 2026-07-30
 
 ## 1. Objetivo
 
@@ -10,15 +10,18 @@ Permitir descoberta orgânica e medir o caminho até o app sem coletar dados
 pessoais desnecessários. A landing mede intenção e saída; ativação pertence ao
 app e depende de um contrato entre repositórios.
 
-## 2. SEO da fase 1
+## 2. SEO da superfície pública
 
 ### Páginas
 
-- Home: indexável, intenção “controle financeiro de imóveis”.
-- Privacidade e termos: conteúdo real, canonical próprio, `noindex,follow` e fora
-  do sitemap no MVP, conforme `DEC-015`.
-- `/entrar`: redirect, não entra no sitemap.
-- 404: `noindex`, fora do sitemap.
+- `/`: home `pt-BR` indexável, intenção “controle financeiro de imóveis” e
+  `x-default`.
+- `/en/`: home `en-US` indexável, intenção “rental property financial tracker
+  for owners”.
+- Privacidade e termos nos dois locales: conteúdo real, canonical próprio,
+  `noindex,follow` e fora do sitemap, conforme `DEC-015/020`.
+- `/entrar` e `/en/login`: `noindex,nofollow`, fora do sitemap.
+- 404 localizada: `noindex,nofollow`, fora do sitemap e status real.
 
 ### Regras técnicas
 
@@ -31,6 +34,12 @@ app e depende de um contrato entre repositórios.
 - robots por ambiente;
 - Open Graph e Twitter/X card com social card aprovado;
 - redirecionamento único para HTTPS e host canônico.
+- canonical próprio nas duas homes;
+- alternates recíprocos `hreflang="pt-BR"` e `hreflang="en-US"`;
+- `hreflang="x-default"` apontando para `/`;
+- uma única URL inglesa canônica em `/en/`, sem `/en-US/` ou `/us/`;
+- Open Graph locale `pt_BR`/`en_US` e alternate correspondente;
+- cada página usa um único idioma visível, exceto nomes próprios e o seletor.
 
 ### Hipóteses de palavras-chave
 
@@ -115,7 +124,8 @@ aceitam o domínio exato ou subdomínios e nunca são incluídos no payload.
 
 ## 4. Regras de disparo
 
-- `landing_view` não dispara em `/entrar`, páginas legais ou 404.
+- `landing_view` dispara uma vez por carregamento válido em `/` ou `/en/` e não
+  dispara em login, páginas legais ou 404 de qualquer locale.
 - `product_preview_view` dispara no máximo uma vez por carregamento quando pelo
   menos 50% da seção ficar visível por 1 segundo; o limiar pode mudar somente com
   atualização deste contrato.
@@ -133,10 +143,10 @@ aceitam o domínio exato ou subdomínios e nunca são incluídos no payload.
 - URL completa quando puder carregar dados além da allowlist;
 - parâmetros de campanha fora da allowlist.
 
-O Vercel Web Analytics deve receber somente pageview da home, com query e
-fragmento removidos em `beforeSend`. Cookie, storage, identificador persistente,
-custom events no plano Hobby e correlação com conta continuam proibidos por
-`DEC-018`.
+O Vercel Web Analytics deve receber somente pageview das homes `/` e `/en/`,
+distinguíveis pelo pathname, com query e fragmento removidos em `beforeSend`.
+Cookie, storage, identificador persistente, custom events no plano Hobby e
+correlação com conta continuam proibidos por `DEC-018/020`.
 
 ## 6. UTMs e atribuição
 
@@ -194,7 +204,7 @@ coortes próprias, sem UTMs ou identificadores da landing.
 - produção oferece painel e inspeção de rede documentados;
 - cada evento tem teste de contrato sem chamar rede real;
 - QA verifica ausência de PII no payload;
-- dashboard do provedor recebe somente pageviews; custom events permanecem
+- dashboard do provedor recebe somente pageviews de `/` e `/en/`; custom events permanecem
   `noop` no plano Hobby;
 - Search Console e sitemap são verificados após produção.
 
@@ -206,5 +216,6 @@ persistência no navegador e identificador temporário descartado pelo provedor
 após 24 horas. O inventário, teste de balanceamento e gates de ativação estão em
 `docs/privacy/D0-005-ANALYTICS-POLICY.md`.
 
-`ANA-003` deve integrar somente a home de produção e remover query/fragmento
-antes do envio; `ANA-004` valida o comportamento real no painel e na rede.
+`ANA-003` deve integrar somente as duas homes de produção e remover
+query/fragmento antes do envio; a validação de internacionalização audita o
+comportamento real no painel e na rede antes do release de `/en/`.

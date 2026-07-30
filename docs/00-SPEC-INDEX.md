@@ -1,8 +1,8 @@
 # Índice da especificação
 
-Versão: 0.1.1  
+Versão: 0.2.0
 Status: approved  
-Data: 2026-07-15
+Data: 2026-07-30
 
 ## Objetivo
 
@@ -16,6 +16,7 @@ do FinnTrack Home e define autoridade, leitura e controle de mudanças.
 | 1 | [01-PRODUCT-VISION.md](01-PRODUCT-VISION.md) | problema, público, posicionamento e resultados |
 | 2 | [02-PRD.md](02-PRD.md) | escopo do produto e experiência do MVP |
 | 3 | [03-SRS.md](03-SRS.md) | requisitos funcionais e não funcionais autoritativos |
+| 3A | [15-I18N-EN-US-REQUIREMENTS.md](15-I18N-EN-US-REQUIREMENTS.md) | anexo normativo do SRS para internacionalização `pt-BR`/`en-US` |
 | 4 | [04-SDD.md](04-SDD.md) | desenho técnico e contratos de implementação |
 | 5 | [05-UX-CONTENT-SPEC.md](05-UX-CONTENT-SPEC.md) | arquitetura de informação, copy e direção visual |
 | 6 | [06-SEO-ANALYTICS-SPEC.md](06-SEO-ANALYTICS-SPEC.md) | descoberta, medição, eventos e atribuição |
@@ -39,7 +40,9 @@ do FinnTrack Home e define autoridade, leitura e controle de mudanças.
 
 ## Regra de conflito
 
-1. O SRS prevalece sobre qualquer outro documento para comportamento e escopo.
+1. O SRS prevalece sobre qualquer outro documento para comportamento e escopo;
+   o anexo `15-I18N-EN-US-REQUIREMENTS.md` integra o SRS por referência e cede
+   ao texto do SRS em caso de conflito.
 2. O registro de decisões prevalece para uma decisão explicitamente aceita,
    desde que a alteração também seja refletida no SRS.
 3. O SDD não pode criar funcionalidade ausente no SRS.

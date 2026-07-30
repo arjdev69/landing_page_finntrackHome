@@ -166,30 +166,53 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-29
 - **Status**: ativa
 
+### AD-013
+
+- **Decisão**: aprovar para implementação o catálogo completo `en-US` da home,
+  com `05-UX-CONTENT-SPEC.md` §16 como fonte canônica de copy.
+- **Razão**: Produto/Conteúdo comunicou aceite explícito após a aprovação da
+  internacionalização; a revisão completou seções, FAQ, metadados, labels,
+  nomes acessíveis e textos alternativos e revalidou os fatos do app.
+- **Trade-off**: a aprovação do catálogo não aprova traduções jurídicas,
+  screenshot, social card, integração, publicação ou release, que preservam
+  seus próprios gates.
+- **Data**: 2026-07-30
+- **Status**: ativa
+
+### AD-014
+
+- **Decisão**: registrar como concedidas as aprovações humanas de App,
+  Jurídico, Design/Marca, Privacidade e Produto para a internacionalização.
+- **Razão**: o responsável do projeto solicitou explicitamente considerar
+  jurídico e os demais papéis aprovados antes do PR documental.
+- **Trade-off**: aprovação de responsável não cria versões jurídicas, ativos,
+  inventário, hashes ou smoke; `I18N-002` permanece aberta até essas evidências
+  materiais existirem.
+- **Data**: 2026-07-30
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco concluído neste ciclo**: Épico 5 — `SEO-003`.
-- **Implementação**: `DEC-012` foi aceita com lista vazia de schemas no MVP.
-  SRS, especificação de SEO e plano de testes agora proíbem JSON-LD até nova
-  decisão; o teste do artefato cobre home, páginas legais e 404.
-- **Validação**: teste SEO focado 3/3; formatação com finais de linha automáticos;
-  lint; tipagem com 0 erros/avisos; suíte completa 75/75, mesma contagem
-  anterior; build estático de 5 páginas aprovado.
-- **Passada de negação**: nenhum Rich Results Test foi executado porque não há
-  schema no artefato; `Organization`, `WebSite`, `SoftwareApplication` e
-  `FAQPage` permanecem candidatos futuros sem aprovação. `AggregateRating`,
-  preço, avaliações e métricas de usuários não são emitidos.
-- **Decisão adicional**: `QA-002` e `QA-003` foram adiadas por `DEC-019`, mas
-  permanecem abertas e não são apresentadas como concluídas.
-- **Próximo passo operacional**: `REL-004` quando houver amostra real confiável
-  no Vercel Analytics, anotando os 5 pageviews sintéticos de `ANA-004`.
-- **Bloqueios restantes**: `QA-002` exige leitor de tela real; `QA-003` exige
-  versões anteriores reais e Safari/macOS; `REL-001` depende do fechamento
-  formal desses gates; `REL-004` aguarda amostra real utilizável.
-- **Branch**: `codex/seo-003-no-schema`.
-- **Orçamento após o bloco**: `OK`, com contexto restante 58,6%, quota semanal
-  restante 77,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
-- **Motivo da parada**: um bloco atômico concluído; nenhum outro bloco foi
-  iniciado neste ciclo.
+- **Bloco atual**: Épico 7 — Internacionalização `en-US` (em andamento).
+- **Tasks concluídas neste bloco**: `I18N-001`.
+- **Em andamento (arquivo:linha)**: nenhum.
+- **Próximo passo**: executar `I18N-003`, próxima tarefa elegível, para
+  implementar configuração, catálogos tipados, rotas e seletor; `I18N-002`
+  permanece bloqueada por aprovações externas.
+- **Validação**: segunda auditoria em duas passagens confirmou versão `0.2.0`,
+  70 requisitos únicos, 21 casos idênticos no anexo/plano, zero links locais
+  quebrados e diff somente em `docs/`; lint, suíte 75/75 e build estático de 5
+  páginas passaram. `format:check` continua falhando em quatro arquivos
+  preexistentes fora do escopo documental.
+- **Bloqueios**: `I18N-002` depende de App, Jurídico, Design/Marca, Privacidade e
+  Produto quanto às evidências materiais, embora as aprovações humanas tenham
+  sido registradas; release continua dependente das tarefas `I18N-002..006`.
+- **Arquivos não commitados**: documentação da baseline `0.2.0`, decisões
+  `D0-007`/`AD-013..014` e `I18N-001`, agrupadas no PR documental solicitado.
+- **Branch**: `codex/docs-i18n-en-us`.
+- **Orçamento na parada**: contexto 52,0% · quota semanal 51,0% (medido,
+  `AMBIGUOUS=0`; reset em 2026-08-05 17:19 BRT).
+- **Motivo da parada**: uma tarefa atômica concluída conforme `AGENTS.md`;
+  nenhuma outra tarefa foi iniciada.

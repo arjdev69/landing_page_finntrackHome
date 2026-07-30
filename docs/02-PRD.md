@@ -1,14 +1,15 @@
 # Product Requirements Document — Landing Page
 
-Versão: 0.1.2
+Versão: 0.2.0
 Status: approved  
-Data: 2026-07-29
+Data: 2026-07-30
 
 ## 1. Resumo
 
 O MVP é um site público independente, estático por padrão, que apresenta o
 FinnTrack Home, demonstra o produto real e encaminha visitantes ao cadastro ou
-login no aplicativo. Não autentica usuários nem replica funcionalidades do app.
+login no aplicativo. A superfície pública suporta `pt-BR` na raiz e `en-US` sob
+`/en/`, sem autenticar usuários nem replicar funcionalidades do app.
 
 ## 2. Objetivos do MVP
 
@@ -17,16 +18,23 @@ login no aplicativo. Não autentica usuários nem replica funcionalidades do app
 - Gerar cadastros e oferecer login evidente.
 - Estabelecer fundamentos de SEO, performance, acessibilidade e medição.
 - Preservar a separação entre marketing público e aplicação autenticada.
+- Oferecer a mesma proposta e os mesmos limites funcionais em `pt-BR` e
+  `en-US`, sem entrada comercial ativa nos Estados Unidos nesta entrega.
 
 ## 3. Escopo
 
 ### Incluído
 
-- Home `/` com cabeçalho, hero, problema, benefícios, funcionamento,
-  demonstração, público, FAQ, CTA final e rodapé.
-- `/entrar` como redirecionamento controlado para o login do app.
-- `/privacidade` e `/termos` com conteúdo real e aprovado antes do lançamento.
-- Página de erro para URLs inexistentes com resposta HTTP 404.
+- Homes `/` (`pt-BR`) e `/en/` (`en-US`) com cabeçalho, hero, problema,
+  benefícios, funcionamento, demonstração, público, FAQ, CTA final e rodapé.
+- Seletor explícito por links `PT-BR`/`EN-US`, com nomes acessíveis completos,
+  sem redirect automático ou persistência de locale.
+- `/entrar` e `/en/login` como páginas controladas de encaminhamento ao login
+  do app.
+- `/privacidade`, `/termos`, `/en/privacy` e `/en/terms` com conteúdo real e
+  aprovado antes do lançamento correspondente.
+- Página de erro localizada para URLs inexistentes, sempre com resposta HTTP
+  404 real.
 - URLs externas configuráveis para site, login e cadastro.
 - Preservação da allowlist de UTMs no encaminhamento ao app.
 - Eventos mínimos de analytics por meio de adaptador substituível.
@@ -40,7 +48,7 @@ login no aplicativo. Não autentica usuários nem replica funcionalidades do app
 - autenticação ou formulário de cadastro no site público;
 - blog completo, CMS, páginas programáticas ou produção massiva de conteúdo;
 - checkout, cobrança, chat, afiliados e área administrativa;
-- tradução completa para outros idiomas;
+- suporte a outros idiomas além de `pt-BR` e `en-US`;
 - calculadora de rentabilidade;
 - implementação da ativação e retenção dentro do app;
 - mudanças no app autenticado neste repositório.
@@ -67,16 +75,19 @@ bloqueado, sem impedir a construção da landing.
 
 | Rota | Finalidade | Indexação |
 |---|---|---|
-| `/` | narrativa comercial e conversão | sim |
-| `/entrar` | redirecionar ao login do app | não é página de aquisição |
+| `/` | narrativa comercial e conversão em `pt-BR`; `x-default` | sim |
+| `/en/` | narrativa comercial e conversão em `en-US` | sim |
+| `/entrar` / `/en/login` | encaminhar ao login do app no locale da origem | não |
 | `/privacidade` | política real de privacidade | não (`noindex,follow`), conforme `DEC-015` |
 | `/termos` | termos reais de uso | não (`noindex,follow`), conforme `DEC-015` |
-| `/404` / desconhecida | orientar recuperação com status 404 | não |
+| `/en/privacy` | política em inglês factual e juridicamente aprovada | não (`noindex,follow`) |
+| `/en/terms` | termos em inglês factuais e juridicamente aprovados | não (`noindex,follow`) |
+| `/404` / desconhecida | orientar recuperação em `pt-BR` ou `en-US`, conforme o prefixo, com status 404 | não |
 
 ## 6. Experiência da home
 
-1. Cabeçalho: marca, âncoras “Recursos”, “Como funciona”, “Para quem”, login e
-   CTA principal.
+1. Cabeçalho: marca, âncoras localizadas, seletor de idioma, login e CTA
+   principal; no mobile, o seletor fica no primeiro nível do menu.
 2. Hero: posicionamento, promessa, apoio, CTA principal/secundário e screenshot
    real legível.
 3. Problema: situações reconhecíveis do controle fragmentado.
@@ -106,6 +117,9 @@ preço ou beta são proibidas até nova decisão comercial explícita e rastreá
   pageviews agregados no plano Hobby e condicionada aos gates de `ANA-003/004`.
 - logotipo e screenshots finais aprovados.
 - conteúdo jurídico aprovado e canal público de suporte.
+- copy, FAQ, conteúdo jurídico e screenshot `en-US` aprovados;
+- cadastro, login e onboarding do app em inglês ou exceção explícita com aviso;
+- 404 inglesa com status real e analytics sanitizado nas duas homes;
 - domínio, hospedagem, Search Console e política de previews.
 
 Essas dependências são registradas em `10-DECISION-LOG.md` e classificadas como
@@ -113,6 +127,7 @@ bloqueadoras de lançamento quando aplicável.
 
 ## 9. Definição de sucesso da entrega
 
-O MVP é aceito somente quando todos os requisitos `MUST` do SRS possuem evidência
-de teste, todas as decisões bloqueadoras de lançamento estão resolvidas e os
-gates de qualidade do plano de testes passam em artefato de produção.
+O MVP bilíngue é aceito somente quando todos os requisitos `MUST` do SRS e do
+anexo `15-I18N-EN-US-REQUIREMENTS.md` possuem evidência de teste, todas as
+decisões e dependências bloqueadoras estão resolvidas e os gates de qualidade
+passam para os dois locales no artefato de produção.

@@ -1,8 +1,8 @@
 # Plano de testes e qualidade
 
-Versão: 0.1.2
+Versão: 0.2.0
 Status: approved  
-Data: 2026-07-29
+Data: 2026-07-30
 
 ## 1. Objetivo
 
@@ -31,6 +31,11 @@ podem ser substituídas de forma confiável por automação.
 1440×900 e 360×800. Enquanto rotas ou integrações P0 estiverem bloqueadas, a
 suíte cobre somente comportamentos já implementados e a lacuna permanece aberta
 no backlog; testes ausentes não podem ser substituídos por `skip`.
+
+Após a implementação de `DEC-020`, todas as verificações aplicáveis devem cobrir
+`/` e `/en/`. Login, páginas legais e 404 são exercitados no locale
+correspondente; uma rota inglesa bloqueada não pode ser substituída por fallback
+português no teste.
 
 Testes não devem depender do provedor real de analytics. Use adaptador/fake e
 valide o provedor separadamente em modo de debug.
@@ -150,6 +155,8 @@ Obrigatórios em toda mudança de código:
 
 Mudanças visuais incluem screenshots nos viewports afetados. Mudanças em eventos,
 cookies, storage ou terceiros exigem atualização de analytics/privacidade.
+Mudanças de catálogo, seletor ou rota localizada exigem testes nos dois locales,
+mesmo quando o componente visual compartilhado não muda.
 
 ## 11. Gates de lançamento
 
@@ -168,3 +175,35 @@ cookies, storage ou terceiros exigem atualização de analytics/privacidade.
 Cada tarefa concluída deve registrar comando, resultado e artefato relevante no
 PR ou relatório de entrega. Falhas conhecidas não podem ser omitidas; uma exceção
 exige decisão registrada, risco, responsável e prazo.
+
+## 13. Internacionalização `en-US`
+
+Os casos detalhados abaixo são P0 para o release de `/en/`:
+
+| Caso | Cobertura | Evidência esperada |
+|---|---|---|
+| T-I18N-ROUTE-001 | `I18N-FR-001..004` | `/` e `/en/` 200, locales corretos e nenhuma variante inglesa duplicada |
+| T-I18N-ROUTE-002 | `I18N-FR-005..007` | links equivalentes, labels compactos, nomes completos e locale atual acessível |
+| T-I18N-ROUTE-003 | `I18N-FR-008..012` | sem redirect/persistência/fallback silencioso; query e fragmento allowlisted |
+| T-I18N-ROUTE-004 | `I18N-FR-013` | `/en/desconhecida` retorna 404 real, inglês, noindex e nenhum pageview |
+| T-I18N-CONT-001 | `I18N-CONT-001..005` | seções, H1, labels e alt texts completos sem mistura de idioma |
+| T-I18N-CONT-002 | `I18N-CONT-006..012` | FAQ/app revalidados, formatos, legal e ativos ingleses aprovados |
+| T-I18N-SEO-001 | `I18N-SEO-001..004` | metadata das homes, canonicals, `hreflang` recíproco e `x-default` |
+| T-I18N-SEO-002 | `I18N-SEO-005..012` | sitemap, OG, links, robots, ausência de JSON-LD e duplicatas |
+| T-I18N-SEO-003 | `I18N-SEO-013..014` | metadata/noindex/canonical de legais, login e 404 |
+| T-I18N-INT-001 | `I18N-INT-001..004` | cadastro/login/UTM reais nas duas homes em desktop/mobile |
+| T-I18N-INT-002 | `I18N-INT-005` | `/en/login` usa config, funciona sem JS e descarta destino/query proibida |
+| T-I18N-ANA-001 | `I18N-ANA-001..003` | pageview sanitizado somente em `/` e `/en/` |
+| T-I18N-ANA-002 | `I18N-ANA-004`, `I18N-PRIV-001..002` | enum, inventário/políticas e ausência de nova persistência/coleta |
+| T-I18N-A11Y-001 | `I18N-A11Y-001..002` | teclado, foco, nome completo e estado não dependente de cor/bandeira |
+| T-I18N-A11Y-002 | `I18N-A11Y-003..004` | pronúncia, `lang` de trechos, ordem de foco e landmarks |
+| T-I18N-RWD-001 | `I18N-RWD-001..002` | seis viewports por locale sem overflow/truncamento |
+| T-I18N-PERF-001 | `I18N-PERF-001..002` | ambas as homes dentro do orçamento `DEC-016` |
+| T-I18N-SEC-001 | `I18N-SEC-001` | CSP/headers em todas as rotas inglesas no artefato e HTTPS real |
+| T-I18N-ARCH-001 | `I18N-ARCH-001..003` | paridade tipada e falha de build para catálogo inválido |
+| T-I18N-ARCH-002 | `I18N-ARCH-004..007` | configuração central, HTML estático e ausência de condicionais dispersas |
+| T-I18N-GOV-001 | `I18N-GOV-001..004` | revisores, responsáveis, datas, aprovações e evidências |
+
+Além da automação, o release exige smoke manual de leitor de tela em inglês,
+revisão humana da transcriação, inspeção de screenshot/social card e validação
+do fluxo real no app em `en-US`.

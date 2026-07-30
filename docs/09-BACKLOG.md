@@ -1,8 +1,8 @@
 # Backlog de implementação
 
-Versão: 0.1.1  
+Versão: 0.2.0
 Status: approved  
-Data: 2026-07-15
+Data: 2026-07-30
 
 ## Regras de execução
 
@@ -20,6 +20,23 @@ Data: 2026-07-15
   segurança, testes, backlog, decisões e rastreabilidade.
 - [x] `DOC-003` Aprovar a baseline `0.1.1` e mudar documentos normativos de
   `draft` para `approved`.
+- [x] `DOC-004` Elaborar a proposta completa de internacionalização `en-US` sem
+  alterar código nem promover o escopo à baseline autoritativa.
+  - Evidência (2026-07-29): `docs/15-I18N-EN-US-REQUIREMENTS.md` registra
+    diagnóstico em duas passagens, decisões recomendadas, mapa de rotas,
+    estrutura mental da página, copy inicial, requisitos propostos,
+    dependências, testes e sequência futura. Na conclusão de `DOC-004`,
+    `DEC-020` ainda permanecia proposta e PRD/SRS não haviam sido alterados.
+- [x] `DOC-005` Corrigir a validação da proposta `en-US`, aceitar `DEC-020` para
+  a fase documental e promover requisitos, testes, bloqueadores e
+  rastreabilidade aos documentos normativos, sem alterar código.
+  - Evidência (2026-07-30): baseline documental `0.2.0` atualizada em índice,
+    PRD, SRS, SDD, UX, SEO/analytics, segurança, plano de testes, decisões,
+    backlog, rastreabilidade e anexo i18n. Validação confirmou 70 requisitos
+    `I18N-*`, 21 casos idênticos no anexo/Test Plan, cobertura integral, IDs
+    únicos e sequenciais, referências normativas rastreadas, links locais
+    válidos, nenhum `MUST` ambíguo e `git diff --check` aprovado. O diff contém
+    somente documentação; nenhum teste de código foi necessário.
 
 ## Épico 0 — Decisões e contratos
 
@@ -65,6 +82,14 @@ Data: 2026-07-15
     auditoria também reprovou a captura provisória como ativo final por conter
     identidade demonstrativa e trechos em inglês. `LEG-001`, `AST-001` e
     `SEO-002` preservam seus próprios critérios de aprovação.
+- [x] `D0-007` Aprovar formalmente `DEC-020` e a baseline normativa `0.2.0` de
+  internacionalização `en-US`.
+  - Evidência (2026-07-30): Produto comunicou “internacionalização aprovada”
+    após revisar o esboço do seletor, a validação documental e as recomendações
+    incorporadas à baseline. A aprovação autoriza executar o backlog
+    `I18N-001..006` conforme elegibilidade, sem dispensar copy humana, paridade
+    do app, revisão jurídica, ativos localizados, políticas, testes ou smoke de
+    release. Nenhum código foi alterado nesta tarefa.
 
 Critério: decisões têm status, responsável, data e impacto refletidos nos docs.
 
@@ -393,8 +418,61 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 - [x] `REL-003` Configurar Search Console e submeter sitemap.
 - [ ] `REL-004` Registrar linha de base de aquisição e conversão.
 
+## Épico 7 — Internacionalização `en-US`
+
+- [x] `I18N-001` Aprovar catálogo completo `en-US`, FAQ e metadados.
+  - Dependência atendida: revisão humana de Produto/Conteúdo registrada em
+    2026-07-30.
+  - Cobertura: `I18N-CONT-001..008`, `I18N-GOV-001..002`.
+  - Aceite: catálogo com paridade, transcriação revisada, fatos do app
+    revalidados, labels/alt texts completos e registro de revisor/data.
+  - Evidência (2026-07-30): catálogo canônico completo aprovado em UX §16,
+    cobrindo metadados, shell, todas as seções, FAQ, labels acessíveis, textos
+    alternativos, CTA e Footer. Auditoria documental verificou 20 campos
+    obrigatórios e removeu estados candidatos/pendentes. Os fatos foram
+    revalidados contra o app no commit
+    `2e401fb061d452aff36200b50b19425f252a2e07`; testes focados de serviço e
+    preferências passaram 17/17. Após normalizar uma quebra de linha em uma
+    frase já aprovada da política de analytics, a suíte da landing passou 75/75
+    e o build estático gerou 5 páginas sem erros ou avisos. Jurídico, ativos e
+    release permanecem em `I18N-002`, `I18N-004` e `I18N-006`.
+- [ ] `I18N-002` Aprovar jornada do app, jurídico e ativos ingleses.
+  - Aprovações humanas atendidas em 2026-07-30: o responsável do projeto
+    comunicou aceite de App, Jurídico, Design/Marca, Privacidade e Produto.
+  - Bloqueada por evidência material: smoke publicado do app em inglês, versões
+    jurídicas `en-US` e arquivos finais de screenshot/social card ainda não
+    existem neste repositório.
+  - Cobertura: `I18N-CONT-009..012`, `I18N-PRIV-001..002`,
+    `I18N-GOV-003..004`.
+  - Aceite: cadastro/login/onboarding em inglês ou exceção explícita; versões
+    legais aprovadas; screenshot/social card sintéticos, com moeda identificada
+    e aprovações próprias.
+- [ ] `I18N-003` Implementar configuração, catálogos tipados, rotas e seletor.
+  - Bloqueada por: `I18N-001`.
+  - Cobertura: `I18N-FR-001..012`, `I18N-ARCH-001..007`,
+    `I18N-A11Y-001..004`.
+  - Aceite: `/` e `/en/` estáticas, componentes compartilhados, links
+    `PT-BR`/`EN-US`, paridade de chaves e falha de build para catálogo inválido.
+- [ ] `I18N-004` Integrar copy, legais, ativos e fluxo do app em `en-US`.
+  - Bloqueada por: `I18N-002..003`.
+  - Cobertura: `I18N-CONT-001..012`, `I18N-INT-001..005`.
+  - Aceite: home, login e legais completas; CTAs/UTMs reais em desktop/mobile;
+    nenhum conteúdo misto ou ativo português como evidência final.
+- [ ] `I18N-005` Implementar SEO, analytics, segurança e 404 inglesa.
+  - Bloqueada por: `I18N-003..004`.
+  - Cobertura: `I18N-FR-013`, `I18N-SEO-001..014`,
+    `I18N-ANA-001..004`, `I18N-PRIV-001`, `I18N-SEC-001`.
+  - Aceite: canonical/hreflang/x-default, sitemap, OG, pageviews sanitizados,
+    políticas atualizadas, CSP/headers e `/en/*` desconhecida com 404 real.
+- [ ] `I18N-006` Executar QA, release e baseline por locale.
+  - Bloqueada por: `I18N-005` e todos os bloqueadores externos encerrados.
+  - Cobertura: todos os `I18N-*` e `T-I18N-*`.
+  - Aceite: 21 casos de internacionalização, E2E, leitor de tela, seis
+    viewports, navegadores, performance, segurança, preview, smoke, sitemap,
+    Search Console e baseline `/en/`.
+
 ## Fora do backlog do MVP
 
-Calculadora, guias, blog/CMS, páginas programáticas, preços, inglês, afiliados,
-chat e checkout exigem nova versão do PRD/SRS. Não criar scaffolding específico
-para essas funções durante os épicos acima.
+Calculadora, guias, blog/CMS, páginas programáticas, preços, outros idiomas além
+de `pt-BR`/`en-US`, afiliados, chat e checkout exigem nova versão do PRD/SRS.
+Não criar scaffolding específico para essas funções durante os épicos acima.
