@@ -211,8 +211,9 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Bloco atual**: Épico 7 — Internacionalização `en-US` (em andamento).
 - **Tasks concluídas neste bloco**: `I18N-001`, `I18N-003`.
 - **Em andamento (arquivo:linha)**: nenhum.
-- **Próximo passo**: produzir e registrar as evidências materiais de `I18N-002`
-  (app, versões jurídicas e ativos ingleses); depois executar `I18N-004`.
+- **Próximo passo**: decidir entre implementar cadastro/login públicos em
+  `en-US` no app ou aprovar exceção explícita com risco e aviso antes dos CTAs;
+  depois produzir as versões jurídicas e ativos ingleses de `I18N-002`.
 - **Validação**: `I18N-003` passou em lint, typecheck sem diagnósticos, build
   estático de 6 páginas, suíte 77/77 e acessibilidade 10/10 em desktop/mobile. O
   artefato contém `/` e `/en/`, um H1 por locale, metadados coerentes, seletor
@@ -221,11 +222,14 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
   `test/e2e/p0-home.e2e.mjs` e `playwright.config.mjs`, pendências preexistentes
   fora do escopo.
 - **Bloqueios**: `I18N-002` ainda depende de smoke publicado do app em inglês,
-  versões jurídicas `en-US` e screenshot/social card finais; release continua
-  dependente de `I18N-002` e `I18N-004..006`.
-- **Arquivos não commitados**: implementação e evidências de `I18N-003`.
+  versões jurídicas `en-US` e screenshot/social card finais. Smoke somente
+  leitura em 2026-07-30 confirmou que `https://finntrackhome.app/cadastro` e
+  `/entrar` continuam integralmente em português, sem seletor pré-auth; release
+  continua dependente de `I18N-002` e `I18N-004..006`.
+- **Arquivos não commitados**: atualização deste Handoff com a evidência do
+  bloqueio de `I18N-002`.
 - **Branch**: `codex/i18n-en-us-routing`.
-- **Orçamento na parada**: contexto 48,8% · quota semanal 31,0% (medido,
+- **Orçamento na parada**: contexto 28,7% · quota semanal 28,0% (medido,
   `AMBIGUOUS=0`; reset em 2026-08-05 17:19 BRT).
-- **Motivo da parada**: uma tarefa atômica concluída conforme `AGENTS.md`;
-  nenhuma outra tarefa foi iniciada.
+- **Motivo da parada**: `I18N-002` bloqueada por decisão de jornada do app e
+  ausência das versões jurídicas e ativos ingleses; `I18N-004` não pode iniciar.
