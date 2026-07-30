@@ -1,14 +1,18 @@
 # Matriz de rastreabilidade
 
-Versão: 0.1.2
-Status: approved — cobertura executada e pendências rastreadas
-Data: 2026-07-29
+Versão: 0.2.0
+Status: approved — baseline `pt-BR` executada e expansão `en-US` planejada
+Data: 2026-07-30
 
 ## Como ler
 
 Cada linha liga requisitos do SRS ao desenho, aos casos de teste e às tarefas de
 implementação. Intervalos são inclusivos. “Planejada” significa que a cobertura
 está especificada, não que o teste já passou.
+
+Evidências anteriores a `DEC-020` cobrem somente `pt-BR`. Quando um requisito
+existente passou a abranger `en-US`, seu estado global permanece parcial até a
+linha correspondente da matriz de internacionalização ser concluída.
 
 | Requisitos | Desenho / especificação | Testes | Backlog | Estado |
 |---|---|---|---|---|
@@ -24,15 +28,15 @@ está especificada, não que o teste já passou.
 | `FR-CTA-009` | SDD §5 | `T-CTA-002`, `T-OPS-001`; `test/env.test.mjs` | `FND-003` | concluída; build sem configuração falha antes do Astro |
 | `FR-UTM-001..005` | SDD §§7,11; Analytics §6 | `T-UTM-001`, `T-UTM-003`; `test/utm.test.mjs`; `test/app-link-enrichment.test.mjs`; `test/login-fallback.test.mjs`; `test/e2e/p0-home.e2e.mjs` | `INT-001..003`, `QA-001` | concluída; allowlist, encoding e descarte sensível são reutilizados pelos CTAs e pelo fallback `/entrar`, sem aceitar destino da query |
 | `FR-UTM-006..007` | SDD §7; Analytics §6 | `T-UTM-002`; `test/app-contract.test.mjs`; `docs/14-APP-INTEGRATION-HANDOVER.md`; testes focados do app 7/7 | `D0-003`, `INT-004` | concluída; contrato ponta a ponta aprovado somente em memória, sem persistência, correlação com conta ou OAuth ativo; retenção do produto permanece separada |
-| `FR-LEG-001..003` | UX §12; Segurança §5 | `T-LEGAL-001`; `test/legal-drafts.test.mjs`; `test/seo.test.mjs` | `LEG-001` | concluídos; versões 1.0 datadas e aprovadas, sem placeholders, publicadas estaticamente em `/privacidade` e `/termos`, com contato e retorno à home |
-| `FR-ERR-001..002` | SDD §§9,11 | `T-ROUTE-001`, `T-404-001`; `test/not-found.test.mjs`; `test/seo.test.mjs`; `test/e2e/p0-home.e2e.mjs`; smoke de produção | `ERR-001`, `QA-001` | concluída; página customizada com recuperação para a home, `noindex,nofollow`, ausência de `landing_view` e HTTP 404 real validados localmente e em produção |
+| `FR-LEG-001..003` | UX §§12,16; Segurança §§5–6 | `T-LEGAL-001`, `T-I18N-CONT-002`, `T-I18N-SEO-003` | `LEG-001`, `I18N-002`, `I18N-004` | parcial; versões `pt-BR` concluídas e aprovação humana inglesa registrada; arquivos `en-US`, validação factual final e implementação pendentes |
+| `FR-ERR-001..003` | SDD §§9,11,16 | `T-ROUTE-001`, `T-404-001`, `T-I18N-ROUTE-004` | `ERR-001`, `I18N-005` | parcial; 404 `pt-BR` real concluída, 404 `en-US` sob `/en/*` pendente |
 | `SEO-001..005` | SDD §9; UX §2; Analytics §2 | `T-SEO-001`; `test/seo.test.mjs`; `test/navigation.test.mjs` | `FND-005`, `SEO-001` | shell/HTML/canonical concluídos em `FND-005`; links reais e destinos exercitados em `WEB-001` |
 | `SEO-006..009` | SDD §§9–11; Analytics §2 | `T-SEO-002`; `test/seo-crawling.test.mjs`; `test/seo.test.mjs`; inspeção do artefato | `FND-005`, `SEO-001..002`, `ERR-001` | concluída; robots/sitemap, ativos sociais e página 404 fora do sitemap com `noindex,nofollow` foram validados no artefato e na hospedagem |
 | `SEO-010..011` | SDD §9; Analytics §2; `DEC-012` | `T-SEO-003`; `test/seo.test.mjs` | `SEO-003` | concluída; lista aprovada vazia e ausência de JSON-LD validada em todas as rotas publicadas |
 | `SEO-012` | SDD §11 | `T-SEO-004`; `test/login-fallback.test.mjs`; `test/security-headers.test.mjs`; `docs/operations/REL-002-RELEASE.md`; `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`; PRs #12/#13; smoke HTTP de produção | `D0-002`, `INT-001`, `REL-002` | concluída; `finntrackhomepage.app` é o host canônico e os hosts Vercel anterior/`www` respondem `308`, preservando path e query, sem cadeia ou loop |
-| `SEO-013` | SDD §9; Analytics §2 | `T-SEO-002`; `test/seo-crawling.test.mjs`; `test/seo.test.mjs` | `SEO-001`, `LEG-001` | concluído; páginas legais têm title/description, canonical próprio e `noindex,follow`, permanecendo fora do sitemap |
+| `SEO-013..015` | SDD §§9,16; Analytics §2 | `T-SEO-002`, `T-I18N-SEO-001..003` | `SEO-001`, `LEG-001`, `I18N-005` | parcial; legais e home `pt-BR` concluídas, rotas/alternates/sitemap `en-US` planejados |
 | `ANA-001..005` | SDD §8; Analytics §§3–5 | `T-ANA-001`; `test/analytics.test.mjs`; `test/analytics-instrumentation.test.mjs`; `scripts/validate-production-analytics.mjs`; `docs/audits/ANA-004-PRODUCTION-ANALYTICS.md` | `ANA-001..002`, `ANA-004` | concluídos; contrato/classificação/noop, emissão resiliente e auditoria real comprovaram um pageview por carregamento e página/CTAs funcionais mesmo com o loader bloqueado |
-| `ANA-006..008` | SDD §8; Analytics §§8–9; Segurança §5 | `T-ANA-002..003`; `test/analytics-policy.test.mjs`; `test/vercel-web-analytics.test.mjs`; `test/security-headers.test.mjs`; `scripts/validate-production-analytics.mjs`; inventário/balanceamento `D0-005` | `D0-005`, `ANA-003..004` | concluídos; somente a home de produção envia pageview sanitizado; painel e rede confirmaram ausência de custom events, query, fragmento, PII, cookie, storage e coleta nas rotas excluídas |
+| `ANA-006..008` | SDD §§8,16; Analytics §§8–9; Segurança §5 | `T-ANA-002..003`, `T-I18N-ANA-001..002` | `D0-005`, `ANA-003..004`, `I18N-005` | parcial; `/` sanitizada concluída, `/en/` e políticas bilíngues planejadas |
 | `A11Y-001..005` | SDD §6; UX §§3,14 | `T-A11Y-001`; `test/design-system.test.mjs`; `test/navigation.test.mjs`; `test/e2e/accessibility.e2e.mjs` | `FND-004`, `WEB-001`, `QA-002` | Axe, teclado, skip link, foco, landmarks, headings e nomes acessíveis aprovados em desktop/mobile |
 | `A11Y-006..007` | UX §13 | `T-A11Y-002`; `test/design-system.test.mjs`; `test/e2e/accessibility.e2e.mjs` | `FND-004`, `QA-002` | zero violações Axe WCAG A/AA e revisão de significado aprovada no escopo da home |
 | `A11Y-008` | UX §14 | `T-A11Y-003`; `test/responsive.test.mjs`; `test/e2e/accessibility.e2e.mjs` | `WEB-006`, `QA-002` | texto a 200% e reflow em 320 CSS px aprovados; overflow flex encontrado pela auditoria e corrigido em `Problem.astro` |
@@ -46,10 +50,11 @@ está especificada, não que o teste já passou.
 | `PERF-007` | SDD §13 | `T-PERF-003`; `scripts/performance-budget.mjs`; `npm run test:perf` | `QA-004` | concluída; orçamento `DEC-016` aprovado e gate passou em três rodadas por perfil |
 | `SEC-001..004` | SDD §§5,7,12; Segurança §§2–4 | `T-SEC-001`; `test/env.test.mjs`; `test/utm.test.mjs`; `scripts/security-headers.mjs`; `vercel.mjs`; `npm run test:security` | `FND-003`, `INT-002`, `QA-005` | concluída; configuração pública e destinos aprovados, CSP restritiva sem `unsafe-inline`, hash do artefato e headers reais da Vercel validados localmente, no CI e em produção |
 | `SEC-005..006` | SDD §§12–13; Segurança §§3–4 | `T-SEC-002`; lockfile; `scripts/validate-security-headers.mjs`; `test/security-headers.test.mjs`; `artifacts/security/security-headers.json`; PR #4; Actions `30303082672` | `FND-001`, `FND-006`, `QA-005` | concluída; auditoria zerada, contrato mapeado para preview/produção e smoke HTTPS confirmou CSP, HSTS, políticas de referência/permissões, `nosniff`, framing e ausência de cookie |
-| `PRIV-001..004` | Analytics §§5,9; Segurança §§1,5–6 | `T-PRIV-001`; `test/assets.test.mjs`; `test/legal-drafts.test.mjs`; `test/analytics-policy.test.mjs`; `test/vercel-web-analytics.test.mjs`; `scripts/validate-production-analytics.mjs`; `test/seo.test.mjs` | `D0-005`, `ANA-003..004`, `LEG-001`, `AST-001` | concluídos; política 1.2, inventário e auditoria publicada confirmam minimização, canal de dados, ativos sem PII e ausência de cookie/storage/identificador persistente |
+| `PRIV-001..005` | Analytics §§5,9; Segurança §§1,5–6 | `T-PRIV-001`, `T-I18N-ANA-002`; testes de política/ativos/legal e auditoria real | `D0-005`, `ANA-003..004`, `LEG-001`, `AST-001`, `I18N-002`, `I18N-005` | parcial; baseline `pt-BR` concluída, inventário/políticas/ativos ingleses planejados |
 | `OPS-001..002` | SDD §5 | `T-OPS-001`; `test/env.test.mjs` | `FND-003` | concluídas; configuração tipada distingue `production` e `preview` |
 | `OPS-003..004` | SDD §13 | `T-OPS-001`; `test/ci-workflow.test.mjs`; GitHub Actions PR #1 | `FND-001..002`, `FND-006` | concluídas; instalação imutável e gates de formatação, lint, tipos, testes, build, E2E e performance aprovados local e remotamente |
 | `OPS-005..007` | SDD §§13–14 | `T-OPS-002`; Preview Deployment do PR #7; `docs/operations/REL-002-RELEASE.md`; `docs/operations/REL-003-SEARCH-CONSOLE.md`; `docs/operations/DOMAIN-MIGRATION-2026-07-29.md`; deploy e smoke HTTP de produção | `D0-002`, `FND-006`, `REL-002..003` | concluídos; preview protegido, pipeline verde, deploy, smoke, rollback e propriedades verificadas; o sitemap foi submetido também na propriedade customizada e o estado inicial de leitura do Google permanece registrado para monitoramento |
+| `OPS-008` | SDD §16; I18N §7.6 | `T-I18N-ARCH-001..002` | `I18N-003` | planejada; catálogo/locale/metadata inválidos devem falhar no build |
 
 ## Cobertura documental
 
@@ -59,10 +64,30 @@ está especificada, não que o teste já passou.
   e remota, configuração tipada, design system, shell SEO, navegação, seções
   iniciais, CI e preview protegido.
 
+## Matriz normativa de internacionalização
+
+| Requisitos | Desenho / especificação | Testes | Backlog | Estado |
+|---|---|---|---|---|
+| `I18N-FR-001..013` | SRS §§2,3.6; SDD §16; I18N §§3–5,7.1 | `T-I18N-ROUTE-001..004` | `I18N-003`, `I18N-005` | planejada; rotas, seletor e 404 não implementados |
+| `I18N-CONT-001..012` | UX §§2–16; I18N §§6–7.2 | `T-I18N-CONT-001..002` | `I18N-001..002`, `I18N-004` | copy, FAQ, labels, alt texts e metadados aprovados em `I18N-001`; app, jurídico, ativos e integração permanecem pendentes |
+| `I18N-SEO-001..014` | SRS §4; SDD §§9,16; Analytics §2 | `T-I18N-SEO-001..003` | `I18N-005` | planejada após rotas/conteúdo |
+| `I18N-INT-001..005` | SRS §§3.3–3.4; SDD §§7,11,16 | `T-I18N-INT-001..002` | `I18N-002`, `I18N-004` | bloqueada pelo app `en-US` ou exceção explícita |
+| `I18N-ANA-001..004`, `I18N-PRIV-001..002` | SRS §§5,9; Analytics §§5,8–9; Segurança §5 | `T-I18N-ANA-001..002` | `I18N-005` | planejada; política e payload `/en/` pendentes |
+| `I18N-A11Y-001..004` | SRS §6; UX §§3,14,16 | `T-I18N-A11Y-001..002` | `I18N-003`, `I18N-006` | planejada |
+| `I18N-RWD-001..002` | SRS §7; UX §14 | `T-I18N-RWD-001` | `I18N-006` | planejada |
+| `I18N-PERF-001..002` | SRS §8; SDD §§6,13,16 | `T-I18N-PERF-001` | `I18N-006` | planejada |
+| `I18N-SEC-001` | SRS §9; SDD §§12,16; Segurança §§3–4 | `T-I18N-SEC-001` | `I18N-005..006` | planejada |
+| `I18N-ARCH-001..007` | SDD §16; I18N §§7.6,8 | `T-I18N-ARCH-001..002` | `I18N-003` | planejada |
+| `I18N-GOV-001..004` | I18N §§7.6,10–12 | `T-I18N-GOV-001` | `I18N-001..006` | revisor/data do catálogo e aprovações humanas de App, Jurídico, Design/Marca, Privacidade e Produto registrados; artefatos e evidências de `I18N-002` pendentes |
+
 ## Evidência de implementação
 
 | Tarefa | Data | Artefatos | Validação | Estado |
 |---|---|---|---|---|
+| `DOC-004` | 2026-07-29 | `docs/15-I18N-EN-US-REQUIREMENTS.md`, `docs/00-SPEC-INDEX.md`, `docs/09-BACKLOG.md`, `docs/10-DECISION-LOG.md`, `docs/11-TRACEABILITY.md` | extração da baseline; comparação de escopo, UX, SEO, app, privacidade e testes; verificação em documentação oficial do Astro, Google Search Central e RFC 5646; `git diff --check` | concluída como proposta documental; `DEC-020`, PRD/SRS e implementação permanecem pendentes |
+| `DOC-005` | 2026-07-30 | `docs/00-SPEC-INDEX.md`, `docs/02-PRD.md`, `docs/03-SRS.md`, `docs/04-SDD.md`, `docs/05-UX-CONTENT-SPEC.md`, `docs/06-SEO-ANALYTICS-SPEC.md`, `docs/07-SECURITY-PRIVACY.md`, `docs/08-TEST-PLAN.md`, `docs/09-BACKLOG.md`, `docs/10-DECISION-LOG.md`, `docs/11-TRACEABILITY.md`, `docs/15-I18N-EN-US-REQUIREMENTS.md` | 70 requisitos e 21 casos; IDs únicos/sequenciais; cobertura integral; paridade anexo/Test Plan; SRS/rastreabilidade; links locais; `git diff --check`; diff somente em docs | concluída; promoveu a baseline documental submetida à aprovação formal posterior de `D0-007` |
+| `D0-007` | 2026-07-30 | `docs/09-BACKLOG.md`, `docs/10-DECISION-LOG.md`, `docs/11-TRACEABILITY.md` | aprovação explícita de Produto; consistência entre decisão, backlog e rastreabilidade; `git diff --check`; diff de `D0-007` restrito a docs | concluída; `DEC-020` e baseline `0.2.0` aprovadas, com `I18N-001..006` ainda sujeitos aos bloqueadores registrados |
+| `I18N-001` | 2026-07-30 | `docs/05-UX-CONTENT-SPEC.md`, `docs/06-SEO-ANALYTICS-SPEC.md`, `docs/09-BACKLOG.md`, `docs/11-TRACEABILITY.md`, `docs/15-I18N-EN-US-REQUIREMENTS.md`, `docs/STATE.md`; app `FinntrackHome` em `2e401fb061d452aff36200b50b19425f252a2e07` | auditoria de 20 campos obrigatórios; paridade com a home `pt-BR`; busca de estados candidatos/pendentes; testes focados do app 17/17; teste focado de analytics 2/2 após normalização documental; suíte da landing 75/75; build estático de 5 páginas; `git diff --check` | concluída; catálogo aprovado para implementação, sem aprovar jurídico, ativos ou release |
 | `FND-001` | 2026-07-15 | `package.json`, `package-lock.json`, `astro.config.mjs`, `tsconfig.json`, `src/pages/index.astro`, `src/styles/global.css`, `test/foundation.test.mjs` | `npm run lint`; `npm run typecheck`; `npm test`; `npm run build`; smoke HTTP 200 com servidor Astro | concluída |
 | `FND-002` | 2026-07-15 | `eslint.config.js`, `prettier.config.mjs`, `.prettierignore`, `package.json`, `package-lock.json`, `tsconfig.json`, `src/pages/index.astro`, `test/foundation.test.mjs` | `npm run format:check`; `npm run lint`; `npm run typecheck`; `npm test`; `npm run build` | concluída |
 | `FND-003` | 2026-07-16 | `.env.example`, `astro.config.mjs`, `package.json`, `scripts/validate-env.mjs`, `src/config/env.ts`, `src/config/public.ts`, `test/env.test.mjs`, `test/foundation.test.mjs` | `npm run format:check`; `npm run lint`; `npm run typecheck`; `npm test` (7/7, incluindo build sem configuração); `npm run build` com configuração sintética HTTPS | concluída |

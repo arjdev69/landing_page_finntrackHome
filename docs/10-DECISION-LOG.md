@@ -1,7 +1,7 @@
 # Registro de decisões e questões abertas
 
-Versão: 0.1.2
-Data: 2026-07-29
+Versão: 0.2.0
+Data: 2026-07-30
 
 Status possíveis: `Aceita`, `Proposta`, `Pendente`, `Substituída`.
 
@@ -37,7 +37,7 @@ datas de calendário aprovado.
 
 ### DEC-003 — Idioma e mercado inicial
 
-- Status: **Aceita**.
+- Status: **Substituída por `DEC-020` para a superfície pública**.
 - Escopo: MVP `pt-BR`.
 - Decisão: `pt-BR`, Brasil-first. Inglês fica fora do MVP até nova decisão.
 - Responsável: Produto.
@@ -320,16 +320,19 @@ datas de calendário aprovado.
 
 - Status: **Aceita**.
 - Escopo: MVP.
-- Decisão: `/privacidade` e `/termos` permanecem acessíveis, usam canonical
-  próprio e `noindex,follow`, e não entram no sitemap. A home é a única rota
-  indexável da primeira fase.
+- Decisão: `/privacidade`, `/termos`, `/en/privacy` e `/en/terms` permanecem
+  acessíveis, usam canonical próprio e `noindex,follow`, e não entram no
+  sitemap. `/` e `/en/` são as únicas rotas de conteúdo indexáveis desta
+  entrega.
 - Alternativa registrada: indexar páginas legais em versão futura se houver
   justificativa jurídica/SEO e atualização de SRS, sitemap e testes.
 - Consequência: o sitemap inicial não inclui páginas legais; os links do rodapé
   continuam rastreáveis e funcionais.
 - Responsável: Produto e responsável técnico de SEO.
 - Data de aceitação: 2026-07-15.
-- Evidência: `SEO-013`, SEO/Analytics §2 e `T-SEO-002`.
+- Data de atualização: 2026-07-30, conforme `DEC-020`.
+- Evidência: `SEO-013..015`, SEO/Analytics §2, `T-SEO-002` e
+  `T-I18N-SEO-001..003`.
 
 ### DEC-016 — Orçamento sintético de performance
 
@@ -379,9 +382,10 @@ datas de calendário aprovado.
   e priorizou uma solução prática para observar tráfego inicial. O plano Hobby
   não oferece custom events nem dimensões de UTM.
 - Decisão: substituir o endpoint/Supabase previstos em `DEC-006/007` pelo
-  `@vercel/analytics` oficial, limitado a pageviews agregados da home de
-  produção. Preview, páginas legais, `/entrar` e 404 não carregam o componente;
-  os eventos personalizados existentes permanecem `noop`.
+  `@vercel/analytics` oficial, limitado a pageviews agregados das homes `/` e
+  `/en/` em produção. Preview, páginas legais, login e 404 de ambos os locales
+  não carregam o componente; os eventos personalizados existentes permanecem
+  `noop`.
 - Minimização: `beforeSend` remove query e fragmento; não há cookie, Web Storage,
   identificador persistente ou correlação com conta. A Vercel informa que o
   identificador temporário derivado da requisição é descartado após 24 horas e
@@ -394,7 +398,8 @@ datas de calendário aprovado.
 - Rollback: remover o componente/pacote, publicar novo deployment e desativar
   Web Analytics no painel da Vercel.
 - Responsável: Bruno Araujo, com implementação do responsável técnico.
-- Data de aceitação: 2026-07-29.
+- Data de aceitação: 2026-07-29; escopo de `/en/` aceito em 2026-07-30 por
+  `DEC-020`.
 - Evidência: aprovação explícita do responsável nesta execução, documentação
   oficial da Vercel, Política de Privacidade 1.2 e `ANA-003`.
 
@@ -414,6 +419,48 @@ datas de calendário aprovado.
 - Data de aceitação: 2026-07-29.
 - Evidência: aprovação explícita do responsável nesta execução e relatórios
   parciais `QA-002-ACCESSIBILITY.md` e `QA-003-COMPATIBILITY.md`.
+
+### DEC-020 — Internacionalização da superfície pública para `en-US`
+
+- Status: **Aceita; implementação e release permanecem condicionados aos
+  bloqueadores**.
+- Contexto: o responsável solicitou inglês dos Estados Unidos, aprovou o esboço
+  do seletor e autorizou aplicar as recomendações da validação documental.
+- Decisão:
+  - manter `pt-BR` como locale padrão na raiz `/`;
+  - publicar `en-US` em `/en/`, na mesma origem e com estrutura compartilhada;
+  - tratar a entrega como localização de idioma, sem entrada comercial ativa
+    nos Estados Unidos;
+  - exibir `PT-BR`/`EN-US` com nomes acessíveis completos e locale atual
+    identificado;
+  - não usar redirect automático, cookie, storage, tradução em runtime ou
+    fallback português sob URL inglesa;
+  - usar canonical próprio, `hreflang` recíproco e `x-default="/"`;
+  - medir pageview sanitizado somente em `/` e `/en/`;
+  - localizar login, legais e 404; URL desconhecida `/en/*` mantém status 404;
+  - compartilhar componentes e exigir catálogos tipados completos.
+- Bloqueadores de implementação/release: copy humana, app em inglês ou exceção
+  explícita, jurídico inglês, screenshot/social card, 404 real na hospedagem,
+  políticas de analytics, testes e smoke.
+- Aprovações humanas complementares (2026-07-30): o responsável do projeto
+  comunicou aceite dos papéis de App, Jurídico, Design/Marca, Privacidade e
+  Produto. Esse aceite remove o gate de decisão dos responsáveis, mas não
+  substitui arquivos, versões, hashes, validação factual nem smoke exigidos por
+  `I18N-002`.
+- Alternativas rejeitadas: novo domínio, geolocalização, redirect por idioma,
+  persistência do locale, tradução cliente e layout duplicado.
+- Consequências: `DEC-003` é substituída para a superfície pública; PRD/SRS e
+  documentos derivados passam à baseline 0.2.0, mas nenhuma tarefa bloqueada
+  pode começar ou ser marcada concluída.
+- Responsável pela decisão: Produto, com pareceres Técnico, Conteúdo, SEO,
+  Privacidade/Jurídico e responsável do app.
+- Data de registro: 2026-07-29.
+- Data de aceitação documental: 2026-07-30.
+- Data de aprovação formal: 2026-07-30.
+- Evidência: aprovação explícita “internacionalização aprovada” comunicada por
+  Produto em `D0-007`; validação em duas passagens;
+  `docs/15-I18N-EN-US-REQUIREMENTS.md`; documentação oficial do Astro, Google
+  Search Central e RFC 5646.
 
 ## Template para novas decisões
 
