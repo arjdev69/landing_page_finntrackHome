@@ -403,7 +403,7 @@ Gates mínimos para a implementação futura:
 | `DEC-020` e baseline normativa | aceita | Produto + Técnico | PRD/SRS/UX/SEO/Segurança/Testes/Backlog/Traceability atualizados | desbloqueia somente tarefas sem dependência externa |
 | escopo de idioma, sem entrada comercial nos EUA | aceita | Produto | `DEC-020` | proíbe alegações geográficas/comerciais novas |
 | copy `en-US` | aceita em `I18N-001` | Produto/Conteúdo | catálogo completo em UX §16, revisor/data e aceite registrados | libera `I18N-003`; integração/publicação ainda depende das demais tarefas |
-| app em inglês ou exceção explícita | aprovação humana registrada; smoke não comprovado | responsável técnico do app + Produto | smoke de cadastro/login/onboarding ou decisão de exceção com aviso | bloqueia jornada e release até existir evidência |
+| app em inglês ou exceção explícita | exceção da landing aceita em `DEC-021`; aviso não implementado | Produto + Técnico da landing | aviso claro antes dos CTAs, `/en/` sem indexação/release e teste do destino real | libera implementação somente na landing; release continua bloqueado até o aviso e demais gates |
 | screenshot inglês sem PII | direção aprovada; arquivo ausente | Design/Marca + Privacidade + Produto | inventário, hash e aprovações visual/técnica/privacidade do arquivo final | bloqueia Hero/Demonstração até existir o ativo |
 | privacidade e termos em inglês | aprovação humana registrada; versões ausentes | Produto/controlador + Jurídico | arquivos `en-US`, validação factual, versão, vigência e aceite vinculados ao conteúdo final | bloqueia rotas e Footer ingleses até existirem as versões |
 | 404 `/en/*` com status real | não implementada | Técnico/Plataforma | teste do artefato e smoke HTTPS de URL desconhecida | bloqueia release |

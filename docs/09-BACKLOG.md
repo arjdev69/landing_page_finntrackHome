@@ -439,9 +439,12 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 - [ ] `I18N-002` Aprovar jornada do app, jurídico e ativos ingleses.
   - Aprovações humanas atendidas em 2026-07-30: o responsável do projeto
     comunicou aceite de App, Jurídico, Design/Marca, Privacidade e Produto.
-  - Bloqueada por evidência material: smoke publicado do app em inglês, versões
-    jurídicas `en-US` e arquivos finais de screenshot/social card ainda não
-    existem neste repositório.
+  - Exceção do app aceita em `DEC-021`: este repositório não altera o app; a
+    landing inglesa deverá avisar antes dos CTAs que cadastro/login abrem uma
+    experiência em português. O aviso será implementado em `I18N-004`.
+  - Bloqueada por evidência material da landing: versões jurídicas `en-US` e
+    arquivos finais de screenshot/social card ainda não existem neste
+    repositório.
   - Cobertura: `I18N-CONT-009..012`, `I18N-PRIV-001..002`,
     `I18N-GOV-003..004`.
   - Aceite: cadastro/login/onboarding em inglês ou exceção explícita; versões

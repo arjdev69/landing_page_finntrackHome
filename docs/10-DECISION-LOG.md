@@ -462,6 +462,33 @@ datas de calendário aprovado.
   `docs/15-I18N-EN-US-REQUIREMENTS.md`; documentação oficial do Astro, Google
   Search Central e RFC 5646.
 
+### DEC-021 — Exceção temporária para jornada do app em português
+
+- Status: **Aceita para a landing; implementação do aviso permanece pendente**.
+- Contexto: o smoke de 2026-07-30 confirmou que cadastro e login publicados
+  continuam em português, e o responsável determinou que qualquer tratamento
+  do app ocorrerá posteriormente no repositório próprio.
+- Decisão:
+  - não alterar, versionar ou implantar o repositório `FinntrackHome` neste
+    projeto;
+  - permitir o avanço técnico da landing `en-US` sob a exceção prevista em
+    `I18N-CONT-012`;
+  - manter `/en/` fora de indexação e release enquanto o aviso pré-CTA, jurídico
+    e ativos finais não estiverem implementados e validados;
+  - informar claramente, antes dos CTAs ingleses, que cadastro e login abrem uma
+    experiência atualmente disponível em português;
+  - remover o aviso somente após smoke publicado comprovar cadastro, login e
+    onboarding em inglês.
+- Risco aceito: a transição de idioma pode reduzir compreensão, confiança e
+  conversão e aumentar solicitações de suporte; a landing não deve sugerir que o
+  app já oferece uma jornada inglesa completa.
+- Escopo preservado: nenhum código, configuração, dado ou deploy do app integra
+  esta decisão; a exceção vale apenas para o comportamento da landing.
+- Responsável: Produto — Bruno Araujo.
+- Data de aceitação: 2026-07-31.
+- Evidência: instrução explícita “apenas se preocupe com a landing page, o app
+  terá o tratamento na seção/repositório dele posteriormente”.
+
 ## Template para novas decisões
 
 ```text
