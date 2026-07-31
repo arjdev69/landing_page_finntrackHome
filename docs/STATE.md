@@ -166,30 +166,84 @@ STACK: Astro 7, TypeScript 6, Tailwind CSS 4, npm
 - **Data**: 2026-07-29
 - **Status**: ativa
 
+### AD-013
+
+- **Decisão**: aprovar para implementação o catálogo completo `en-US` da home,
+  com `05-UX-CONTENT-SPEC.md` §16 como fonte canônica de copy.
+- **Razão**: Produto/Conteúdo comunicou aceite explícito após a aprovação da
+  internacionalização; a revisão completou seções, FAQ, metadados, labels,
+  nomes acessíveis e textos alternativos e revalidou os fatos do app.
+- **Trade-off**: a aprovação do catálogo não aprova traduções jurídicas,
+  screenshot, social card, integração, publicação ou release, que preservam
+  seus próprios gates.
+- **Data**: 2026-07-30
+- **Status**: ativa
+
+### AD-014
+
+- **Decisão**: registrar como concedidas as aprovações humanas de App,
+  Jurídico, Design/Marca, Privacidade e Produto para a internacionalização.
+- **Razão**: o responsável do projeto solicitou explicitamente considerar
+  jurídico e os demais papéis aprovados antes do PR documental.
+- **Trade-off**: aprovação de responsável não cria versões jurídicas, ativos,
+  inventário, hashes ou smoke; `I18N-002` permanece aberta até essas evidências
+  materiais existirem.
+- **Data**: 2026-07-30
+- **Status**: ativa
+
+### AD-015
+
+- **Decisão**: publicar a estrutura estática de `/en/` com copy aprovada e
+  `noindex,nofollow`, mas sem reutilizar o screenshot `pt-BR` nem expor links
+  jurídicos ingleses antes de existirem os artefatos e rotas aprovados.
+- **Razão**: `I18N-003` deve comprovar arquitetura, rotas e seletor sem apresentar
+  conteúdo misto ou criar destinos jurídicos inexistentes; ativos e integração
+  completa pertencem a `I18N-002/004`.
+- **Trade-off**: a página inglesa usa reserva visual neutra e rodapé reduzido
+  nesta etapa, permanecendo fora da indexação e sem prontidão de release.
+- **Data**: 2026-07-30
+- **Status**: ativa
+
+### AD-016
+
+- **Decisão**: limitar todo o trabalho ao repositório da landing e aceitar a
+  exceção temporária de app em português prevista por `I18N-CONT-012`, com aviso
+  claro antes dos CTAs ingleses e `/en/` sem indexação/release até os gates.
+- **Razão**: o responsável determinou que o app receberá tratamento posterior
+  em seu próprio repositório; `DEC-021` formaliza o limite e o risco da transição
+  de idioma sem alterar o produto autenticado.
+- **Trade-off**: a landing pode continuar sendo preparada, mas não pode afirmar
+  uma jornada inglesa completa; o aviso só será removido após smoke do app em
+  inglês.
+- **Data**: 2026-07-31
+- **Status**: ativa
+
 ## Handoff
 
 - **Projeto**: FinnTrack Home Landing /
   `C:\Users\ARJ\Favorites\Develloper\landing_page_finntrackHome`
-- **Bloco concluído neste ciclo**: Épico 5 — `SEO-003`.
-- **Implementação**: `DEC-012` foi aceita com lista vazia de schemas no MVP.
-  SRS, especificação de SEO e plano de testes agora proíbem JSON-LD até nova
-  decisão; o teste do artefato cobre home, páginas legais e 404.
-- **Validação**: teste SEO focado 3/3; formatação com finais de linha automáticos;
-  lint; tipagem com 0 erros/avisos; suíte completa 75/75, mesma contagem
-  anterior; build estático de 5 páginas aprovado.
-- **Passada de negação**: nenhum Rich Results Test foi executado porque não há
-  schema no artefato; `Organization`, `WebSite`, `SoftwareApplication` e
-  `FAQPage` permanecem candidatos futuros sem aprovação. `AggregateRating`,
-  preço, avaliações e métricas de usuários não são emitidos.
-- **Decisão adicional**: `QA-002` e `QA-003` foram adiadas por `DEC-019`, mas
-  permanecem abertas e não são apresentadas como concluídas.
-- **Próximo passo operacional**: `REL-004` quando houver amostra real confiável
-  no Vercel Analytics, anotando os 5 pageviews sintéticos de `ANA-004`.
-- **Bloqueios restantes**: `QA-002` exige leitor de tela real; `QA-003` exige
-  versões anteriores reais e Safari/macOS; `REL-001` depende do fechamento
-  formal desses gates; `REL-004` aguarda amostra real utilizável.
-- **Branch**: `codex/seo-003-no-schema`.
-- **Orçamento após o bloco**: `OK`, com contexto restante 58,6%, quota semanal
-  restante 77,0% e reset em 2026-08-05 17:19 BRT (`AMBIGUOUS=0`).
-- **Motivo da parada**: um bloco atômico concluído; nenhum outro bloco foi
-  iniciado neste ciclo.
+- **Bloco atual**: Épico 7 — Internacionalização `en-US` (em andamento).
+- **Tasks concluídas neste bloco**: `I18N-001`, `I18N-003`.
+- **Em andamento (arquivo:linha)**: nenhum.
+- **Próximo passo**: produzir e obter aceite vinculado às versões jurídicas
+  `en-US` e aos arquivos finais de screenshot/social card da landing em
+  `I18N-002`; depois implementar o aviso pré-CTA em `I18N-004`.
+- **Validação**: `I18N-003` passou em lint, typecheck sem diagnósticos, build
+  estático de 6 páginas, suíte 77/77 e acessibilidade 10/10 em desktop/mobile. O
+  artefato contém `/` e `/en/`, um H1 por locale, metadados coerentes, seletor
+  bidirecional e nenhum screenshot PT na página inglesa. `format:check` validou
+  os arquivos deste bloco e continua apontando apenas
+  `test/e2e/p0-home.e2e.mjs` e `playwright.config.mjs`, pendências preexistentes
+  fora do escopo. A exceção `DEC-021` passou em `git diff --check`, verificação
+  cruzada nos cinco documentos afetados e regressão focada 2/2 de i18n.
+- **Bloqueios**: a decisão de jornada foi encerrada por `DEC-021`, sem trabalho
+  no app. `I18N-002` ainda depende das versões jurídicas `en-US` e dos arquivos
+  finais de screenshot/social card da landing; release continua dependente de
+  `I18N-002` e `I18N-004..006`.
+- **Arquivos não commitados**: decisão e rastreabilidade da exceção de jornada
+  restrita à landing.
+- **Branch**: `codex/i18n-en-us-routing`.
+- **Orçamento na parada**: contexto 19,3% · quota semanal 25,0% (medido,
+  `AMBIGUOUS=0`; reset em 2026-08-05 17:19 BRT).
+- **Motivo da parada**: exceção do app registrada sem alterar o repositório
+  externo; `I18N-002` permanece aberta por jurídico e ativos finais da landing.

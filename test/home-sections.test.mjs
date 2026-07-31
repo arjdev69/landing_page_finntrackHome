@@ -44,19 +44,19 @@ test('WEB-003 content follows the approved problem, benefits and workflow copy',
 
 test('WEB-003 sections are semantic, focusable and rendered without a client runtime', async () => {
   const [page, problem, benefitsSection, howItWorks] = await Promise.all([
-    readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/pages/HomePage.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/sections/Problem.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/sections/Benefits.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/components/sections/HowItWorks.astro', import.meta.url), 'utf8'),
   ]);
 
-  assert.match(page, /<Problem\s*\/>/);
-  assert.match(page, /<Benefits\s*\/>/);
-  assert.match(page, /<HowItWorks\s*\/>/);
-  assert.match(problem, /id="problema"/);
-  assert.match(benefitsSection, /id="recursos"/);
+  assert.match(page, /<Problem/);
+  assert.match(page, /<Benefits/);
+  assert.match(page, /<HowItWorks/);
+  assert.match(problem, /aria-labelledby="problem-heading"/);
+  assert.match(benefitsSection, /getHomeAnchor\(locale, 'features'\)/);
   assert.match(benefitsSection, /tabindex="-1"/);
-  assert.match(howItWorks, /id="como-funciona"/);
+  assert.match(howItWorks, /getHomeAnchor\(locale, 'howItWorks'\)/);
   assert.match(howItWorks, /tabindex="-1"/);
   assert.match(howItWorks, /<ol/);
   assert.doesNotMatch(`${page}${problem}${benefitsSection}${howItWorks}`, /client:|<script/);

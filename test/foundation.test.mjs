@@ -4,10 +4,11 @@ import test from 'node:test';
 import { URL } from 'node:url';
 
 test('foundation uses static Astro output, Tailwind and configured aliases', async () => {
-  const [config, stylesheet, page, layout, tsconfig, packageJson] = await Promise.all([
+  const [config, stylesheet, page, homePage, layout, tsconfig, packageJson] = await Promise.all([
     readFile(new URL('../astro.config.mjs', import.meta.url), 'utf8'),
     readFile(new URL('../src/styles/global.css', import.meta.url), 'utf8'),
     readFile(new URL('../src/pages/index.astro', import.meta.url), 'utf8'),
+    readFile(new URL('../src/components/pages/HomePage.astro', import.meta.url), 'utf8'),
     readFile(new URL('../src/layouts/MarketingLayout.astro', import.meta.url), 'utf8'),
     readFile(new URL('../tsconfig.json', import.meta.url), 'utf8'),
     readFile(new URL('../package.json', import.meta.url), 'utf8'),
@@ -16,14 +17,16 @@ test('foundation uses static Astro output, Tailwind and configured aliases', asy
   assert.match(config, /output:\s*['"]static['"]/);
   assert.match(config, /tailwindcss\(\)/);
   assert.match(stylesheet, /@import\s+["']tailwindcss["']/);
-  assert.match(layout, /<html lang={siteConfig\.language}>/);
+  assert.match(layout, /<html lang={locale}>/);
   assert.match(layout, /import\s+["']@styles\/global\.css["']/);
-  assert.match(page, /MarketingLayout/);
+  assert.match(page, /<HomePage locale="pt-BR" \/>/);
+  assert.match(homePage, /MarketingLayout/);
 
   const parsedTsconfig = JSON.parse(tsconfig);
   assert.equal(parsedTsconfig.compilerOptions.baseUrl, '.');
   assert.deepEqual(parsedTsconfig.compilerOptions.paths['@/*'], ['src/*']);
   assert.deepEqual(parsedTsconfig.compilerOptions.paths['@styles/*'], ['src/styles/*']);
+  assert.deepEqual(parsedTsconfig.compilerOptions.paths['@i18n/*'], ['src/i18n/*']);
 
   const parsedPackage = JSON.parse(packageJson);
   assert.equal(parsedPackage.scripts.lint, 'eslint . --max-warnings=0');

@@ -1,23 +1,29 @@
 ---
 import Container from '@components/ui/Container.astro';
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import { faqItems } from '@config/home-content';
+import type { HomeContent } from '@i18n/content';
+
+interface Props {
+  content: HomeContent['faq'];
+}
+
+const { content } = Astro.props;
 ---
 
 <section class="border-t border-border bg-surface py-16 sm:py-24" aria-labelledby="faq-heading">
   <Container size="content">
     <SectionHeading
       headingId="faq-heading"
-      eyebrow="Perguntas frequentes"
-      title="Dúvidas comuns, respostas diretas."
-      description="Confira como o FinnTrack Home se encaixa na rotina de quem administra uma carteira pequena."
+      eyebrow={content.eyebrow}
+      title={content.title}
+      description={content.description}
     />
 
     <div
       class="mt-10 divide-y divide-border rounded-card border border-border bg-background px-5 shadow-card sm:px-7"
     >
       {
-        faqItems.map((item) => (
+        content.items.map((item) => (
           <details class="group py-1" data-faq-id={item.id}>
             <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
               <span>{item.question}</span>

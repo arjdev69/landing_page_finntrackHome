@@ -1,8 +1,8 @@
 # Software Requirements Specification — Landing Page
 
-Versão: 0.1.2
+Versão: 0.2.0
 Status: approved — baseline autoritativo  
-Data: 2026-07-29
+Data: 2026-07-30
 
 ## 1. Finalidade e prioridade
 
@@ -19,7 +19,8 @@ Prioridades:
 ## 2. Premissas confirmadas
 
 - O site público e o app autenticado são superfícies separadas.
-- O idioma inicial é `pt-BR`.
+- A superfície pública suporta `pt-BR` como locale padrão na raiz e `en-US`
+  sob `/en/`, conforme `DEC-020`.
 - O site não autentica, não armazena dados financeiros e não executa regras do app.
 - A página deve ser estática por padrão e utilizável sem JavaScript para o
   conteúdo e os links essenciais.
@@ -44,7 +45,7 @@ Prioridades:
 | ID | Pri. | Requisito |
 |---|---|---|
 | FR-HOME-001 | MUST | A proposta de valor, texto de apoio e CTA principal DEVEM aparecer sem rolagem em 360×800 e 1440×900. |
-| FR-HOME-002 | MUST | A página DEVE conter exatamente um `h1`: “Saiba quais imóveis realmente dão lucro.” |
+| FR-HOME-002 | MUST | Cada home DEVE conter exatamente um `h1`, com a copy aprovada para seu locale em `05-UX-CONTENT-SPEC.md`. |
 | FR-HOME-003 | MUST | O hero DEVE usar a copy aprovada em `05-UX-CONTENT-SPEC.md` ou uma revisão formalmente aprovada. |
 | FR-HOME-004 | MUST | A página DEVE apresentar as seções Problema, Benefícios, Como funciona, Demonstração, Para quem, FAQ e CTA final. |
 | FR-HOME-005 | MUST | Benefícios DEVEM refletir funcionalidades existentes: resultado mensal, contas pagas/pendentes/vencidas e comparação entre imóveis. |
@@ -62,7 +63,7 @@ Prioridades:
 |---|---|---|
 | FR-CTA-001 | MUST | O CTA de cadastro DEVE estar presente no cabeçalho, hero e CTA final. |
 | FR-CTA-002 | MUST | Todos os CTAs de cadastro DEVEM usar `PUBLIC_APP_SIGNUP_URL`, sem URL de produção codificada no componente. |
-| FR-CTA-003 | MUST | O link Entrar e `/entrar` DEVEM usar `PUBLIC_APP_LOGIN_URL`. |
+| FR-CTA-003 | MUST | Links de login, `/entrar` e `/en/login` DEVEM usar `PUBLIC_APP_LOGIN_URL`. |
 | FR-CTA-004 | MUST | O CTA secundário “Ver como funciona” DEVE levar à demonstração na própria página. |
 | FR-CTA-005 | MUST | Links para o app DEVEM continuar funcionais sem JavaScript, mesmo que analytics ou enriquecimento de UTM falhem. |
 | FR-CTA-006 | MUST | O encaminhamento ao app DEVE disparar o evento correspondente sem atrasar perceptivelmente a navegação. |
@@ -86,17 +87,29 @@ Prioridades:
 
 | ID | Pri. | Requisito |
 |---|---|---|
-| FR-LEG-001 | MUST | `/privacidade` DEVE conter conteúdo real, datado e aprovado para a operação em produção. |
-| FR-LEG-002 | MUST | `/termos` DEVE conter conteúdo real, datado e aprovado para a operação em produção. |
+| FR-LEG-001 | MUST | `/privacidade` e `/en/privacy` DEVEM conter conteúdo real, datado e aprovado para a operação e o público correspondentes. |
+| FR-LEG-002 | MUST | `/termos` e `/en/terms` DEVEM conter conteúdo real, datado e aprovado para a operação e o público correspondentes. |
 | FR-LEG-003 | MUST | Políticas NÃO DEVEM usar texto placeholder no build de produção. |
 | FR-ERR-001 | MUST | Toda URL inexistente DEVE responder com status HTTP 404 real. |
 | FR-ERR-002 | MUST | A página 404 DEVE oferecer caminho para a home e não disparar `landing_view`. |
+| FR-ERR-003 | MUST | URL inexistente sob `/en/*` DEVE usar experiência `en-US`; demais URLs inexistentes usam `pt-BR`, sem alterar o status 404. |
+
+### 3.6 Internacionalização
+
+Os requisitos `I18N-*` de `15-I18N-EN-US-REQUIREMENTS.md` são incorporados a
+este SRS como anexo normativo. Eles definem locale, rotas, conteúdo, seletor,
+SEO, app, analytics, privacidade, acessibilidade, responsividade, performance,
+segurança, arquitetura e governança para `pt-BR`/`en-US`.
+
+Uma tarefa de internacionalização só é elegível quando suas dependências no
+anexo e no backlog possuem responsável, evidência exigida e estado compatível.
+Em conflito, o texto deste SRS prevalece.
 
 ## 4. SEO e compartilhamento
 
 | ID | Pri. | Requisito |
 |---|---|---|
-| SEO-001 | MUST | O documento DEVE usar `lang="pt-BR"`, UTF-8 e viewport responsivo. |
+| SEO-001 | MUST | Cada documento DEVE usar `lang="pt-BR"` ou `lang="en-US"` conforme seu conteúdo, UTF-8 e viewport responsivo. |
 | SEO-002 | MUST | A home DEVE usar title, meta description e H1 definidos na especificação de conteúdo. |
 | SEO-003 | MUST | Toda página indexável DEVE ter title, description e canonical absolutos e únicos. |
 | SEO-004 | MUST | O conteúdo principal DEVE estar no HTML inicial, sem depender de JavaScript. |
@@ -108,7 +121,9 @@ Prioridades:
 | SEO-010 | MUST | Apenas JSON-LD fiel ao conteúdo visível e validado PODE ser publicado. |
 | SEO-011 | MUST | `AggregateRating`, preço, avaliações e métricas de usuários NÃO DEVEM ser emitidos sem evidência visível. |
 | SEO-012 | MUST | Variantes canônicas de host/protocolo DEVEM redirecionar de forma consistente para HTTPS e host oficial. |
-| SEO-013 | MUST | `/privacidade` e `/termos` DEVEM usar `noindex,follow`, canonical próprio e permanecer fora do sitemap no MVP. |
+| SEO-013 | MUST | As quatro páginas legais localizadas DEVEM usar `noindex,follow`, canonical próprio e permanecer fora do sitemap. |
+| SEO-014 | MUST | `/` e `/en/` DEVEM usar canonical próprio, alternates recíprocos `pt-BR`/`en-US` e `x-default` apontando para `/`. |
+| SEO-015 | MUST | O sitemap de produção DEVE incluir somente as homes canônicas `/` e `/en/` entre as rotas de conteúdo desta entrega. |
 
 Para o MVP atual, a lista aprovada de tipos JSON-LD é vazia conforme
 `DEC-012`; nenhum schema deve ser emitido até nova decisão com campos e
@@ -125,7 +140,7 @@ evidência próprios.
 | ANA-005 | MUST | Falha ou bloqueio do provedor NÃO DEVE quebrar a página nem os CTAs. |
 | ANA-006 | MUST | Coleta condicionada a consentimento DEVE permanecer desativada até consentimento válido. |
 | ANA-007 | MUST | Produção DEVE permitir verificar cada coleta habilitada em modo de debug, painel ou ferramenta equivalente; eventos não suportados pelo plano aprovado DEVEM permanecer `noop`. |
-| ANA-008 | MUST | O Vercel Web Analytics aprovado em `DEC-018` NÃO DEVE usar cookie, storage, identificador persistente ou correlação com conta; a integração DEVE limitar-se à home, remover query e fragmento antes do envio, não ativar eventos personalizados no plano Hobby e manter somente dados agregados conforme a janela do provedor. |
+| ANA-008 | MUST | O Vercel Web Analytics aprovado em `DEC-018` NÃO DEVE usar cookie, storage, identificador persistente ou correlação com conta; a integração DEVE limitar-se às homes `/` e `/en/`, remover query e fragmento antes do envio, não ativar eventos personalizados no plano Hobby e manter somente dados agregados conforme a janela do provedor. |
 
 ## 6. Acessibilidade
 
@@ -183,6 +198,7 @@ Medição de campo no percentil 75, segmentada em mobile e desktop:
 | PRIV-002 | MUST | Cookies, storage, pixels e terceiros DEVEM constar na política e no inventário técnico. |
 | PRIV-003 | MUST | Screenshots NÃO DEVEM conter dados reais de usuários. |
 | PRIV-004 | MUST | Um canal real para solicitações de dados DEVE estar publicado. |
+| PRIV-005 | MUST | Política e inventário DEVEM declarar as duas homes cobertas por pageview agregado e as rotas localizadas excluídas. |
 
 ## 10. Configuração e operação
 
@@ -195,12 +211,14 @@ Medição de campo no percentil 75, segmentada em mobile e desktop:
 | OPS-005 | MUST | O deploy DEVE oferecer preview antes de produção. |
 | OPS-006 | MUST | O lançamento DEVE incluir smoke test pós-deploy e procedimento de rollback da hospedagem. |
 | OPS-007 | MUST | Search Console e submissão do sitemap DEVEM ser concluídos após a publicação. |
+| OPS-008 | MUST | Catálogo ausente/incompleto, locale desconhecido ou metadata localizada incompleta DEVEM falhar no build. |
 
 ## 11. Critério global de aceite
 
 O MVP está pronto quando:
 
-1. todos os requisitos MUST estão aprovados e cobertos por evidência;
+1. todos os requisitos MUST deste SRS e do anexo normativo estão aprovados e
+   cobertos por evidência;
 2. todos os testes P0/P1 do plano passam no artefato de produção;
 3. todas as decisões marcadas como bloqueadoras de lançamento estão resolvidas;
 4. privacidade, termos, suporte, ativos e screenshots foram aprovados;

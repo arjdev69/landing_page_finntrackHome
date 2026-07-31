@@ -1,0 +1,40 @@
+---
+import Audience from '@components/sections/Audience.astro';
+import Benefits from '@components/sections/Benefits.astro';
+import Faq from '@components/sections/Faq.astro';
+import FinalCta from '@components/sections/FinalCta.astro';
+import Hero from '@components/sections/Hero.astro';
+import HowItWorks from '@components/sections/HowItWorks.astro';
+import Problem from '@components/sections/Problem.astro';
+import ProductPreview from '@components/sections/ProductPreview.astro';
+import { homeAssetByLocale } from '@i18n/assets';
+import { getHomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
+import MarketingLayout from '@layouts/MarketingLayout.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const content = getHomeContent(locale);
+const asset = homeAssetByLocale[locale];
+---
+
+<MarketingLayout {...content.seo} locale={locale} content={content}>
+  <main id="main-content" tabindex="-1">
+    <Hero
+      locale={locale}
+      content={content.hero}
+      signupLabel={content.header.signupLabel}
+      asset={asset}
+    />
+    <Problem content={content.problem} />
+    <Benefits locale={locale} content={content.benefits} />
+    <HowItWorks locale={locale} content={content.howItWorks} />
+    <ProductPreview locale={locale} content={content.productPreview} asset={asset} />
+    <Audience locale={locale} content={content.audience} />
+    <Faq content={content.faq} />
+    <FinalCta content={content.finalCta} signupLabel={content.header.signupLabel} />
+  </main>
+</MarketingLayout>

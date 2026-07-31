@@ -2,30 +2,24 @@ import { PUBLIC_ENVIRONMENT, PUBLIC_SITE_URL } from 'astro:env/server';
 import process from 'node:process';
 
 import { resolveDeploymentEnvironment } from '@config/deployment-environment';
+import { ptBRHomeContent } from '@i18n/content/pt-BR';
+import { defaultLocale, localeConfig } from '@i18n/locales';
 import type { PageSeoDefinition, PublicEnvironment } from '@lib/seo/metadata';
 
 export const siteConfig = Object.freeze({
   name: 'FinnTrack Home',
-  language: 'pt-BR',
-  openGraphLocale: 'pt_BR',
+  language: defaultLocale,
+  openGraphLocale: localeConfig[defaultLocale].openGraphLocale,
   faviconPath: '/favicon.png',
   appleTouchIconPath: '/apple-touch-icon.png',
-  socialImageAlt: 'FinnTrack Home — controle financeiro para proprietários de imóveis.',
+  socialImageAlt: ptBRHomeContent.seo.socialImageAlt,
   googleSiteVerifications: Object.freeze([
     '4QKruYz5C39n-OzQwi5ZszK4DshkoBMnxpea5t_qkbY',
     'YPatDH2g5pRgsAYJEMmQrEDriF1TlSkVV_nFH32ur_E',
   ]),
 });
 
-export const homeSeo = Object.freeze({
-  title: 'Controle Financeiro de Imóveis e Aluguéis | FinnTrack Home',
-  description:
-    'Organize receitas, despesas e contas vencidas dos seus imóveis. Acompanhe o resultado mensal de cada propriedade com o FinnTrack Home.',
-  canonicalPath: '/',
-  imagePath: '/social-card.png',
-  heading: 'Saiba quais imóveis realmente dão lucro.',
-  type: 'website',
-}) satisfies PageSeoDefinition;
+export const homeSeo = ptBRHomeContent.seo satisfies PageSeoDefinition;
 
 export const privacySeo = Object.freeze({
   title: 'Política de Privacidade | FinnTrack Home',

@@ -1,8 +1,13 @@
 ---
+import LocaleSwitcher from '@components/layout/LocaleSwitcher.astro';
 import ButtonLink from '@components/ui/ButtonLink.astro';
 import type { NavigationItem } from '@config/navigation';
+import type { HomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
 
 interface Props {
+  locale: Locale;
+  shell: HomeContent['shell'];
   items: readonly NavigationItem[];
   loginLabel: string;
   loginUrl: string;
@@ -10,19 +15,19 @@ interface Props {
   signupUrl: string;
 }
 
-const { items, loginLabel, loginUrl, signupLabel, signupUrl } = Astro.props;
+const { locale, shell, items, loginLabel, loginUrl, signupLabel, signupUrl } = Astro.props;
 ---
 
 <details class="group relative lg:hidden" data-mobile-navigation>
   <summary
     class="flex min-h-11 cursor-pointer list-none items-center justify-center rounded-control border border-border-strong bg-surface px-4 py-2 text-sm font-semibold text-foreground marker:content-none"
   >
-    <span>Menu</span>
-    <span class="sr-only">de navegação</span>
+    <span>{shell.mobileMenuLabel}</span>
+    <span class="sr-only">{shell.mobileMenuSupplement}</span>
   </summary>
 
   <nav
-    aria-label="Navegação móvel"
+    aria-label={shell.mobileNavigationLabel}
     class="absolute right-0 z-20 mt-3 w-[min(22rem,calc(100vw-2rem))] rounded-card border border-border bg-surface p-3 shadow-card"
   >
     <ul class="flex flex-col gap-1">
@@ -38,7 +43,10 @@ const { items, loginLabel, loginUrl, signupLabel, signupUrl } = Astro.props;
           </li>
         ))
       }
-      <li class="mt-2 border-t border-border pt-2">
+      <li class="mt-2 border-t border-border pt-3">
+        <LocaleSwitcher locale={locale} shell={shell} />
+      </li>
+      <li class="pt-2">
         <a
           class="flex min-h-11 items-center rounded-control px-3 py-2 text-base font-medium text-foreground hover:bg-background"
           href={loginUrl}

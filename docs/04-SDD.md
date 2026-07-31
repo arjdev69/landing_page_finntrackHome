@@ -1,8 +1,8 @@
 # Software Design Document — Landing Page
 
-Versão: 0.1.2
+Versão: 0.2.0
 Status: approved — decisões pendentes continuam condicionando tarefas dependentes  
-Data: 2026-07-29
+Data: 2026-07-30
 
 ## 1. Objetivo técnico
 
@@ -285,3 +285,46 @@ origem administrada pela Vercel. Falhas relevantes são:
 MDX/coleções para guias, calculadora, páginas de recursos e novo componente
 interativo devem entrar por atualização do PRD/SRS. A arquitetura permite essa
 expansão, mas não cria CMS, API ou framework de ilhas antecipadamente.
+
+## 16. Internacionalização `pt-BR` / `en-US`
+
+`DEC-020` mantém `output: static`, `pt-BR` na raiz e `en-US` sob `/en/`. A
+implementação deve:
+
+- configurar locale padrão e caminho inglês de forma central;
+- compartilhar layouts/componentes e injetar catálogo tipado completo;
+- separar copy, metadata, rotas equivalentes e ativos dependentes de idioma;
+- falhar no build para locale, chave ou metadata ausente;
+- gerar canonical, alternates recíprocos e `x-default="/"`;
+- usar links reais no seletor, com `PT-BR`/`EN-US` visuais e nomes acessíveis
+  completos;
+- não usar detecção automática, cookie, storage, tradução em runtime ou SDK;
+- oferecer `/en/login`, `/en/privacy`, `/en/terms` e experiência 404 inglesa;
+- preservar status HTTP 404 real em URL desconhecida sob `/en/*`;
+- permitir pageview sanitizado somente em `/` e `/en/`;
+- aplicar CSP e headers aprovados a todas as novas rotas.
+
+Estrutura-alvo:
+
+```text
+src/
+├── i18n/
+│   ├── locales.ts
+│   ├── routes.ts
+│   └── content/
+│       ├── pt-BR.ts
+│       └── en-US.ts
+├── components/layout/LocaleSwitcher.astro
+└── pages/
+    ├── index.astro
+    └── en/
+        ├── index.astro
+        ├── login.astro
+        ├── privacy.astro
+        ├── terms.astro
+        └── 404.astro
+```
+
+O roteamento pode usar recursos nativos do Astro e helpers locais mínimos. A
+configuração da hospedagem para 404 localizada deve ser comprovada no artefato e
+no endpoint real; rewrite que devolva HTTP 200 é proibido.

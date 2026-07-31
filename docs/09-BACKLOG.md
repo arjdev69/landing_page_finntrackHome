@@ -1,8 +1,8 @@
 # Backlog de implementação
 
-Versão: 0.1.1  
+Versão: 0.2.0
 Status: approved  
-Data: 2026-07-15
+Data: 2026-07-30
 
 ## Regras de execução
 
@@ -17,9 +17,26 @@ Data: 2026-07-15
 
 - [x] `DOC-001` Importar o handover de origem.
 - [x] `DOC-002` Criar baseline de visão, PRD, SRS, SDD, UX, SEO/analytics,
-  segurança, testes, backlog, decisões e rastreabilidade.
+      segurança, testes, backlog, decisões e rastreabilidade.
 - [x] `DOC-003` Aprovar a baseline `0.1.1` e mudar documentos normativos de
-  `draft` para `approved`.
+      `draft` para `approved`.
+- [x] `DOC-004` Elaborar a proposta completa de internacionalização `en-US` sem
+      alterar código nem promover o escopo à baseline autoritativa.
+  - Evidência (2026-07-29): `docs/15-I18N-EN-US-REQUIREMENTS.md` registra
+    diagnóstico em duas passagens, decisões recomendadas, mapa de rotas,
+    estrutura mental da página, copy inicial, requisitos propostos,
+    dependências, testes e sequência futura. Na conclusão de `DOC-004`,
+    `DEC-020` ainda permanecia proposta e PRD/SRS não haviam sido alterados.
+- [x] `DOC-005` Corrigir a validação da proposta `en-US`, aceitar `DEC-020` para
+      a fase documental e promover requisitos, testes, bloqueadores e
+      rastreabilidade aos documentos normativos, sem alterar código.
+  - Evidência (2026-07-30): baseline documental `0.2.0` atualizada em índice,
+    PRD, SRS, SDD, UX, SEO/analytics, segurança, plano de testes, decisões,
+    backlog, rastreabilidade e anexo i18n. Validação confirmou 70 requisitos
+    `I18N-*`, 21 casos idênticos no anexo/Test Plan, cobertura integral, IDs
+    únicos e sequenciais, referências normativas rastreadas, links locais
+    válidos, nenhum `MUST` ambíguo e `git diff --check` aprovado. O diff contém
+    somente documentação; nenhum teste de código foi necessário.
 
 ## Épico 0 — Decisões e contratos
 
@@ -33,7 +50,7 @@ Data: 2026-07-15
     separa pipeline/preview, `/entrar`, 404, headers e rollback nas tarefas
     executáveis correspondentes; domínio customizado fica adiado.
 - [x] `D0-003` Implementar/confirmar no app a URL que abre cadastro diretamente e
-  o contrato de UTMs (`DEC-004`).
+      o contrato de UTMs (`DEC-004`).
   - Evidência (2026-07-24): o app publicou
     `https://finntrackhome.app/cadastro` e
     `https://finntrackhome.app/entrar`; `/dashboard` permanece protegido e
@@ -57,7 +74,7 @@ Data: 2026-07-15
     2.0, a política pública 1.2 e a aprovação legal registram inventário,
     balanceamento, retenção e gates aplicáveis.
 - [x] `D0-006` Definir responsáveis por jurídico, suporte e ativos
-  (`DEC-008/009/011`).
+      (`DEC-008/009/011`).
   - Evidência (2026-07-21): governança jurídica aceita com redação assistida,
     validação factual e aprovação humana obrigatória; canal real
     `jobslens.ia@gmail.com`, responsável operacional e fluxo para solicitações de
@@ -65,6 +82,14 @@ Data: 2026-07-15
     auditoria também reprovou a captura provisória como ativo final por conter
     identidade demonstrativa e trechos em inglês. `LEG-001`, `AST-001` e
     `SEO-002` preservam seus próprios critérios de aprovação.
+- [x] `D0-007` Aprovar formalmente `DEC-020` e a baseline normativa `0.2.0` de
+      internacionalização `en-US`.
+  - Evidência (2026-07-30): Produto comunicou “internacionalização aprovada”
+    após revisar o esboço do seletor, a validação documental e as recomendações
+    incorporadas à baseline. A aprovação autoriza executar o backlog
+    `I18N-001..006` conforme elegibilidade, sem dispensar copy humana, paridade
+    do app, revisão jurídica, ativos localizados, políticas, testes ou smoke de
+    release. Nenhum código foi alterado nesta tarefa.
 
 Critério: decisões têm status, responsável, data e impacto refletidos nos docs.
 
@@ -101,7 +126,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     artefato em 320/360/390/768/1024/1440 px sem overflow ou erros de navegador,
     com capturas em `artifacts/fnd-004-*.png`.
 - [x] `FND-005` Implementar `MarketingLayout`, o shell de `src/pages/index.astro`
-  e o contrato de SEO.
+      e o contrato de SEO.
   - Aceite: `/` responde 200 no artefato e monta o layout com metadados tipados;
     as seções de conteúdo podem ser adicionadas incrementalmente por `WEB-*`.
   - Cobertura: `FR-NAV-001`, `SEO-001..005`, `SEO-009`.
@@ -137,7 +162,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     confirmou links/âncoras, ausência de logs de erro e captura
     `artifacts/web-001-desktop.png`.
 - [x] `WEB-002` Implementar Hero com CTAs e asset temporário explicitamente
-  marcado para substituição antes da produção.
+      marcado para substituição antes da produção.
   - Cobertura: `FR-HOME-001..003`, `FR-CTA-001..005`.
   - Evidência (2026-07-21): `Hero.astro` renderiza no HTML inicial a copy
     aprovada, CTA “Criar conta” pela URL pública tipada, CTA secundário para
@@ -224,7 +249,7 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 ## Épico 4 — Analytics
 
 - [x] `ANA-001` Implementar tipos, classificação determinística de
-  `device_group`/`referrer_group`, contrato e `NoopAnalytics`.
+      `device_group`/`referrer_group`, contrato e `NoopAnalytics`.
   - Evidência (2026-07-21): `src/lib/analytics/contract.ts` expõe os sete eventos
     e somente as propriedades/enums catalogadas; `classification.ts` aplica os
     breakpoints, precedência e allowlists `2026-07-15.v1`; `noop.ts` fornece o
@@ -393,8 +418,80 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
 - [x] `REL-003` Configurar Search Console e submeter sitemap.
 - [ ] `REL-004` Registrar linha de base de aquisição e conversão.
 
+## Épico 7 — Internacionalização `en-US`
+
+- [x] `I18N-001` Aprovar catálogo completo `en-US`, FAQ e metadados.
+  - Dependência atendida: revisão humana de Produto/Conteúdo registrada em
+    2026-07-30.
+  - Cobertura: `I18N-CONT-001..008`, `I18N-GOV-001..002`.
+  - Aceite: catálogo com paridade, transcriação revisada, fatos do app
+    revalidados, labels/alt texts completos e registro de revisor/data.
+  - Evidência (2026-07-30): catálogo canônico completo aprovado em UX §16,
+    cobrindo metadados, shell, todas as seções, FAQ, labels acessíveis, textos
+    alternativos, CTA e Footer. Auditoria documental verificou 20 campos
+    obrigatórios e removeu estados candidatos/pendentes. Os fatos foram
+    revalidados contra o app no commit
+    `2e401fb061d452aff36200b50b19425f252a2e07`; testes focados de serviço e
+    preferências passaram 17/17. Após normalizar uma quebra de linha em uma
+    frase já aprovada da política de analytics, a suíte da landing passou 75/75
+    e o build estático gerou 5 páginas sem erros ou avisos. Jurídico, ativos e
+    release permanecem em `I18N-002`, `I18N-004` e `I18N-006`.
+- [ ] `I18N-002` Aprovar jornada do app, jurídico e ativos ingleses.
+  - Aprovações humanas atendidas em 2026-07-30: o responsável do projeto
+    comunicou aceite de App, Jurídico, Design/Marca, Privacidade e Produto.
+  - Exceção do app aceita em `DEC-021`: este repositório não altera o app; a
+    landing inglesa deverá avisar antes dos CTAs que cadastro/login abrem uma
+    experiência em português. O aviso será implementado em `I18N-004`.
+  - Bloqueada por evidência material da landing: versões jurídicas `en-US` e
+    arquivos finais de screenshot/social card ainda não existem neste
+    repositório.
+  - Cobertura: `I18N-CONT-009..012`, `I18N-PRIV-001..002`,
+    `I18N-GOV-003..004`.
+  - Aceite: cadastro/login/onboarding em inglês ou exceção explícita; versões
+    legais aprovadas; screenshot/social card sintéticos, com moeda identificada
+    e aprovações próprias.
+- [x] `I18N-003` Implementar configuração, catálogos tipados, rotas e seletor.
+  - Bloqueada por: `I18N-001`.
+  - Cobertura: `I18N-FR-001..012`, `I18N-ARCH-001..007`,
+    `I18N-A11Y-001..004`.
+  - Aceite: `/` e `/en/` estáticas, componentes compartilhados, links
+    `PT-BR`/`EN-US`, paridade de chaves e falha de build para catálogo inválido.
+  - Evidência: `src/i18n/**`, `src/components/pages/HomePage.astro`,
+    `src/components/layout/LocaleSwitcher.astro`, `src/pages/en/index.astro`,
+    `test/i18n.test.mjs`, `test/seo.test.mjs`; lint, typecheck, build estático
+    de 6 páginas, suíte 77/77 e acessibilidade 10/10 em desktop/mobile aprovados
+    em 2026-07-30.
+- [ ] `I18N-004` Integrar copy, legais, ativos e fluxo do app em `en-US`.
+  - Bloqueada por: `I18N-002..003`.
+  - Cobertura: `I18N-CONT-001..012`, `I18N-INT-001..005`.
+  - Aceite: home, login e legais completas; CTAs/UTMs reais em desktop/mobile;
+    nenhum conteúdo misto ou ativo português como evidência final.
+- [ ] `I18N-005` Implementar SEO, analytics, segurança e 404 inglesa.
+  - Bloqueada por: `I18N-003..004`.
+  - Cobertura: `I18N-FR-013`, `I18N-SEO-001..014`,
+    `I18N-ANA-001..004`, `I18N-PRIV-001`, `I18N-SEC-001`.
+  - Aceite: canonical/hreflang/x-default, sitemap, OG, pageviews sanitizados,
+    políticas atualizadas, CSP/headers e `/en/*` desconhecida com 404 real.
+- [ ] `I18N-006` Executar QA, release e baseline por locale.
+  - Bloqueada por: `I18N-005` e todos os bloqueadores externos encerrados.
+  - Cobertura: todos os `I18N-*` e `T-I18N-*`.
+  - Aceite: 21 casos de internacionalização, E2E, leitor de tela, seis
+    viewports, navegadores, performance, segurança, preview, smoke, sitemap,
+    Search Console e baseline `/en/`.
+- [x] `I18N-007` Refinar o seletor de idiomas com apoio visual por bandeiras.
+  - Dependência atendida: `I18N-003`.
+  - Cobertura: `I18N-FR-005..006`, `I18N-A11Y-001..002`,
+    `I18N-RWD-001..002`.
+  - Aceite: controle compartilhado mais leve, bandeiras decorativas de Brasil e
+    Estados Unidos, labels `PT-BR`/`EN-US` preservados, locale atual distinguível
+    sem depender somente de cor ou bandeira e sem regressão de teclado/reflow.
+  - Evidência (2026-07-31): `LocaleSwitcher.astro` usa SVGs decorativos locais,
+    mantém os links e nomes acessíveis e diferencia o locale atual por superfície,
+    contorno, sombra e peso tipográfico. Lint, tipagem, suíte 77/77, build estático
+    e acessibilidade 10/10 passaram; inspeção visual aprovada em desktop e 390 px.
+
 ## Fora do backlog do MVP
 
-Calculadora, guias, blog/CMS, páginas programáticas, preços, inglês, afiliados,
-chat e checkout exigem nova versão do PRD/SRS. Não criar scaffolding específico
-para essas funções durante os épicos acima.
+Calculadora, guias, blog/CMS, páginas programáticas, preços, outros idiomas além
+de `pt-BR`/`en-US`, afiliados, chat e checkout exigem nova versão do PRD/SRS.
+Não criar scaffolding específico para essas funções durante os épicos acima.

@@ -12,14 +12,45 @@ function collectRuntimeErrors(page) {
 
 test('T-A11Y-001/T-A11Y-002 has no detectable WCAG 2.2 A/AA violations', async ({ page }) => {
   const errors = collectRuntimeErrors(page);
-  await page.goto('/');
-
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-
-  expect(results.violations).toEqual([]);
+  for (const route of ['/', '/en/']) {
+    await page.goto(route);
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(results.violations, route).toEqual([]);
+  }
   expect(errors).toEqual([]);
+});
+
+test('T-I18N-A11Y-001/T-I18N-A11Y-002 exposes real locale links and the current language', async ({
+  page,
+}, testInfo) => {
+  await page.goto('/en/');
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
+  if (testInfo.project.name === 'mobile-chromium') {
+    await page.locator('[data-mobile-navigation] summary').click();
+  }
+  const selector = page.getByRole('group', { name: 'Language' }).first();
+  const portuguese = selector.getByRole('link', { name: 'Switch language to Português (Brasil)' });
+  const english = selector.getByRole('link', { name: 'English (US) — current language' });
+
+  await expect(portuguese).toHaveAttribute('href', '/');
+  await expect(portuguese).toHaveAttribute('hreflang', 'pt-BR');
+  await expect(english).toHaveAttribute('href', '/en/');
+  await expect(english).toHaveAttribute('hreflang', 'en-US');
+  await expect(english).toHaveAttribute('aria-current', 'page');
+  if (testInfo.project.name === 'mobile-chromium') {
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      if (await portuguese.evaluate((element) => element === globalThis.document.activeElement))
+        break;
+      await page.keyboard.press('Tab');
+    }
+  } else {
+    await portuguese.focus();
+  }
+  await expect(portuguese).toBeFocused();
+  await expect(portuguese).toHaveCSS('outline-style', 'solid');
 });
 
 test('T-A11Y-001/T-A11Y-006 exposes logical keyboard navigation and landmarks', async ({

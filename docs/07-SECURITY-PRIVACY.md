@@ -1,15 +1,15 @@
 # Segurança e privacidade
 
-Versão: 0.1.3
-Status: approved — baseline, jurídico e política de analytics definidos
-Data: 2026-07-29
+Versão: 0.2.0
+Status: approved — baseline bilíngue, jurídico e política de analytics definidos
+Data: 2026-07-30
 
 ## 1. Escopo de dados
 
 A landing não possui conta ou formulário financeiro. Ela processa localmente
 URL/referrer allowlisted, informações técnicas mínimas e interação com
-conteúdo. `DEC-018` autoriza o Vercel Web Analytics somente para pageviews
-agregados da home de produção; custom events permanecem `noop`.
+conteúdo. `DEC-018/020` autoriza o Vercel Web Analytics somente para pageviews
+agregados das homes `/` e `/en/` em produção; custom events permanecem `noop`.
 
 As UTMs encaminhadas ao app permanecem somente em memória durante a página
 atual. O MVP não as grava no perfil, não as associa à conta e mede retenção do
@@ -23,10 +23,12 @@ produto separadamente.
 | open redirect | destinos somente por configuração de build validada |
 | XSS em conteúdo/terceiros | conteúdo confiável, sanitização e CSP |
 | supply chain | lockfile, atualização controlada e auditoria |
-| exfiltração por analytics | endpoint de mesma origem, pageview apenas da home, remoção de query/fragmento e nenhum custom event |
+| exfiltração por analytics | endpoint de mesma origem, pageview apenas de `/` e `/en/`, remoção de query/fragmento e nenhum custom event |
 | indexação de preview | robots + `X-Robots-Tag` + gate automatizado |
 | vazamento por screenshot | dados fictícios e revisão de ativos |
 | falsa alegação de segurança | copy limitada ao comportamento verificável |
+| tradução jurídica inadequada | aprovação factual e jurídica própria para cada versão |
+| rota inglesa sem headers | teste de CSP/headers em todas as rotas `en-US` |
 
 ## 3. Requisitos de implementação
 
@@ -91,6 +93,12 @@ decisão. A landing e os CTAs continuam funcionais com `NoopAnalytics`, e
 solicitações de informação ou oposição usam o canal
 `jobslens.ia@gmail.com`.
 
+A ampliação para `/en/` mantém finalidade, propriedades e salvaguardas, mas deve
+constar no inventário e nas políticas interna e pública antes da coleta. Login,
+páginas legais e 404 dos dois locales permanecem excluídos. Entrada comercial
+ativa nos Estados Unidos, nova jurisdição, transferência, moeda, fornecedor ou
+finalidade reabre a aprovação jurídica e de privacidade.
+
 ## 6. Screenshots e conteúdo
 
 - Usar dados sintéticos, nunca mascaramento parcial de produção.
@@ -99,6 +107,10 @@ solicitações de informação ou oposição usam o canal
 - Depoimentos e métricas exigem autorização/evidência rastreável.
 - Conteúdo jurídico ou tributário futuro exige revisão especializada e fontes
   oficiais atualizadas.
+- Tradução jurídica não herda aprovação do original; versões inglesas registram
+  versão, vigência, validação factual, revisão jurídica e aceite humano.
+- Screenshot e social card ingleses usam UI coerente, moeda identificada e
+  aprovação própria, sem conversão financeira implícita.
 
 ## 7. Resposta e manutenção
 
@@ -119,3 +131,6 @@ mudarem.
 - [ ] Screenshots e metadados foram revisados.
 - [ ] Privacidade, termos e canal de dados foram aprovados.
 - [ ] Rollback da hospedagem foi testado ou documentado.
+- [ ] `/en/`, login, legais e 404 inglesas receberam CSP/headers e smoke HTTPS.
+- [ ] Inventário/política registram pageview somente em `/` e `/en/`.
+- [ ] Conteúdo jurídico e ativos ingleses possuem aprovações próprias.

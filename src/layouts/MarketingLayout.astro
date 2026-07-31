@@ -1,24 +1,30 @@
 ---
-import Header from '@components/layout/Header.astro';
-import Footer from '@components/layout/Footer.astro';
-import AppLinkEnhancer from '@components/layout/AppLinkEnhancer.astro';
 import AnalyticsInstrumentation from '@components/layout/AnalyticsInstrumentation.astro';
+import AppLinkEnhancer from '@components/layout/AppLinkEnhancer.astro';
+import Footer from '@components/layout/Footer.astro';
+import Header from '@components/layout/Header.astro';
 import VercelWebAnalytics from '@components/layout/VercelWebAnalytics.astro';
 import SeoHead from '@components/seo/SeoHead.astro';
 import { publicConfig } from '@config/public';
 import { getRuntimeSiteConfig, siteConfig } from '@config/site';
+import type { HomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
 import { resolveSeoMetadata, type PageSeoDefinition } from '@lib/seo/metadata';
 import '@styles/global.css';
 
-type Props = PageSeoDefinition;
+type Props = PageSeoDefinition & {
+  locale: Locale;
+  content: HomeContent;
+};
 
+const { locale, content, ...seoDefinition } = Astro.props;
 const runtimeConfig = getRuntimeSiteConfig(Astro.url);
-const metadata = resolveSeoMetadata(runtimeConfig.origin, Astro.props, runtimeConfig.environment);
+const metadata = resolveSeoMetadata(runtimeConfig.origin, seoDefinition, runtimeConfig.environment);
 const enableVercelWebAnalytics = runtimeConfig.environment === 'production';
 ---
 
 <!doctype html>
-<html lang={siteConfig.language}>
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,7 +33,11 @@ const enableVercelWebAnalytics = runtimeConfig.environment === 'production';
         <meta name="google-site-verification" content={verification} />
       ))
     }
-    <SeoHead {...metadata} />
+    <SeoHead
+      {...metadata}
+      openGraphLocale={content.seo.openGraphLocale}
+      socialImageAlt={content.seo.socialImageAlt}
+    />
     <slot name="head" />
   </head>
   <body class="bg-background text-foreground">
@@ -35,11 +45,22 @@ const enableVercelWebAnalytics = runtimeConfig.environment === 'production';
       class="absolute top-3 left-3 z-50 -translate-y-24 rounded-control bg-foreground px-4 py-3 font-semibold text-white transition-transform focus:translate-y-0 motion-reduce:transition-none"
       href="#main-content"
     >
-      Pular para o conteúdo
+      {content.shell.skipLink}
     </a>
-    <Header loginUrl={publicConfig.appLoginUrl} signupUrl={publicConfig.appSignupUrl} />
+    <Header
+      locale={locale}
+      shell={content.shell}
+      content={content.header}
+      loginUrl={publicConfig.appLoginUrl}
+      signupUrl={publicConfig.appSignupUrl}
+    />
     <slot />
-    <Footer loginUrl={publicConfig.appLoginUrl} />
+    <Footer
+      locale={locale}
+      shell={content.shell}
+      content={content.footer}
+      loginUrl={publicConfig.appLoginUrl}
+    />
     <AppLinkEnhancer />
     <AnalyticsInstrumentation />
     {enableVercelWebAnalytics && <VercelWebAnalytics />}

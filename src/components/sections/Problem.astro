@@ -1,26 +1,28 @@
 ---
 import Container from '@components/ui/Container.astro';
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import { problemContent } from '@config/home-content';
+import type { HomeContent } from '@i18n/content';
+
+interface Props {
+  content: HomeContent['problem'];
+}
+
+const { content } = Astro.props;
 ---
 
-<section
-  id="problema"
-  class="border-t border-border bg-surface py-16 sm:py-24"
-  aria-labelledby="problem-heading"
->
+<section class="border-t border-border bg-surface py-16 sm:py-24" aria-labelledby="problem-heading">
   <Container>
     <div class="grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
       <SectionHeading
         headingId="problem-heading"
-        eyebrow={problemContent.eyebrow}
-        title={problemContent.title}
-        description={problemContent.description}
+        eyebrow={content.eyebrow}
+        title={content.title}
+        description={content.description}
       />
 
       <ul class="grid gap-3 sm:grid-cols-2">
         {
-          problemContent.situations.map((situation, index) => (
+          content.situations.map((situation, index) => (
             <li class="flex min-h-24 items-start gap-4 rounded-card border border-border bg-background p-5">
               <span
                 class="flex size-8 shrink-0 items-center justify-center rounded-full bg-action text-sm font-semibold text-white"

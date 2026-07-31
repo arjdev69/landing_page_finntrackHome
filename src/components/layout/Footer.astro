@@ -1,31 +1,37 @@
 ---
 import Container from '@components/ui/Container.astro';
-import { footerContent } from '@config/home-content';
 import { siteConfig } from '@config/site';
+import type { HomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
+import { getLocalizedRoute } from '@i18n/routes';
 
 interface Props {
+  locale: Locale;
+  shell: HomeContent['shell'];
+  content: HomeContent['footer'];
   loginUrl: string;
 }
 
-const { loginUrl } = Astro.props;
+const { locale, shell, content, loginUrl } = Astro.props;
 const currentYear = new Date().getUTCFullYear();
-const supportHref = `mailto:${footerContent.supportEmail}`;
+const supportHref = `mailto:${content.supportEmail}`;
+const homeUrl = getLocalizedRoute('home', locale);
 ---
 
-<footer class="border-t border-border bg-surface py-10" aria-label="Rodapé">
+<footer class="border-t border-border bg-surface py-10" aria-label={shell.footerLabel}>
   <Container>
     <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
       <div class="max-w-md">
         <a
           class="inline-flex min-h-11 items-center rounded-control font-semibold text-foreground"
-          href="/"
+          href={homeUrl}
         >
           <span class="text-action">FinnTrack</span>&nbsp;Home
         </a>
-        <p class="mt-3 text-sm leading-6 text-muted">{footerContent.description}</p>
+        <p class="mt-3 text-sm leading-6 text-muted">{content.description}</p>
       </div>
 
-      <nav aria-label="Navegação do rodapé">
+      <nav aria-label={shell.footerNavigationLabel}>
         <ul class="grid gap-1 sm:grid-cols-2 md:grid-cols-4">
           <li>
             <a
@@ -33,25 +39,35 @@ const supportHref = `mailto:${footerContent.supportEmail}`;
               href={loginUrl}
               data-app-link
               data-destination-type="login"
-              data-cta-location="footer">Entrar</a
+              data-cta-location="footer">{content.loginLabel}</a
             >
           </li>
+          {
+            content.legalLinksAvailable && (
+              <>
+                <li>
+                  <a
+                    class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-medium text-foreground hover:bg-background"
+                    href={getLocalizedRoute('privacy', locale)}
+                  >
+                    {content.privacyLabel}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-medium text-foreground hover:bg-background"
+                    href={getLocalizedRoute('terms', locale)}
+                  >
+                    {content.termsLabel}
+                  </a>
+                </li>
+              </>
+            )
+          }
           <li>
             <a
               class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-medium text-foreground hover:bg-background"
-              href="/privacidade">Privacidade</a
-            >
-          </li>
-          <li>
-            <a
-              class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-medium text-foreground hover:bg-background"
-              href="/termos">Termos</a
-            >
-          </li>
-          <li>
-            <a
-              class="inline-flex min-h-11 items-center rounded-control px-3 py-2 text-sm font-medium text-foreground hover:bg-background"
-              href={supportHref}>Suporte</a
+              href={supportHref}>{content.supportLabel}</a
             >
           </li>
         </ul>
@@ -59,11 +75,11 @@ const supportHref = `mailto:${footerContent.supportEmail}`;
     </div>
 
     <div class="mt-8 border-t border-border pt-6 text-sm text-muted">
-      <p>© {currentYear} {siteConfig.name}. Todos os direitos reservados.</p>
+      <p>© {currentYear} {siteConfig.name}. {content.rightsLabel}</p>
       <p class="mt-2">
-        Suporte: <a
+        {content.supportLabel}: <a
           class="rounded-sm font-medium text-foreground underline decoration-border-strong underline-offset-4"
-          href={supportHref}>{footerContent.supportEmail}</a
+          href={supportHref}>{content.supportEmail}</a
         >
       </p>
     </div>

@@ -1,11 +1,20 @@
 ---
 import Container from '@components/ui/Container.astro';
 import SectionHeading from '@components/ui/SectionHeading.astro';
-import { benefits } from '@config/home-content';
+import type { HomeContent } from '@i18n/content';
+import type { Locale } from '@i18n/locales';
+import { getHomeAnchor } from '@i18n/routes';
+
+interface Props {
+  locale: Locale;
+  content: HomeContent['benefits'];
+}
+
+const { locale, content } = Astro.props;
 ---
 
 <section
-  id="recursos"
+  id={getHomeAnchor(locale, 'features')}
   class="border-t border-border py-16 sm:py-24"
   aria-labelledby="benefits-heading"
   tabindex="-1"
@@ -13,14 +22,14 @@ import { benefits } from '@config/home-content';
   <Container>
     <SectionHeading
       headingId="benefits-heading"
-      eyebrow="Benefícios"
-      title="O essencial para acompanhar sua carteira."
-      description="Informações financeiras organizadas para você entender cada imóvel e comparar os resultados do período."
+      eyebrow={content.eyebrow}
+      title={content.title}
+      description={content.description}
     />
 
     <ul class="mt-10 grid gap-5 md:grid-cols-3">
       {
-        benefits.map((benefit) => (
+        content.items.map((benefit) => (
           <li class="rounded-card border border-border bg-surface p-6 shadow-card sm:p-8">
             <span
               class="mb-6 flex size-12 items-center justify-center rounded-control bg-action/10 text-action"
