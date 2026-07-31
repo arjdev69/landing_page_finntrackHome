@@ -478,6 +478,17 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
   - Aceite: 21 casos de internacionalização, E2E, leitor de tela, seis
     viewports, navegadores, performance, segurança, preview, smoke, sitemap,
     Search Console e baseline `/en/`.
+- [x] `I18N-007` Refinar o seletor de idiomas com apoio visual por bandeiras.
+  - Dependência atendida: `I18N-003`.
+  - Cobertura: `I18N-FR-005..006`, `I18N-A11Y-001..002`,
+    `I18N-RWD-001..002`.
+  - Aceite: controle compartilhado mais leve, bandeiras decorativas de Brasil e
+    Estados Unidos, labels `PT-BR`/`EN-US` preservados, locale atual distinguível
+    sem depender somente de cor ou bandeira e sem regressão de teclado/reflow.
+  - Evidência (2026-07-31): `LocaleSwitcher.astro` usa SVGs decorativos locais,
+    mantém os links e nomes acessíveis e diferencia o locale atual por superfície,
+    contorno, sombra e peso tipográfico. Lint, tipagem, suíte 77/77, build estático
+    e acessibilidade 10/10 passaram; inspeção visual aprovada em desktop e 390 px.
 
 ## Fora do backlog do MVP
 

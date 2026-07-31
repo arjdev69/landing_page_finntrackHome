@@ -49,6 +49,10 @@ test('I18N-003 exposes an accessible no-JavaScript locale selector in both route
   assert.match(selector, /aria-current={isCurrent \? 'page' : undefined}/);
   assert.match(selector, /href={target\.path}/);
   assert.match(selector, /hreflang={targetLocale}/);
+  assert.match(selector, /data-locale-flag="pt-BR"/);
+  assert.match(selector, /data-locale-flag="en-US"/);
+  assert.equal((selector.match(/aria-hidden="true"/g) ?? []).length, 2);
+  assert.match(selector, /<span>{target\.visualLabel}<\/span>/);
   assert.doesNotMatch(selector, /<script|localStorage|sessionStorage|document\.cookie|navigator/);
   assert.match(homePage, /getHomeContent\(locale\)/);
   assert.match(homePage, /homeAssetByLocale\[locale\]/);
