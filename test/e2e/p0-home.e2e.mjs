@@ -55,6 +55,31 @@ test('T-ASSET-001 renders the approved, contextual product assets', async ({ pag
   expect(errors).toEqual([]);
 });
 
+test('T-I18N-CONT-002 renders the localized en-US product images', async ({ page }) => {
+  const errors = collectRuntimeErrors(page);
+  const response = await page.goto('/en/');
+
+  expect(response?.status()).toBe(200);
+  const approvedAsset = page.locator('[data-asset-role="final-dashboard-preview"]');
+  await expect(approvedAsset).toHaveAttribute('data-asset-status', 'final-approved');
+
+  const dashboardImages = page.getByRole('img', {
+    name: /FinnTrack Home dashboard showing rental income, expenses, monthly balance/,
+  });
+  await expect(dashboardImages).toHaveCount(2);
+  for (const image of await dashboardImages.all()) {
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect
+      .poll(() => image.evaluate((element) => element.naturalWidth), { timeout: 10_000 })
+      .toBeGreaterThan(0);
+  }
+
+  await expect(page.getByText('Product screenshot · synthetic data')).toBeVisible();
+  await expect(page.getByText(/all displayed data is synthetic/i)).toBeAttached();
+  expect(errors).toEqual([]);
+});
+
 test('T-CONTENT-001 exposes approved audience, FAQ, footer and support content', async ({
   page,
 }) => {

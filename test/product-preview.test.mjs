@@ -3,7 +3,12 @@ import { readFile, stat } from 'node:fs/promises';
 import { URL } from 'node:url';
 import test from 'node:test';
 
-import { assetApprovals, assetInventory, dashboardPreview } from '../src/config/product-assets.ts';
+import {
+  assetApprovals,
+  assetInventory,
+  dashboardPreview,
+  dashboardPreviewEnUS,
+} from '../src/config/product-assets.ts';
 
 const assetUrl = new URL('../src/assets/product/dashboard-final-pt-br.png', import.meta.url);
 
@@ -17,9 +22,12 @@ test('WEB-004 uses a governed product capture with synthetic data', async () => 
   assert.equal(dashboardPreview.capturedAt, '2026-07-21');
   assert.equal(dashboardPreview.dataClassification, 'synthetic-demo');
   assert.equal(dashboardPreview.approvalStatus, 'final-approved');
-  assert.equal(assetInventory.length, 6);
+  assert.equal(assetInventory.length, 7);
   assert.equal(assetApprovals.product, 'approved-by-product-2026-07-21');
   assert.doesNotMatch(dashboardPreview.altText, /alex|demo@|ocean drive|business st/i);
+  assert.equal(dashboardPreviewEnUS.approvalStatus, 'final-approved');
+  assert.equal(dashboardPreviewEnUS.capturedPeriod, 'June 2026');
+  assert.doesNotMatch(dashboardPreviewEnUS.altText, /alex|demo@|ocean drive|business st/i);
 });
 
 test('ProductPreview reserves dimensions and delegates responsive formats to Astro', async () => {

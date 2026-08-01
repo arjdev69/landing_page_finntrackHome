@@ -11,11 +11,31 @@ export const dashboardPreview = Object.freeze({
     'Dashboard do FinnTrack Home com receitas, despesas, saldo mensal, contas vencidas, gráficos do período e visão dos imóveis.',
 });
 
+export const dashboardPreviewEnUS = Object.freeze({
+  sourceRepository: 'FinntrackHome',
+  sourceScreen: 'src/features/dashboard/DashboardScreen.tsx',
+  capturedAt: '2026-07-31',
+  capturedPeriod: 'June 2026',
+  dataClassification: 'synthetic-demo',
+  approvalStatus: 'final-approved',
+  transformation:
+    'Localized en-US variant of the approved synthetic dashboard; layout and values preserved, with BRL explicitly identified.',
+  altText:
+    'FinnTrack Home dashboard showing rental income, expenses, monthly balance, overdue bills, period charts, and a property overview.',
+});
+
 export const assetApprovals = Object.freeze({
   designBrand: 'approved-2026-07-21',
   technical: 'approved-2026-07-21',
   privacy: 'approved-independent-review-2026-07-21',
   product: 'approved-by-product-2026-07-21',
+});
+
+export const enUSAssetApprovals = Object.freeze({
+  designBrand: 'approved-by-project-owner-2026-07-30',
+  technical: 'validated-2026-07-31',
+  privacy: 'approved-by-project-owner-2026-07-30',
+  product: 'approved-by-project-owner-2026-07-30',
 });
 
 export const assetInventory = Object.freeze([
@@ -84,5 +104,19 @@ export const assetInventory = Object.freeze([
     sha256: '7181e747d9fe304dff5d550920f683e07dbd9befc4ebb4d282c4de63a2235588',
     dataClassification: 'synthetic-demo-no-identifiers',
     approvals: assetApprovals,
+  },
+  {
+    path: 'src/assets/product/dashboard-final-en-us.png',
+    purpose: 'en-US dashboard demonstration in Hero and ProductPreview',
+    origin: 'Localized variant of the approved synthetic FinntrackHome dashboard',
+    productReference:
+      'src/features/dashboard/DashboardScreen.tsx; June 2026; locale en-US; currency BRL',
+    createdAt: '2026-07-31',
+    dimensions: '1160x716',
+    sha256: '7e8e6403cfdc870dd53dfcf06cfa7cd947dcbc25a122e793507582038c9bc494',
+    dataClassification: 'synthetic-demo-no-identifiers',
+    locale: 'en-US',
+    currency: 'BRL',
+    approvals: enUSAssetApprovals,
   },
 ]);

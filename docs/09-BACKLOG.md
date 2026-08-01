@@ -442,9 +442,9 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
   - Exceção do app aceita em `DEC-021`: este repositório não altera o app; a
     landing inglesa deverá avisar antes dos CTAs que cadastro/login abrem uma
     experiência em português. O aviso será implementado em `I18N-004`.
-  - Bloqueada por evidência material da landing: versões jurídicas `en-US` e
-    arquivos finais de screenshot/social card ainda não existem neste
-    repositório.
+  - Bloqueada por evidência material da landing: versões jurídicas `en-US` e o
+    social card final ainda não existem neste repositório. O screenshot `en-US`
+    foi concluído separadamente em `I18N-008`.
   - Cobertura: `I18N-CONT-009..012`, `I18N-PRIV-001..002`,
     `I18N-GOV-003..004`.
   - Aceite: cadastro/login/onboarding em inglês ou exceção explícita; versões
@@ -489,6 +489,16 @@ Critério: decisões têm status, responsável, data e impacto refletidos nos do
     mantém os links e nomes acessíveis e diferencia o locale atual por superfície,
     contorno, sombra e peso tipográfico. Lint, tipagem, suíte 77/77, build estático
     e acessibilidade 10/10 passaram; inspeção visual aprovada em desktop e 390 px.
+- [x] `I18N-008` Corrigir a ausência da demonstração do produto em `/en/`.
+  - Dependência atendida: `I18N-003`; aprovações humanas de Design/Marca,
+    Privacidade e Produto registradas em `I18N-002`.
+  - Cobertura: `FR-HOME-007..008`, `PRIV-003`, `I18N-CONT-009..010`.
+  - Aceite: Hero e ProductPreview ingleses usam captura localizada, sintética,
+    sem identificadores, com moeda explicitamente indicada, dimensões reservadas,
+    texto alternativo em inglês e teste que proíba regressão para `image: null`.
+  - Evidência: asset PNG `1160x716` inventariado e integrado; suíte 78/78; build
+    de 6 páginas; E2E focado 2/2 em desktop/mobile; inspeção visual local com as
+    duas variantes WebP carregadas.
 
 ## Fora do backlog do MVP
 

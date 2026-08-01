@@ -6,7 +6,11 @@ import { fileURLToPath, URL } from 'node:url';
 
 import sharp from 'sharp';
 
-import { assetApprovals, assetInventory } from '../src/config/product-assets.ts';
+import {
+  assetApprovals,
+  assetInventory,
+  enUSAssetApprovals,
+} from '../src/config/product-assets.ts';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const forbiddenIdentity =
@@ -22,6 +26,7 @@ test('AST-001 inventory contains every DEC-009 deliverable with valid hashes and
     'Ícone Apple touch',
     'Card social',
     'Demonstração do dashboard no Hero e ProductPreview',
+    'en-US dashboard demonstration in Hero and ProductPreview',
   ]) {
     assert.ok(purposes.has(required), `missing inventory purpose: ${required}`);
   }
@@ -34,8 +39,36 @@ test('AST-001 inventory contains every DEC-009 deliverable with valid hashes and
     assert.equal(hash, asset.sha256, `${asset.path} hash differs from inventory`);
     assert.equal(`${metadata.width}x${metadata.height}`, asset.dimensions);
     assert.doesNotMatch(`${asset.origin} ${asset.productReference}`, forbiddenIdentity);
-    assert.equal(asset.approvals, assetApprovals);
+    assert.ok(
+      asset.approvals === assetApprovals || asset.approvals === enUSAssetApprovals,
+      `${asset.path} must reference a registered approval set`,
+    );
   }
+});
+
+test('I18N-008 en-US screenshot is localized, synthetic and stripped of embedded metadata', async () => {
+  const screenshot = assetInventory.find((asset) =>
+    asset.path.endsWith('dashboard-final-en-us.png'),
+  );
+  const ptBRScreenshot = assetInventory.find((asset) =>
+    asset.path.endsWith('dashboard-final-pt-br.png'),
+  );
+  assert.ok(screenshot);
+  assert.ok(ptBRScreenshot);
+
+  const contents = await readFile(`${root}${screenshot.path}`);
+  const metadata = await sharp(contents).metadata();
+
+  assert.equal(metadata.format, 'png');
+  assert.equal(`${metadata.width}x${metadata.height}`, '1160x716');
+  assert.equal(screenshot.dataClassification, 'synthetic-demo-no-identifiers');
+  assert.equal(screenshot.locale, 'en-US');
+  assert.equal(screenshot.currency, 'BRL');
+  assert.notEqual(screenshot.sha256, ptBRScreenshot.sha256);
+  assert.equal(metadata.exif, undefined);
+  assert.equal(metadata.iptc, undefined);
+  assert.equal(metadata.xmp, undefined);
+  assert.doesNotMatch(contents.toString('latin1'), forbiddenIdentity);
 });
 
 test('AST-001 screenshot is PNG, synthetic, pt-BR and stripped of embedded metadata', async () => {
@@ -61,4 +94,8 @@ test('AST-001 records every DEC-009 approval after Product visual review', () =>
   assert.equal(assetApprovals.technical, 'approved-2026-07-21');
   assert.equal(assetApprovals.privacy, 'approved-independent-review-2026-07-21');
   assert.equal(assetApprovals.product, 'approved-by-product-2026-07-21');
+  assert.equal(enUSAssetApprovals.designBrand, 'approved-by-project-owner-2026-07-30');
+  assert.equal(enUSAssetApprovals.technical, 'validated-2026-07-31');
+  assert.equal(enUSAssetApprovals.privacy, 'approved-by-project-owner-2026-07-30');
+  assert.equal(enUSAssetApprovals.product, 'approved-by-project-owner-2026-07-30');
 });
