@@ -1,7 +1,8 @@
 import type { ImageMetadata } from 'astro';
 
+import dashboardImageEnUS from '@/assets/product/dashboard-final-en-us.png';
 import dashboardImage from '@/assets/product/dashboard-final-pt-br.png';
-import { dashboardPreview } from '@config/product-assets';
+import { dashboardPreview, dashboardPreviewEnUS } from '@config/product-assets';
 
 import type { Locale } from './locales';
 
@@ -16,7 +17,7 @@ export const homeAssetByLocale = Object.freeze({
     approvalStatus: dashboardPreview.approvalStatus,
   }),
   'en-US': Object.freeze({
-    image: null,
-    approvalStatus: 'pending',
+    image: dashboardImageEnUS,
+    approvalStatus: dashboardPreviewEnUS.approvalStatus,
   }),
 } satisfies Record<Locale, LocalizedHomeAsset>);

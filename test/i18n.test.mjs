@@ -30,7 +30,12 @@ test('I18N-003 defines approved, typed locale catalogs and stable routes', async
   assert.equal('imagePath' in enUSHomeContent.seo, false);
   assert.match(catalogIndex, /satisfies Record<Locale, HomeContent>/);
   assert.match(contentType, /interface HomeContent/);
-  assert.match(assets, /'en-US': Object\.freeze\(\{\s+image: null,\s+approvalStatus: 'pending'/s);
+  assert.match(assets, /dashboard-final-en-us\.png/);
+  assert.match(
+    assets,
+    /'en-US': Object\.freeze\(\{\s+image: dashboardImageEnUS,\s+approvalStatus: dashboardPreviewEnUS\.approvalStatus/s,
+  );
+  assert.doesNotMatch(assets, /'en-US': Object\.freeze\(\{\s+image: null/s);
   assert.match(astroConfig, /defaultLocale:\s*'pt-BR'/);
   assert.match(astroConfig, /prefixDefaultLocale:\s*false/);
   assert.match(astroConfig, /redirectToDefaultLocale:\s*false/);

@@ -168,7 +168,10 @@ test('production artifact renders the typed home SEO contract in initial HTML', 
   assert.match(enHtml, /<meta property="og:locale" content="en_US">/);
   assert.match(enHtml, /href="\/"[^>]+hreflang="pt-BR"/);
   assert.match(enHtml, /href="\/en\/"[^>]+hreflang="en-US"[^>]+aria-current="page"/);
-  assert.match(enHtml, /data-asset-role="pending-dashboard-preview"/);
+  assert.match(enHtml, /data-asset-role="final-dashboard-preview"/);
+  assert.match(enHtml, /data-asset-status="final-approved"/);
+  assert.match(enHtml, /<img[^>]+width="1160"[^>]+height="716"/);
+  assert.match(enHtml, /FinnTrack Home dashboard showing rental income, expenses, monthly balance/);
   assert.doesNotMatch(
     enHtml,
     /dashboard-final-pt-br|Visão real do produto|Demonstração do produto/,
